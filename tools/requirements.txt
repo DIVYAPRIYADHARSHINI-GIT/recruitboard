@@ -1,2 +1,4 @@
-# Optional local report export; not installed on Render.
+# Optional local report export and Blueprint validation; not installed on Render.
 markdown-it-py==4.3.0
+PyYAML==6.0.3
+jsonschema==4.25.1

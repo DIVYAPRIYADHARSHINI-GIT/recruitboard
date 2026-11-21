@@ -1,0 +1,6 @@
+LOCAL CHECK: render-blueprint-validation
+Asia/Kolkata: 20261121-114129-359015
+Exit code: 0
+
+.........                                                                [100%]
+9 passed in 0.58s

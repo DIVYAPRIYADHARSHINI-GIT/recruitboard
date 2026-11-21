@@ -1,0 +1,9 @@
+LOCAL CHECK: render-official-schema-fetch-retry
+Asia/Kolkata: 20261121-114055-521461
+Exit code: 0
+
+Official public schema: https://render.com/schema/render.yaml.json
+HTTP status: 200
+Top-level JSON keys: $schema, $id, title, description, type, definitions, allOf, unevaluatedProperties
+Schema dialect: https://json-schema.org/draft/2020-12/schema
+Saved public schema in ignored project-local cache. No account or service API was called.

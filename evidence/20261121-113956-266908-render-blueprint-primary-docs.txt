@@ -1,0 +1,44 @@
+LOCAL CHECK: render-blueprint-primary-docs
+Asia/Kolkata: 20261121-113956-266908
+Exit code: 0
+
+
+Official document: https://render.com/docs/blueprint-spec HTTP 200
+If you omit this field, preview environments are disabled for any linked Blueprints. | Setting the deprecated field | previewsEnabled: true | is equivalent to setting this field to | automatic | .
+existing | service to your Blueprint file, Render attempts to apply the Blueprint's configuration to that existing service. | type | Required. | The type of service. One of the following: | web
+redis | is a deprecated alias for | keyvalue | . | workflow | for a
+. | This field replaces the deprecated | env | field. | plan | The service's
+for a new Key Value instance. | Render retains the current compute plan for an existing service. | Not supported for: | Static sites | (which don't have a compute plan) | Workflows
+If you omit this subfield, pull request previews are disabled for the service. | Setting the deprecated field | pullRequestPreviewsEnabled: true | is equivalent to setting this subfield to | automatic | .
+Render allows all IPs for a new service. | Render retains the current IP ranges for an existing service. | For details, see | Inbound IP rules | . | buildCommand
+frankfurt | singapore | You can't modify this value after creation. | Required | for | workflows
+your pull request's associated branch. This prevents you from testing code changes in the preview environment. | autoDeployTrigger | Sets the | automatic deploy | behavior for a Git-based service. | One of the following:
+: Trigger a deploy on each commit to the service's linked branch. | Equivalent to the deprecated setting | autoDeploy: true | checksPass | : Trigger a deploy only if the linked branch's CI checks pass. | off
+: Disable auto-deploys. | Equivalent to the deprecated setting | autoDeploy: false | This field replaces the deprecated | autoDeploy | field. If you include both,
+autoDeploy: false | This field replaces the deprecated | autoDeploy | field. If you include both, | autoDeployTrigger | takes precedence.
+field. If you include both, | autoDeployTrigger | takes precedence. | This field has no effect for services that | deploy a prebuilt Docker image | .
+for a new service. | Render retains the current value for an existing service. | domains | Web services | and | static sites
+for a new service. | Render retains the current value for an existing service. | healthCheckPath | Web services | only. The path of the service's | health check endpoint
+afterFirstDeployCommand | is a deprecated alias for this field. | Docker | The following fields are specific to | Docker-based services | . This includes both services that build an image with a
+Manual scaling is available for all workspaces. | If you add an existing service to a Blueprint, that service retains any existing autoscaling settings unless you add the | scaling | field in your Blueprint. | Autoscaling is disabled in | preview environments
+for a new service. | Render retains the current value for an existing service. | This value has no effect for services with autoscaling enabled. | Configure autoscaling behavior with the | scaling | field.
+fully replaces | an existing service's build filter settings. If you | omit | this field for a service with existing build filter settings, Render | replaces | those settings with empty lists.
+keyvalue | (or its deprecated alias | redis | ). | Example definitions | Show example Key Value definitions
+frankfurt | singapore | You can't modify this value after creation. | If omitted, the default value is | oregon | .
+Instead, you can define these environment variables with | sync: false | , like so: | During the initial Blueprint creation flow in the | Render Dashboard | , you're prompted to provide a value for each environment variable with
+, you're prompted to provide a value for each environment variable with | sync: false | : | Note the following limitations: | Render prompts you for these values | only during the initial Blueprint creation
+any environment variables with | sync: false | . | Add any new secret credentials to your existing services | manually | .
+. | Add any new secret credentials to your existing services | manually | . | Render does not include | sync: false
+
+Official document: https://render.com/docs/infrastructure-as-code HTTP 200
+and click | New > Blueprint | : | In the list that appears, click the | Connect | button for whichever repo contains your Blueprint.
+If needed, specify a custom file path to your Blueprint's YAML file in the | Blueprint Path | field. | By default, Render creates a Blueprint using the | render.yaml | file at your repository's root.
+You're all set! Render begins provisioning your Blueprint's  specified resources: | Generating a Blueprint from existing services | You can generate a | render.yaml | file using any combination of your existing Render services. This is useful if you want to start managing those exact resources with a Blueprint, or if you want to | replicate those resources
+This is a security precaution. Instead, the generated file sets | sync: false | for all environment variables, like so: | If you use this | render.yaml | file to create a Blueprint with
+You can create multiple Blueprints from a single YAML file. Each Blueprint creates and manages a completely independent set of resources. | The Blueprint creation flow displays a notice if your new Blueprint matches existing resources in your workspace: | As shown in the screenshot above, Render appends a suffix to the name of each new resource to prevent collisions with your existing resources. | Click | Deploy Blueprint | to create the new resources as usual.
+The Blueprint creation flow displays a notice if your new Blueprint matches existing resources in your workspace: | As shown in the screenshot above, Render appends a suffix to the name of each new resource to prevent collisions with your existing resources. | Click | Deploy Blueprint | to create the new resources as usual. | Managing Blueprint resources
+With one exception, removing a definition from a Blueprint file does not delete the corresponding resource. | Existing resources remain intact. This is a safeguard against accidental deletions (for example, if you revert your Blueprint to a commit from before the addition of a critical resource). | Exception: Render Postgres | read replicas | can | be deleted by Blueprint changes:
+Setup | Generating a Blueprint from existing services | Replicating a Blueprint | Managing Blueprint resources | Adding an existing resource | Modifying a resource outside of its Blueprint
+
+Local optional YAML parser: False
+Local optional JSON-schema validator: False

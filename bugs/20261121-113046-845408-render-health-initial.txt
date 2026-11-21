@@ -1,0 +1,8 @@
+LOCAL CHECK: render-health-initial
+Asia/Kolkata: 20261121-113046-845408
+Exit code: 1
+
+Approved single public health check: https://recruitboard-api-xxxx.onrender.com/health
+HTTP status: 404
+Content type: text/plain; charset=utf-8
+Expected health response was not received. Response body withheld; no secrets requested.

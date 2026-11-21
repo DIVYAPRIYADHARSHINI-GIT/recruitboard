@@ -23,43 +23,67 @@ The user chooses and confirms their Neon account. Use the **Free** plan. In the 
 1. Click **New project** (or **Create a project**).
 2. Project name: `recruitboard`; database name: `recruitboard` if the form offers it (otherwise retain the provided database name).
 3. Choose an available Free region near the future Render service, and a supported PostgreSQL version. No paid add-ons, extra compute or payment details.
-4. Click **Create project**. Open **Connect** / **Connection details** for the main branch.
+4. Click **Create project**. Open **Connect** / **Connection details** for the **production** branch. The user has reported creating `recruitboard` on Free in AWS Asia Pacific 1 (Singapore); no agent database connection has been made.
 5. Turn **Connection pooling OFF**. Copy the **direct** connection string privately. It must require TLS (`sslmode=require`; keep any provider-required channel-binding option).
 6. Do not send the string to the agent and do not save it locally. Paste it only into Render's `DATABASE_URL` field in step 3.
 
 The application converts `postgresql://` to `postgresql+psycopg://` internally. It intentionally rejects a `-pooler` hostname because startup uses a session-level advisory lock. One small direct SQLAlchemy pool is enough for this single-worker demo. The actual production database is created by Neon; schema creation/migration happens automatically inside Render on startup, not from the local machine.
 
-## 3. Render backend, after separate Render approval and Neon/environment permission
+## 3. Render backend — create from the root Blueprint
 
-The user chooses and confirms their Render account. Use the **Free web service**, not a database and not a paid worker. Dashboard steps:
+The user has separately approved Render dashboard guidance, required environment entries and one brief health check after sharing the real public service URL. The user creates the service in their intended Render account. No Render CLI or account-secret API is used. The root [render.yaml](render.yaml) defines exactly one **Free web service** and **no Render database**.
 
-1. **New + → Web Service → Build and deploy from a Git repository**.
-2. Connect GitHub if needed; authorize only the new `DIVYAPRIYADHARSHINI-GIT/recruitboard` repository. Select it. Alternatively use its public repository URL if offered.
-3. Name: `recruitboard-api` (an available unique name is fine); branch: `main`; root directory: **backend**.
-4. Runtime: **Python 3**. Choose an available region near Neon.
-5. Build command: **`pip install -r requirements.txt`**.
-6. Start command: **`sh start.sh`**. This expands to `uvicorn app.main:app --host 0.0.0.0 --port "$PORT" --workers 1 --no-access-log`.
-7. Instance type: **Free**. Set **Health Check Path** to **`/health`** in Advanced/Health settings. Disable automatic deploys initially to avoid waste while preparing docs.
-8. Under **Environment → Add Environment Variable**, enter the names below. The user enters the secret `DATABASE_URL` personally; the agent must not view it.
+### Exact clicks
+
+1. Open **[Render Dashboard](https://dashboard.render.com/) → New + → Blueprint** (not Web Service and not PostgreSQL).
+2. Connect GitHub if needed, authorizing only **DIVYAPRIYADHARSHINI-GIT/recruitboard** where possible. In the repository list, click **Connect** beside that repository.
+3. Enter Blueprint name **recruitboard**, select branch **main**, and leave **Blueprint Path** as **render.yaml** at the repository root. Do not use `backend/render.yaml`.
+4. Review the proposed resources. It must show **one Free web service**, **recruitboard-api**, in **Singapore**, with **zero databases** and no paid resource. If Free/Singapore is unavailable or payment details are required, stop.
+5. Enter **DATABASE_URL** and **ALLOWED_ORIGINS** in the initial Blueprint form when prompted; see the table below. Only the user enters the secret value, directly in Render.
+6. Click **Deploy Blueprint** (some dashboard versions label the final confirmation **Apply**). Wait for the initial build/startup to finish; open the created **recruitboard-api** service from the Blueprint resources list.
+7. Confirm its health path is **/health** and copy only the actual public **https://…onrender.com** service URL. Share that public URL and status, never environment values, so the approved brief health check can run.
+
+**Existing-service warning:** if a manually created `recruitboard-api` already exists, do not assume a new Blueprint will automatically adopt it. The new-Blueprint/replication flow may propose a second independent service with a suffix. Stop if the plan shows a duplicate or unexpected resource; do not delete or modify the existing service to work around it. If this repository is already linked to a Blueprint, open that existing Blueprint instead of creating another. The agent has not inspected the user's Render account.
+
+### Settings already supplied by render.yaml
+
+| Setting | Exact value |
+|---|---|
+| Service | `recruitboard-api`, type `web` |
+| Plan / region | `free` / `singapore` |
+| Runtime / pinned Python | `python` / `3.11.15` |
+| Branch / root directory | `main` / `backend` |
+| Build command | `pip install -r requirements.txt` |
+| Start command | `uvicorn app.main:app --host 0.0.0.0 --port $PORT --workers 1 --no-access-log` |
+| Health check | `/health` |
+| Automatic deploys | **On**: `autoDeployTrigger: commit` |
+
+`autoDeployTrigger: commit` is Render's current documented equivalent of deprecated `autoDeploy: true`. This is enabled at the user's explicit request; subsequent eligible commits to the linked main branch can consume build quota. No preview environments, scheduled keep-alives, paid workers or databases are defined.
+
+### Every backend environment variable
+
+The two `sync: false` entries are prompted during **initial Blueprint creation**. Later Blueprint syncs leave their dashboard values alone. If updating an existing Blueprint instead, add any missing values manually in **service → Environment → Add Environment Variable**; Render does not prompt for new `sync: false` values during updates.
 
 | Name | Value / handling |
 |---|---|
-| `PYTHON_VERSION` | `3.11.15` |
-| `APP_ENV` | `production` |
-| `DATABASE_URL` | **Secret: user pastes Neon direct TLS URL here only** |
-| `COOKIE_SECURE` | `true` |
-| `DEMO_MODE` | `true` for this explicitly shared fictional demo |
-| `SEED_DEMO` | `true`; only an empty user table is seeded |
-| `ALLOWED_ORIGINS` | Initially `https://recruitboard-pending.invalid` if Netlify URL is not allocated yet. Replace with the exact real Netlify origin in step 5; no wildcard and no trailing slash. |
-| `LOGIN_LIMIT` | `10` |
-| `WRITE_LIMIT` | `120` |
+| `PYTHON_VERSION` | Blueprint supplies `3.11.15` |
+| `APP_ENV` | Blueprint supplies `production` |
+| `DATABASE_URL` | **Prompted, `sync: false`. User privately pastes the Neon production-branch direct TLS URL. Connection pooling OFF; keep `sslmode=require` and provider-supplied channel-binding options.** |
+| `COOKIE_SECURE` | Blueprint supplies `true` |
+| `DEMO_MODE` | Blueprint supplies `true` for this explicitly shared fictional demo |
+| `SEED_DEMO` | Blueprint supplies `true`; only an empty user table is seeded |
+| `ALLOWED_ORIGINS` | **Prompted, `sync: false` (non-secret).** Enter the exact Netlify origin if known, otherwise `https://recruitboard-pending.invalid`. Replace the placeholder in Render's Environment settings after Netlify creation; no wildcard and no trailing slash. |
+| `LOGIN_LIMIT` | Blueprint supplies `10` |
+| `WRITE_LIMIT` | Blueprint supplies `120` |
 | `PORT` | **Do not set**; Render supplies it |
 
-9. Click **Create Web Service / Deploy**. If any card/paid-plan requirement appears, stop. Do not work around a quota limit.
-10. Wait for deployment to finish. Share only the public `https://…onrender.com` URL and redacted status/error text. Do not share environment screenshots or raw logs that contain a credential.
-11. Make **one brief GET** to `https://PUBLIC-SERVICE.onrender.com/health`. Expected: HTTP 200, `{"status":"ok"}`. The endpoint executes a real DB query. A 503 means database readiness is not proven. Stop and diagnose; never claim success just because a web page loads.
+**No SESSION_SECRET entry is needed or consumed.** The current backend generates random per-session tokens, stores only their digests in the database, and binds CSRF to each token. It does not use a signed client-side session payload or JWT requiring a shared signing key. Adding a dummy environment variable would not add security, so the Blueprint does not ask for an unused secret. No database address, token, password or session secret value is committed.
 
-`render.yaml` is a reference blueprint, not permission to apply it. Automatic startup Alembic upgrade is protected by a PostgreSQL advisory lock; repeated starts are idempotent. Demo seed runs under the same initialization lock. No production DB address needs to be present locally. Resumes are binary database rows, not files on Render's ephemeral disk.
+With the pending-origin placeholder, `/health` can work but frontend sign-in/writes are intentionally blocked until `ALLOWED_ORIGINS` is updated. A health success must be HTTP 200 with `{"status":"ok"}`; it runs a real DB query. The bare `/` path is not a frontend and may return 404. A previous check of a user-supplied placeholder hostname returned 404 and is retained as a diagnostic; it did not verify or disprove the real service/database.
+
+Startup Alembic upgrade is protected by a PostgreSQL advisory lock; repeated starts are idempotent. Demo seed runs under the same initialization lock. No production DB address needs to be present locally. Resumes are binary database rows, not files on Render's ephemeral disk. No `neon init` or `neon deploy` commands are used.
+
+Primary references, rechecked directly on 21 November 2026: [Blueprint YAML Reference](https://render.com/docs/blueprint-spec), [Blueprint setup and replication](https://render.com/docs/infrastructure-as-code), [public validation schema](https://render.com/schema/render.yaml.json).
 
 ## 4. Netlify static frontend, after separate Netlify approval
 

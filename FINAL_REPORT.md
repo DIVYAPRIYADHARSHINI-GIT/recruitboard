@@ -1,6 +1,6 @@
 # RecruitBoard — delivery and verification report
 
-**Report date:** 21 November 2026, Asia/Kolkata. **Current status: local implementation and verification complete; GitHub publication approved and being prepared; hosting is not yet deployed.** This report will be updated only when an external step is actually completed.
+**Report date:** 21 November 2026, Asia/Kolkata. **Current status: local implementation verified and public GitHub main published; Neon creation reported by the user; actual Render/Netlify deployment remains unverified.** A root Render Blueprint is prepared and locally validated for the user's dashboard deployment. This report distinguishes user-reported setup from independently verified results.
 
 ## 1. Project overview
 
@@ -10,7 +10,7 @@ The repository contains two separate projects: a static Vite/React/TypeScript fr
 
 Completed locally: sign-in and three demo roles; jobs and job-specific kanban; native keyboard/touch Move to menus and drag-and-drop; required rejection reasons; candidate search, filters, sorting and pagination; profiles, notes, database-stored PDF resumes, timelines, interviews and scorecards; offers; notifications; hiring reports and injection-protected CSV; admin user/role/settings management and candidate anonymization/deletion. Server-side role and assignment rules protect reads as well as writes. Only the exact assigned interviewer can submit a scorecard; recruiters/admins cannot impersonate that person.
 
-**Links and publication:** local preview is `http://127.0.0.1:4173` while the local servers are running. There is no confirmed public frontend/backend URL yet. GitHub identity was confirmed as DIVYAPRIYADHARSHINI-GIT, but repository creation/push are not yet claimed in this report. No Neon database, Render service or Netlify site has been created by the agent. No Vercel or payment details were used.
+**Links and publication:** public repository [DIVYAPRIYADHARSHINI-GIT/recruitboard](https://github.com/DIVYAPRIYADHARSHINI-GIT/recruitboard), main initially published at `daac6e6`. Remote existence, public visibility and the pushed main commit were rechecked before the Blueprint update. Local preview is `http://127.0.0.1:4173` while the local servers run. The user reported creating Neon project `recruitboard`, Free, AWS Asia Pacific 1 (Singapore), production branch, and retains its connection string privately. There is still no confirmed real public frontend/backend URL. No hosting resource or database was created by the agent, no production database was connected locally, and no Vercel or payment details were used.
 
 The same-origin `/api` proxy design was verified in local Chrome with the actual frontend and backend. Netlify's official documentation supports the external rewrite. Live Netlify cookie forwarding, PostgreSQL startup and cross-service behavior remain unverified until deployment. All private hosting values are reserved for the user to enter directly into dashboards.
 
@@ -24,12 +24,13 @@ The same-origin `/api` proxy design was verified in local Chrome with the actual
 | Frontend unit tests | 16 | 0 | Formatting, empty rates, file validation, same-origin credentials/CSRF and friendly API errors |
 | Real local Google Chrome journeys | 66 | 0 | Recruiter → interviewer → recruiter → admin journey, real key events for a move, drag-and-drop, uploads/downloads, offer acceptance, report CSV, permissions, theme persistence, mobile navigation, cleanup and console checks |
 | Deployment configuration | 8 | 0 | Reject unsafe proxy origins and produce API rewrite before SPA fallback; no network or hosting resource used |
+| Render Blueprint configuration | 9 | 0 | One Free Singapore service, main/backend, pinned Python, exact commands/port/worker/health, auto-deploy on, complete actual config variables, dashboard-only values and official Render JSON-schema validation |
 | TypeScript and production build | Passed | 0 | Strict TypeScript check and actual static production bundle |
 | Python dependency advisory scan | No known findings | 0 open | Installed local environment after patched versions were installed |
 | Complete npm dependency advisory scan | No known findings | 0 open | Runtime plus build/test dependencies after targeted upgrades |
-| Live hosting suite | Not run | Not run | No deployment exists yet; the one-live-suite quota has not been used |
+| Live hosting suite | Not run | Not run | The real service URL is not verified; the one-live-suite quota has not been used |
 
-The four counted functional/configuration suites contain **185 passing checks**; earlier-stage and repeated passes are not added again. The Chrome suite includes **18 axe WCAG A/AA audits**, each with zero violations, and matching layout checks. This is automated coverage, not a certification of all accessibility or all future data. Chrome reported version **157.0.8103.79**. Unexpected browser console/page errors were zero in the successful run.
+The five counted functional/configuration suites contain **194 passing checks**; earlier-stage and repeated passes are not added again. The Blueprint task added nine offline checks, all passing in 0.58 seconds; the application/live suites were not rerun for a configuration-only change. The Chrome suite includes **18 axe WCAG A/AA audits**, each with zero violations, and matching layout checks. This is automated coverage, not a certification of all accessibility or all future data. Chrome reported version **157.0.8103.79**. Unexpected browser console/page errors were zero in the successful run.
 
 The final patched frontend build passed with approximately 319.40 kB JavaScript (98.61 kB gzip) and 60.72 kB CSS (11.99 kB gzip). Backend tests retain two upstream deprecation warnings concerning Starlette's test-client compatibility with httpx/AnyIO. These warnings are not hidden and did not fail the tests.
 
@@ -164,9 +165,15 @@ A later full npm audit also checked build/test dependencies, rather than only sh
 
 An initial pip-audit command incorrectly used `--disable-pip` without requirements mode; the tool returned a usage error. Removing the incompatible flag fixed the invocation. A separate read-only package-version command used `head`, causing pip to emit BrokenPipeError when its output pipe closed early. [The labelled diagnostic](bugs/BUG-009-package-version-query-broken-pipe.md) preserves this mistake. These were builder command errors, not RecruitBoard or hosting failures.
 
+### Hosting handoff and Blueprint verification diagnostics
+
+One approved health request to a user-supplied Render hostname returned HTTP 404. The user subsequently clarified that the hostname contained a placeholder; the actual service URL remains unknown. The [original health diagnostic](bugs/20261121-113046-845408-render-health-initial.txt) is retained. This is not a failed PostgreSQL test or evidence that the actual Render service is unhealthy.
+
+The Blueprint update explicitly configures one Free Singapore Python service, main/backend, the pinned Python version, one Uvicorn worker on Render's port, /health and automatic deployment on. No Render database or unused SESSION_SECRET variable is added; DATABASE_URL and ALLOWED_ORIGINS are supplied through initial dashboard prompts. Broad Blueprint research included non-primary sources and an overly broad existing-service claim, so the primary documents were fetched directly. The initial schema-fetch check also made a local assertion mistake about Render's allOf-based schema; its failure and correction are preserved in [BUG-012](bugs/BUG-012-blueprint-research-verification.md). These are research/checking issues, not fabricated deployment failures.
+
 ### Open warnings and external blockers
 
-Two upstream Python test-client deprecation warnings remain. No application test failure is currently open. Live PostgreSQL compatibility and the three-host deployment have not yet been exercised; these are unverified work, not invented deployment errors. No failed deployment screenshot exists because no deployment has occurred.
+Two upstream Python test-client deprecation warnings remain. No application test failure is currently open. Live PostgreSQL compatibility and the three-host deployment have not been independently verified. No deployment screenshot was fabricated; the only external health diagnostic concerns the hostname later identified as a placeholder.
 
 ## 4. Advantages of Designer observed in this build
 

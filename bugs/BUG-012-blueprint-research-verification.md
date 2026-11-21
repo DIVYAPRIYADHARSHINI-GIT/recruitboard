@@ -1,0 +1,7 @@
+# Blueprint research and validation diagnostics — 21 November 2026
+
+The first web-search answer included non-official sources despite a request for official Render documentation, and broadly claimed a new Blueprint would update a same-name existing service. This summary was not used as deployment authority. The official Blueprint reference and IaC setup pages were fetched directly and their relevant excerpts retained in `evidence/20261121-113956-266908-render-blueprint-primary-docs.txt`.
+
+The direct official docs distinguish adding an existing resource to a managed Blueprint from creating/replicating a new Blueprint, which can provision independent resources with suffixed names. Deployment guidance therefore requires reviewing the resource plan and stopping on unexpected duplication rather than assuming automatic adoption of a manually created service. No existing service was modified or deleted.
+
+The initial public-schema fetch succeeded far enough to parse JSON, but the local verification script incorrectly required a top-level `properties` field. Render's Draft 2020-12 schema instead uses `definitions` and `allOf`, so the local assertion failed. The original diagnostic is retained as `bugs/20261121-114043-842163-render-official-schema-fetch.txt`. The corrected fetch accepts composition/reference-based schema layouts and saved the official schema to ignored project-local cache. This was a local check error, not a Render deployment failure. No account API, credentials or database connection was involved.

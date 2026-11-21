@@ -1,18 +1,23 @@
-# Reference blueprint only. Do not apply before separate Render and Neon approvals.
-# Do not create a Render PostgreSQL resource. User enters Neon DATABASE_URL in Render.
+# RecruitBoard: one Free web service; PostgreSQL is hosted separately on Neon.
+# Enter prompted values only in Render. Never commit credentials or a database URL.
+# PORT is supplied by Render. No SESSION_SECRET is used: sessions are random,
+# database-backed tokens, not signed client-side session payloads.
 services:
   - type: web
     name: recruitboard-api
     runtime: python
     plan: free
+    region: singapore
+    branch: main
     rootDir: backend
     buildCommand: pip install -r requirements.txt
-    startCommand: sh start.sh
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT --workers 1 --no-access-log
     healthCheckPath: /health
-    autoDeployTrigger: off
+    # Current Render syntax for automatic deploys ON (legacy: autoDeploy: true).
+    autoDeployTrigger: commit
     envVars:
       - key: PYTHON_VERSION
-        value: 3.11.15
+        value: "3.11.15"
       - key: APP_ENV
         value: production
       - key: COOKIE_SECURE

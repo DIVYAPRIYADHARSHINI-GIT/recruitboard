@@ -1,0 +1,7 @@
+LOCAL CHECK: render-official-schema-fetch
+Asia/Kolkata: 20261121-114043-842163
+Exit code: 1
+
+Traceback (most recent call last):
+  File "<string>", line 4, in <module>
+AssertionError
