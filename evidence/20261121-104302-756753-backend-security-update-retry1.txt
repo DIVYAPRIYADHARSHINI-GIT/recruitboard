@@ -1,0 +1,90 @@
+LOCAL CHECK: backend-security-update-retry1
+Asia/Kolkata: 20261121-104302-756753
+Exit code: 0
+
+Collecting pip==26.3
+  Using cached pip-26.3-py3-none-any.whl.metadata (4.6 kB)
+Collecting setuptools==84.1.0
+  Using cached setuptools-84.1.0-py3-none-any.whl.metadata (6.6 kB)
+Collecting fastapi==0.165.0 (from -r requirements.txt (line 1))
+  Using cached fastapi-0.165.0-py3-none-any.whl.metadata (27 kB)
+Collecting starlette==1.6.0 (from -r requirements.txt (line 2))
+  Downloading starlette-1.6.0-py3-none-any.whl.metadata (6.4 kB)
+Collecting uvicorn==0.54.0 (from -r requirements.txt (line 3))
+  Using cached uvicorn-0.54.0-py3-none-any.whl.metadata (6.6 kB)
+Requirement already satisfied: SQLAlchemy==2.0.41 in ./.venv/lib/python3.11/site-packages (from -r requirements.txt (line 4)) (2.0.41)
+Requirement already satisfied: alembic==1.16.1 in ./.venv/lib/python3.11/site-packages (from -r requirements.txt (line 5)) (1.16.1)
+Requirement already satisfied: psycopg==3.2.9 in ./.venv/lib/python3.11/site-packages (from psycopg[binary]==3.2.9->-r requirements.txt (line 6)) (3.2.9)
+Requirement already satisfied: argon2-cffi==23.1.0 in ./.venv/lib/python3.11/site-packages (from -r requirements.txt (line 7)) (23.1.0)
+Collecting python-multipart==0.0.31 (from -r requirements.txt (line 8))
+  Using cached python_multipart-0.0.31-py3-none-any.whl.metadata (2.1 kB)
+Requirement already satisfied: pydantic==2.11.5 in ./.venv/lib/python3.11/site-packages (from -r requirements.txt (line 9)) (2.11.5)
+Requirement already satisfied: httpx==0.28.1 in ./.venv/lib/python3.11/site-packages (from -r requirements.txt (line 10)) (0.28.1)
+Collecting pytest==9.0.3 (from -r requirements.txt (line 11))
+  Using cached pytest-9.0.3-py3-none-any.whl.metadata (7.6 kB)
+Requirement already satisfied: anyio>=4.1.0 in ./.venv/lib/python3.11/site-packages (from fastapi==0.165.0->-r requirements.txt (line 1)) (4.16.0)
+Requirement already satisfied: typing-extensions>=4.8.0 in ./.venv/lib/python3.11/site-packages (from fastapi==0.165.0->-r requirements.txt (line 1)) (4.16.0)
+Requirement already satisfied: typing-inspection>=0.4.2 in ./.venv/lib/python3.11/site-packages (from fastapi==0.165.0->-r requirements.txt (line 1)) (0.4.5)
+Collecting annotated-doc>=0.0.2 (from fastapi==0.165.0->-r requirements.txt (line 1))
+  Downloading annotated_doc-0.0.7-py3-none-any.whl.metadata (6.4 kB)
+Collecting opentelemetry-api>=1.44.0 (from fastapi==0.165.0->-r requirements.txt (line 1))
+  Downloading opentelemetry_api-1.45.2-py3-none-any.whl.metadata (1.4 kB)
+Requirement already satisfied: click>=7.0 in ./.venv/lib/python3.11/site-packages (from uvicorn==0.54.0->-r requirements.txt (line 3)) (8.5.1)
+Requirement already satisfied: h11>=0.8 in ./.venv/lib/python3.11/site-packages (from uvicorn==0.54.0->-r requirements.txt (line 3)) (0.16.0)
+Requirement already satisfied: Mako in ./.venv/lib/python3.11/site-packages (from alembic==1.16.1->-r requirements.txt (line 5)) (1.4.3)
+Requirement already satisfied: argon2-cffi-bindings in ./.venv/lib/python3.11/site-packages (from argon2-cffi==23.1.0->-r requirements.txt (line 7)) (26.2.0)
+Requirement already satisfied: annotated-types>=0.6.0 in ./.venv/lib/python3.11/site-packages (from pydantic==2.11.5->-r requirements.txt (line 9)) (0.8.0)
+Requirement already satisfied: pydantic-core==2.33.2 in ./.venv/lib/python3.11/site-packages (from pydantic==2.11.5->-r requirements.txt (line 9)) (2.33.2)
+Requirement already satisfied: certifi in ./.venv/lib/python3.11/site-packages (from httpx==0.28.1->-r requirements.txt (line 10)) (2026.11.20)
+Requirement already satisfied: httpcore==1.* in ./.venv/lib/python3.11/site-packages (from httpx==0.28.1->-r requirements.txt (line 10)) (1.0.9)
+Requirement already satisfied: idna in ./.venv/lib/python3.11/site-packages (from httpx==0.28.1->-r requirements.txt (line 10)) (3.20)
+Requirement already satisfied: iniconfig>=1.0.1 in ./.venv/lib/python3.11/site-packages (from pytest==9.0.3->-r requirements.txt (line 11)) (2.3.1)
+Requirement already satisfied: packaging>=22 in ./.venv/lib/python3.11/site-packages (from pytest==9.0.3->-r requirements.txt (line 11)) (26.3)
+Requirement already satisfied: pluggy<2,>=1.5 in ./.venv/lib/python3.11/site-packages (from pytest==9.0.3->-r requirements.txt (line 11)) (1.7.0)
+Requirement already satisfied: pygments>=2.7.2 in ./.venv/lib/python3.11/site-packages (from pytest==9.0.3->-r requirements.txt (line 11)) (2.21.0)
+Requirement already satisfied: psycopg-binary==3.2.9 in ./.venv/lib/python3.11/site-packages (from psycopg[binary]==3.2.9->-r requirements.txt (line 6)) (3.2.9)
+Requirement already satisfied: cffi>=1.0.1 in ./.venv/lib/python3.11/site-packages (from argon2-cffi-bindings->argon2-cffi==23.1.0->-r requirements.txt (line 7)) (2.1.1)
+Requirement already satisfied: pycparser in ./.venv/lib/python3.11/site-packages (from cffi>=1.0.1->argon2-cffi-bindings->argon2-cffi==23.1.0->-r requirements.txt (line 7)) (3.12)
+Requirement already satisfied: MarkupSafe>=2.0 in ./.venv/lib/python3.11/site-packages (from Mako->alembic==1.16.1->-r requirements.txt (line 5)) (3.0.4)
+Downloading pip-26.3-py3-none-any.whl (2.0 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.0/2.0 MB 4.3 MB/s  0:00:00
+Downloading setuptools-84.1.0-py3-none-any.whl (819 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 819.4/819.4 kB 2.7 MB/s  0:00:00
+Downloading fastapi-0.165.0-py3-none-any.whl (159 kB)
+Downloading starlette-1.6.0-py3-none-any.whl (75 kB)
+Downloading uvicorn-0.54.0-py3-none-any.whl (87 kB)
+Downloading python_multipart-0.0.31-py3-none-any.whl (29 kB)
+Downloading pytest-9.0.3-py3-none-any.whl (375 kB)
+Downloading annotated_doc-0.0.7-py3-none-any.whl (5.3 kB)
+Downloading opentelemetry_api-1.45.2-py3-none-any.whl (60 kB)
+Installing collected packages: uvicorn, setuptools, python-multipart, pytest, pip, opentelemetry-api, annotated-doc, starlette, fastapi
+  Attempting uninstall: uvicorn
+    Found existing installation: uvicorn 0.34.3
+    Uninstalling uvicorn-0.34.3:
+      Successfully uninstalled uvicorn-0.34.3
+  Attempting uninstall: setuptools
+    Found existing installation: setuptools 83.0.0
+    Uninstalling setuptools-83.0.0:
+      Successfully uninstalled setuptools-83.0.0
+  Attempting uninstall: python-multipart
+    Found existing installation: python-multipart 0.0.20
+    Uninstalling python-multipart-0.0.20:
+      Successfully uninstalled python-multipart-0.0.20
+  Attempting uninstall: pytest
+    Found existing installation: pytest 8.3.5
+    Uninstalling pytest-8.3.5:
+      Successfully uninstalled pytest-8.3.5
+  Attempting uninstall: pip
+    Found existing installation: pip 26.1.2
+    Uninstalling pip-26.1.2:
+      Successfully uninstalled pip-26.1.2
+  Attempting uninstall: starlette
+    Found existing installation: starlette 0.46.2
+    Uninstalling starlette-0.46.2:
+      Successfully uninstalled starlette-0.46.2
+  Attempting uninstall: fastapi
+    Found existing installation: fastapi 0.115.12
+    Uninstalling fastapi-0.115.12:
+      Successfully uninstalled fastapi-0.115.12
+
+Successfully installed annotated-doc-0.0.7 fastapi-0.165.0 opentelemetry-api-1.45.2 pip-26.3 pytest-9.0.3 python-multipart-0.0.31 setuptools-84.1.0 starlette-1.6.0 uvicorn-0.54.0

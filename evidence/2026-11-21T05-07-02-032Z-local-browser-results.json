@@ -1,0 +1,21 @@
+{
+  "run": "2026-11-21T05-07-02-032Z",
+  "origin": "http://127.0.0.1:4173",
+  "chrome": "157.0.8103.79",
+  "passed": 1,
+  "failed": 1,
+  "results": [
+    {
+      "name": "home-renders-original-product",
+      "passed": true
+    },
+    {
+      "name": "accessibility-home",
+      "passed": false,
+      "diagnostic": "2026-11-21T05-07-02-032Z-local-accessibility-home"
+    }
+  ],
+  "unexpectedBrowserErrors": [],
+  "testCandidates": [],
+  "live": false
+}

@@ -1,0 +1,5 @@
+LOCAL CHECK: report-pdf-export
+Asia/Kolkata: 20261121-105055-368709
+Exit code: 0
+
+Exported FINAL_REPORT.pdf from real report text and browser screenshots.

@@ -1,0 +1,20 @@
+# All environment files are excluded, including documentation templates.
+.env*
+**/.env*
+node_modules/
+.venv/
+.cache/
+.browser/
+.test-data/
+*.db
+*.db-*
+*.sqlite*
+*.lock-db
+__pycache__/
+.pytest_cache/
+*.pyc
+frontend/dist/
+frontend/test-results/
+frontend/playwright-report/
+.DS_Store
+*.log

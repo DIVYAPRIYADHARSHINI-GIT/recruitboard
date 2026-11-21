@@ -1,0 +1,11 @@
+Browser check: recruiter-add-candidate
+Origin: http://127.0.0.1:4173
+Time: 2026-11-21T05-09-09-284Z
+locator.selectOption: Timeout 12000ms exceeded.
+Call log:
+  - waiting for getByLabel('Job', { exact: true })
+
+    at addCandidate (/Users/softage/Designer Projects/starter/recruitboard/frontend/tests/browser.mjs:78:13)
+    at async file:///Users/softage/Designer%20Projects/starter/recruitboard/frontend/tests/browser.mjs:113:81
+    at async check (/Users/softage/Designer Projects/starter/recruitboard/frontend/tests/browser.mjs:33:9)
+    at async file:///Users/softage/Designer%20Projects/starter/recruitboard/frontend/tests/browser.mjs:113:3

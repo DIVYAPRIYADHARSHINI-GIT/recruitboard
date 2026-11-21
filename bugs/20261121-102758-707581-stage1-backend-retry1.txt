@@ -1,0 +1,59 @@
+LOCAL CHECK: stage1-backend-retry1
+Asia/Kolkata: 20261121-102758-707581
+Exit code: 1
+
+EEEEEEEEE.                                                               [100%]
+==================================== ERRORS ====================================
+________________ ERROR at setup of test_health_queries_database ________________
+/opt/homebrew/Cellar/python@3.11/3.11.15_4/Frameworks/Python.framework/Versions/3.11/lib/python3.11/pathlib.py:1116: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [Errno 2] No such file or directory: '/Users/softage/Designer Projects/starter/recruitboard/.test-data/stage1-retry1'
+____________ ERROR at setup of test_seed_and_migrations_idempotent _____________
+/opt/homebrew/Cellar/python@3.11/3.11.15_4/Frameworks/Python.framework/Versions/3.11/lib/python3.11/pathlib.py:1116: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [Errno 2] No such file or directory: '/Users/softage/Designer Projects/starter/recruitboard/.test-data/stage1-retry1'
+__________ ERROR at setup of test_demo_roles_session_rotation[admin] ___________
+/opt/homebrew/Cellar/python@3.11/3.11.15_4/Frameworks/Python.framework/Versions/3.11/lib/python3.11/pathlib.py:1116: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [Errno 2] No such file or directory: '/Users/softage/Designer Projects/starter/recruitboard/.test-data/stage1-retry1'
+________ ERROR at setup of test_demo_roles_session_rotation[recruiter] _________
+/opt/homebrew/Cellar/python@3.11/3.11.15_4/Frameworks/Python.framework/Versions/3.11/lib/python3.11/pathlib.py:1116: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [Errno 2] No such file or directory: '/Users/softage/Designer Projects/starter/recruitboard/.test-data/stage1-retry1'
+_______ ERROR at setup of test_demo_roles_session_rotation[interviewer] ________
+/opt/homebrew/Cellar/python@3.11/3.11.15_4/Frameworks/Python.framework/Versions/3.11/lib/python3.11/pathlib.py:1116: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [Errno 2] No such file or directory: '/Users/softage/Designer Projects/starter/recruitboard/.test-data/stage1-retry1'
+_______________ ERROR at setup of test_csrf_and_origin_required ________________
+/opt/homebrew/Cellar/python@3.11/3.11.15_4/Frameworks/Python.framework/Versions/3.11/lib/python3.11/pathlib.py:1116: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [Errno 2] No such file or directory: '/Users/softage/Designer Projects/starter/recruitboard/.test-data/stage1-retry1'
+_______________________ ERROR at setup of test_demo_off ________________________
+/opt/homebrew/Cellar/python@3.11/3.11.15_4/Frameworks/Python.framework/Versions/3.11/lib/python3.11/pathlib.py:1116: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [Errno 2] No such file or directory: '/Users/softage/Designer Projects/starter/recruitboard/.test-data/stage1-retry1'
+______ ERROR at setup of test_argon2id_real_login_and_generic_validation _______
+/opt/homebrew/Cellar/python@3.11/3.11.15_4/Frameworks/Python.framework/Versions/3.11/lib/python3.11/pathlib.py:1116: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [Errno 2] No such file or directory: '/Users/softage/Designer Projects/starter/recruitboard/.test-data/stage1-retry1'
+___________________ ERROR at setup of test_login_rate_limit ____________________
+/opt/homebrew/Cellar/python@3.11/3.11.15_4/Frameworks/Python.framework/Versions/3.11/lib/python3.11/pathlib.py:1116: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [Errno 2] No such file or directory: '/Users/softage/Designer Projects/starter/recruitboard/.test-data/stage1-retry1'
+=============================== warnings summary ===============================
+.venv/lib/python3.11/site-packages/starlette/testclient.py:37
+  /Users/softage/Designer Projects/starter/recruitboard/backend/.venv/lib/python3.11/site-packages/starlette/testclient.py:37: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = typing.Callable[[], typing.ContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+ERROR tests/test_foundation.py::test_health_queries_database - FileNotFoundEr...
+ERROR tests/test_foundation.py::test_seed_and_migrations_idempotent - FileNot...
+ERROR tests/test_foundation.py::test_demo_roles_session_rotation[admin] - Fil...
+ERROR tests/test_foundation.py::test_demo_roles_session_rotation[recruiter]
+ERROR tests/test_foundation.py::test_demo_roles_session_rotation[interviewer]
+ERROR tests/test_foundation.py::test_csrf_and_origin_required - FileNotFoundE...
+ERROR tests/test_foundation.py::test_demo_off - FileNotFoundError: [Errno 2] ...
+ERROR tests/test_foundation.py::test_argon2id_real_login_and_generic_validation
+ERROR tests/test_foundation.py::test_login_rate_limit - FileNotFoundError: [E...
+1 passed, 1 warning, 9 errors in 0.64s

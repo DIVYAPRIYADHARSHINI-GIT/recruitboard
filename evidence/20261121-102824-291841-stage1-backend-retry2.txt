@@ -1,0 +1,16 @@
+LOCAL CHECK: stage1-backend-retry2
+Asia/Kolkata: 20261121-102824-291841
+Exit code: 0
+
+..........                                                               [100%]
+=============================== warnings summary ===============================
+.venv/lib/python3.11/site-packages/starlette/testclient.py:37
+  /Users/softage/Designer Projects/starter/recruitboard/backend/.venv/lib/python3.11/site-packages/starlette/testclient.py:37: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = typing.Callable[[], typing.ContextManager[anyio.abc.BlockingPortal]]
+
+tests/test_foundation.py: 10 warnings
+  /Users/softage/Designer Projects/starter/recruitboard/backend/.venv/lib/python3.11/site-packages/alembic/config.py:564: DeprecationWarning: No path_separator found in configuration; falling back to legacy splitting on spaces, commas, and colons for prepend_sys_path.  Consider adding path_separator=os to Alembic config.
+    util.warn_deprecated(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+10 passed, 11 warnings in 1.88s

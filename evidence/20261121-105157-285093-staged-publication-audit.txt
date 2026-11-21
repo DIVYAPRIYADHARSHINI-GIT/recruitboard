@@ -1,0 +1,6 @@
+LOCAL CHECK: staged-publication-audit
+Asia/Kolkata: 20261121-105157-285093
+Exit code: 0
+
+Staged audit passed: 142 files, 7,836,586 bytes; no environment/private runtime artifacts, file over 5 MB or recognized credential pattern.
+This heuristic supplements manual review; it is not a guarantee that every possible secret is detectable.

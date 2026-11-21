@@ -1,0 +1,66 @@
+[
+  {
+    "id": "aria-prohibited-attr",
+    "impact": "serious",
+    "description": "Ensure ARIA attributes are not prohibited for an element's role",
+    "targets": [
+      [
+        "article:nth-child(1) > .unread-dot[aria-label=\"Unread\"]"
+      ],
+      [
+        "article:nth-child(2) > .unread-dot[aria-label=\"Unread\"]"
+      ],
+      [
+        "article:nth-child(3) > .unread-dot[aria-label=\"Unread\"]"
+      ],
+      [
+        "article:nth-child(4) > .unread-dot[aria-label=\"Unread\"]"
+      ],
+      [
+        "article:nth-child(5) > .unread-dot[aria-label=\"Unread\"]"
+      ],
+      [
+        "article:nth-child(6) > .unread-dot[aria-label=\"Unread\"]"
+      ],
+      [
+        "article:nth-child(7) > .unread-dot[aria-label=\"Unread\"]"
+      ],
+      [
+        "article:nth-child(8) > .unread-dot[aria-label=\"Unread\"]"
+      ],
+      [
+        "article:nth-child(9) > .unread-dot[aria-label=\"Unread\"]"
+      ],
+      [
+        "article:nth-child(10) > .unread-dot[aria-label=\"Unread\"]"
+      ],
+      [
+        "article:nth-child(11) > .unread-dot[aria-label=\"Unread\"]"
+      ],
+      [
+        "article:nth-child(12) > .unread-dot[aria-label=\"Unread\"]"
+      ],
+      [
+        "article:nth-child(13) > .unread-dot[aria-label=\"Unread\"]"
+      ],
+      [
+        "article:nth-child(14) > .unread-dot[aria-label=\"Unread\"]"
+      ],
+      [
+        "article:nth-child(15) > .unread-dot[aria-label=\"Unread\"]"
+      ],
+      [
+        "article:nth-child(16) > .unread-dot[aria-label=\"Unread\"]"
+      ],
+      [
+        "article:nth-child(17) > .unread-dot[aria-label=\"Unread\"]"
+      ],
+      [
+        "article:nth-child(18) > .unread-dot[aria-label=\"Unread\"]"
+      ],
+      [
+        "article:nth-child(19) > .unread-dot[aria-label=\"Unread\"]"
+      ]
+    ]
+  }
+]

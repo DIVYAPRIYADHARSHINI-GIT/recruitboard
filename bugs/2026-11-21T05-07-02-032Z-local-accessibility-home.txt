@@ -1,0 +1,24 @@
+Browser check: accessibility-home
+Origin: http://127.0.0.1:4173
+Time: 2026-11-21T05-07-02-032Z
+AssertionError [ERR_ASSERTION]: home: color-contrast
++ actual - expected
+
++ [
++   {
++     description: 'Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds',
++     id: 'color-contrast',
++     impact: 'serious',
++     targets: [
++       [
++         '.avatar[aria-hidden="true"]:nth-child(3)'
++       ]
++     ]
++   }
++ ]
+- []
+
+    at audit (file:///Users/softage/Designer%20Projects/starter/recruitboard/frontend/tests/browser.mjs:65:10)
+    at async check (file:///Users/softage/Designer%20Projects/starter/recruitboard/frontend/tests/browser.mjs:33:9)
+    at async screenshotAudit (file:///Users/softage/Designer%20Projects/starter/recruitboard/frontend/tests/browser.mjs:70:3)
+    at async file:///Users/softage/Designer%20Projects/starter/recruitboard/frontend/tests/browser.mjs:98:3

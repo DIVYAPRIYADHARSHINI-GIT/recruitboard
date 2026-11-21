@@ -1,0 +1,23 @@
+LOCAL CHECK: stage4-chrome
+Asia/Kolkata: 20261121-103711-379712
+Exit code: 1
+
+PASS home-renders-original-product
+FAIL accessibility-home: home: color-contrast
++ actual - expected
+
++ [
++   {
++     description: 'Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds',
++     id: 'color-contrast',
++     impact: 'serious',
++     targets: [
++       [
++         '.avatar[aria-hidden="true"]:nth-child(3)'
++       ]
++     ]
++   }
++ ]
+- []
+
+Browser totals: 1 passed, 1 failed. Created 0; cleaned 0.

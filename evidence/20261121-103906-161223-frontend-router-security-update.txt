@@ -1,0 +1,13 @@
+LOCAL CHECK: frontend-router-security-update
+Asia/Kolkata: 20261121-103906-161223
+Exit code: 0
+
+
+added 2 packages, removed 2 packages, and changed 2 packages in 2s
+npm warn install-scripts 4 packages have install scripts not yet covered by allowScripts:
+npm warn install-scripts   esbuild@0.25.12 (postinstall: node install.js)
+npm warn install-scripts   fsevents@2.3.2 (install: (install scripts present))
+npm warn install-scripts   node@22.22.0 (preinstall: node installArchSpecificPackage)
+npm warn install-scripts   fsevents@2.3.3 (install: (install scripts present))
+npm warn install-scripts
+npm warn install-scripts Run `npm install-scripts ls` to review, or `npm install-scripts approve <pkg>` to allow.

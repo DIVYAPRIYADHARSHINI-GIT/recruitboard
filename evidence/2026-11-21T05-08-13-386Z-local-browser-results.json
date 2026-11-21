@@ -1,0 +1,33 @@
+{
+  "run": "2026-11-21T05-08-13-386Z",
+  "origin": "http://127.0.0.1:4173",
+  "chrome": "157.0.8103.79",
+  "passed": 4,
+  "failed": 1,
+  "results": [
+    {
+      "name": "home-renders-original-product",
+      "passed": true
+    },
+    {
+      "name": "accessibility-home",
+      "passed": true
+    },
+    {
+      "name": "layout-home",
+      "passed": true
+    },
+    {
+      "name": "signin-and-demo-choices",
+      "passed": true
+    },
+    {
+      "name": "accessibility-signin",
+      "passed": false,
+      "diagnostic": "2026-11-21T05-08-13-386Z-local-accessibility-signin"
+    }
+  ],
+  "unexpectedBrowserErrors": [],
+  "testCandidates": [],
+  "live": false
+}

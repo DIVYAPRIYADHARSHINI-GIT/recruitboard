@@ -1,0 +1,5 @@
+LOCAL CHECK: deployment-configuration
+Asia/Kolkata: 20261121-104840-825055
+Exit code: 0
+
+8 deployment-configuration checks passed. No network requests or real hosting resources used.

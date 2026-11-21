@@ -1,0 +1,31 @@
+# Reference blueprint only. Do not apply before separate Render and Neon approvals.
+# Do not create a Render PostgreSQL resource. User enters Neon DATABASE_URL in Render.
+services:
+  - type: web
+    name: recruitboard-api
+    runtime: python
+    plan: free
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: sh start.sh
+    healthCheckPath: /health
+    autoDeployTrigger: off
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.15
+      - key: APP_ENV
+        value: production
+      - key: COOKIE_SECURE
+        value: "true"
+      - key: DEMO_MODE
+        value: "true"
+      - key: SEED_DEMO
+        value: "true"
+      - key: LOGIN_LIMIT
+        value: "10"
+      - key: WRITE_LIMIT
+        value: "120"
+      - key: DATABASE_URL
+        sync: false
+      - key: ALLOWED_ORIGINS
+        sync: false

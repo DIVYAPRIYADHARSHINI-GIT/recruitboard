@@ -1,0 +1,110 @@
+LOCAL CHECK: stage4-chrome-retry3
+Asia/Kolkata: 20261121-104409-056344
+Exit code: 1
+
+PASS home-renders-original-product
+PASS accessibility-home
+PASS layout-home
+PASS signin-and-demo-choices
+PASS accessibility-signin
+PASS layout-signin
+PASS recruiter-demo-signin-same-origin-cookie
+PASS accessibility-jobs
+PASS layout-jobs
+PASS kanban-six-stages-and-counts
+PASS accessibility-kanban
+PASS layout-kanban
+PASS recruiter-add-candidate
+PASS accessibility-candidate-profile
+PASS layout-candidate-profile
+PASS resume-upload-download-through-proxy
+PASS candidate-notes-edit
+PASS keyboard-only-board-move
+PASS drag-and-drop-board-move
+PASS schedule-interview-with-in-app-notification
+PASS create-unassigned-test-candidate
+PASS interviewer-demo-and-assigned-list
+PASS accessibility-interviews
+PASS layout-interviews
+PASS interviewer-unassigned-profile-resume-denied
+PASS interviewer-assigned-profile-and-notes
+PASS scorecard-form-renders
+PASS accessibility-scorecard-form
+PASS layout-scorecard-form
+PASS interviewer-submits-scorecard
+PASS recruiter-review-feedback-and-record-offer
+PASS stage-history-actor-timestamps-complete
+PASS rejection-confirmation-and-required-reason
+PASS notifications-panel-scorecard-and-stage
+FAIL accessibility-notifications: notifications: aria-prohibited-attr
++ actual - expected
+
++ [
++   {
++     description: "Ensure ARIA attributes are not prohibited for an element's role",
++     id: 'aria-prohibited-attr',
++     impact: 'serious',
++     targets: [
++       [
++         'article:nth-child(1) > .unread-dot[aria-label="Unread"]'
++       ],
++       [
++         'article:nth-child(2) > .unread-dot[aria-label="Unread"]'
++       ],
++       [
++         'article:nth-child(3) > .unread-dot[aria-label="Unread"]'
++       ],
++       [
++         'article:nth-child(4) > .unread-dot[aria-label="Unread"]'
++       ],
++       [
++         'article:nth-child(5) > .unread-dot[aria-label="Unread"]'
++       ],
++       [
++         'article:nth-child(6) > .unread-dot[aria-label="Unread"]'
++       ],
++       [
++         'article:nth-child(7) > .unread-dot[aria-label="Unread"]'
++       ],
++       [
++         'article:nth-child(8) > .unread-dot[aria-label="Unread"]'
++       ],
++       [
++         'article:nth-child(9) > .unread-dot[aria-label="Unread"]'
++       ],
++       [
++         'article:nth-child(10) > .unread-dot[aria-label="Unread"]'
++       ],
++       [
++         'article:nth-child(11) > .unread-dot[aria-label="Unread"]'
++       ],
++       [
++         'article:nth-child(12) > .unread-dot[aria-label="Unread"]'
++       ],
++       [
++         'article:nth-child(13) > .unread-dot[aria-label="Unread"]'
++       ],
++       [
++         'article:nth-child(14) > .unread-dot[aria-label="Unread"]'
++       ],
++       [
++         'article:nth-child(15) > .unread-dot[aria-label="Unread"]'
++       ],
++       [
++         'article:nth-child(16) > .unread-dot[aria-label="Unread"]'
++       ],
++       [
++         'article:nth-child(17) > .unread-dot[aria-label="Unread"]'
++       ],
++       [
++         'article:nth-child(18) > .unread-dot[aria-label="Unread"]'
++       ],
++       [
++         'article:nth-child(19) > .unread-dot[aria-label="Unread"]'
++       ]
++     ]
++   }
++ ]
+- []
+
+Browser totals: 34 passed, 1 failed. Created 2; cleaned 2.

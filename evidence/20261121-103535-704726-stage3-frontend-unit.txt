@@ -1,0 +1,14 @@
+LOCAL CHECK: stage3-frontend-unit
+Asia/Kolkata: 20261121-103535-704726
+Exit code: 0
+
+
+ RUN  v3.2.4 /Users/softage/Designer Projects/starter/recruitboard/frontend
+
+ ✓ tests/unit.test.ts (16 tests) 17ms
+
+ Test Files  1 passed (1)
+      Tests  16 passed (16)
+   Start at  10:35:35
+   Duration  537ms (transform 73ms, setup 0ms, collect 84ms, tests 17ms, environment 0ms, prepare 73ms)
+

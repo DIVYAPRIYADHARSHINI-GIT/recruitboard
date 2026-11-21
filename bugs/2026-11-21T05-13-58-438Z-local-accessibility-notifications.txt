@@ -1,0 +1,78 @@
+Browser check: accessibility-notifications
+Origin: http://127.0.0.1:4173
+Time: 2026-11-21T05-13-58-438Z
+AssertionError [ERR_ASSERTION]: notifications: aria-prohibited-attr
++ actual - expected
+
++ [
++   {
++     description: "Ensure ARIA attributes are not prohibited for an element's role",
++     id: 'aria-prohibited-attr',
++     impact: 'serious',
++     targets: [
++       [
++         'article:nth-child(1) > .unread-dot[aria-label="Unread"]'
++       ],
++       [
++         'article:nth-child(2) > .unread-dot[aria-label="Unread"]'
++       ],
++       [
++         'article:nth-child(3) > .unread-dot[aria-label="Unread"]'
++       ],
++       [
++         'article:nth-child(4) > .unread-dot[aria-label="Unread"]'
++       ],
++       [
++         'article:nth-child(5) > .unread-dot[aria-label="Unread"]'
++       ],
++       [
++         'article:nth-child(6) > .unread-dot[aria-label="Unread"]'
++       ],
++       [
++         'article:nth-child(7) > .unread-dot[aria-label="Unread"]'
++       ],
++       [
++         'article:nth-child(8) > .unread-dot[aria-label="Unread"]'
++       ],
++       [
++         'article:nth-child(9) > .unread-dot[aria-label="Unread"]'
++       ],
++       [
++         'article:nth-child(10) > .unread-dot[aria-label="Unread"]'
++       ],
++       [
++         'article:nth-child(11) > .unread-dot[aria-label="Unread"]'
++       ],
++       [
++         'article:nth-child(12) > .unread-dot[aria-label="Unread"]'
++       ],
++       [
++         'article:nth-child(13) > .unread-dot[aria-label="Unread"]'
++       ],
++       [
++         'article:nth-child(14) > .unread-dot[aria-label="Unread"]'
++       ],
++       [
++         'article:nth-child(15) > .unread-dot[aria-label="Unread"]'
++       ],
++       [
++         'article:nth-child(16) > .unread-dot[aria-label="Unread"]'
++       ],
++       [
++         'article:nth-child(17) > .unread-dot[aria-label="Unread"]'
++       ],
++       [
++         'article:nth-child(18) > .unread-dot[aria-label="Unread"]'
++       ],
++       [
++         'article:nth-child(19) > .unread-dot[aria-label="Unread"]'
++       ]
++     ]
++   }
++ ]
+- []
+
+    at audit (file:///Users/softage/Designer%20Projects/starter/recruitboard/frontend/tests/browser.mjs:65:10)
+    at async check (file:///Users/softage/Designer%20Projects/starter/recruitboard/frontend/tests/browser.mjs:33:9)
+    at async screenshotAudit (file:///Users/softage/Designer%20Projects/starter/recruitboard/frontend/tests/browser.mjs:70:3)
+    at async file:///Users/softage/Designer%20Projects/starter/recruitboard/frontend/tests/browser.mjs:214:3

@@ -1,0 +1,40 @@
+LOCAL CHECK: stage1-backend
+Asia/Kolkata: 20261121-102728-390446
+Exit code: 2
+
+
+==================================== ERRORS ====================================
+__________________ ERROR collecting tests/test_foundation.py ___________________
+tests/test_foundation.py:8: in <module>
+    from app.main import create_app
+app/main.py:64: in <module>
+    app = create_app()
+app/main.py:58: in create_app
+    from .auth import router as auth_router
+app/auth.py:4: in <module>
+    from . import schemas as s
+app/schemas.py:23: in <module>
+    class Login(Input):
+app/schemas.py:26: in Login
+    _email = field_validator('email')(email)
+.venv/lib/python3.11/site-packages/pydantic/functional_validators.py:502: in dec
+    if _decorators.is_instance_method_from_sig(f):
+.venv/lib/python3.11/site-packages/pydantic/_internal/_decorators.py:687: in is_instance_method_from_sig
+    sig = signature(unwrap_wrapped_function(function))
+/opt/homebrew/Cellar/python@3.11/3.11.15_4/Frameworks/Python.framework/Versions/3.11/lib/python3.11/inspect.py:3263: in signature
+    return Signature.from_callable(obj, follow_wrapped=follow_wrapped,
+/opt/homebrew/Cellar/python@3.11/3.11.15_4/Frameworks/Python.framework/Versions/3.11/lib/python3.11/inspect.py:3011: in from_callable
+    return _signature_from_callable(obj, sigcls=cls,
+/opt/homebrew/Cellar/python@3.11/3.11.15_4/Frameworks/Python.framework/Versions/3.11/lib/python3.11/inspect.py:2456: in _signature_from_callable
+    raise TypeError('{!r} is not a callable object'.format(obj))
+E   TypeError: FieldInfo(annotation=NoneType, required=True, metadata=[MaxLen(max_length=254)]) is not a callable object
+=============================== warnings summary ===============================
+.venv/lib/python3.11/site-packages/starlette/testclient.py:37
+  /Users/softage/Designer Projects/starter/recruitboard/backend/.venv/lib/python3.11/site-packages/starlette/testclient.py:37: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = typing.Callable[[], typing.ContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+ERROR tests/test_foundation.py - TypeError: FieldInfo(annotation=NoneType, re...
+!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
+1 warning, 1 error in 2.83s

@@ -1,0 +1,2 @@
+# Optional local report export; not installed on Render.
+markdown-it-py==4.3.0

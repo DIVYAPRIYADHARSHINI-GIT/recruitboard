@@ -1,0 +1,169 @@
+LOCAL CHECK: stage2-backend
+Asia/Kolkata: 20261121-103000-207733
+Exit code: 1
+
+.......................................F................................ [ 84%]
+.............                                                            [100%]
+=================================== FAILURES ===================================
+________ test_scorecard_validation_ownership_duplicate_and_notification ________
+.venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py:1963: in _exec_single_context
+    self.dialect.do_execute(
+.venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py:943: in do_execute
+    cursor.execute(statement, parameters)
+E   sqlite3.IntegrityError: UNIQUE constraint failed: scorecards.interview_id
+
+The above exception was the direct cause of the following exception:
+tests/test_business.py:142: in test_scorecard_validation_ownership_duplicate_and_notification
+    assert client.post(f"/api/interviews/{interview['id']}/scorecard", json=SCORE).status_code == 409
+.venv/lib/python3.11/site-packages/starlette/testclient.py:538: in post
+    return super().post(
+.venv/lib/python3.11/site-packages/httpx/_client.py:1144: in post
+    return self.request(
+.venv/lib/python3.11/site-packages/starlette/testclient.py:437: in request
+    return super().request(
+.venv/lib/python3.11/site-packages/httpx/_client.py:825: in request
+    return self.send(request, auth=auth, follow_redirects=follow_redirects)
+.venv/lib/python3.11/site-packages/httpx/_client.py:914: in send
+    response = self._send_handling_auth(
+.venv/lib/python3.11/site-packages/httpx/_client.py:942: in _send_handling_auth
+    response = self._send_handling_redirects(
+.venv/lib/python3.11/site-packages/httpx/_client.py:979: in _send_handling_redirects
+    response = self._send_single_request(request)
+.venv/lib/python3.11/site-packages/httpx/_client.py:1014: in _send_single_request
+    response = transport.handle_request(request)
+.venv/lib/python3.11/site-packages/starlette/testclient.py:340: in handle_request
+    raise exc
+.venv/lib/python3.11/site-packages/starlette/testclient.py:337: in handle_request
+    portal.call(self.app, scope, receive, send)
+.venv/lib/python3.11/site-packages/anyio/from_thread.py:347: in call
+    return cast(T_Retval, self.start_task_soon(func, *args).result())
+/opt/homebrew/Cellar/python@3.11/3.11.15_4/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/_base.py:456: in result
+    return self.__get_result()
+/opt/homebrew/Cellar/python@3.11/3.11.15_4/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/_base.py:401: in __get_result
+    raise self._exception
+.venv/lib/python3.11/site-packages/anyio/from_thread.py:272: in _call_func
+    retval = await retval_or_awaitable
+.venv/lib/python3.11/site-packages/fastapi/applications.py:1054: in __call__
+    await super().__call__(scope, receive, send)
+.venv/lib/python3.11/site-packages/starlette/applications.py:112: in __call__
+    await self.middleware_stack(scope, receive, send)
+.venv/lib/python3.11/site-packages/starlette/middleware/errors.py:187: in __call__
+    raise exc
+.venv/lib/python3.11/site-packages/starlette/middleware/errors.py:165: in __call__
+    await self.app(scope, receive, _send)
+.venv/lib/python3.11/site-packages/starlette/middleware/base.py:176: in __call__
+    with recv_stream, send_stream, collapse_excgroups():
+/opt/homebrew/Cellar/python@3.11/3.11.15_4/Frameworks/Python.framework/Versions/3.11/lib/python3.11/contextlib.py:158: in __exit__
+    self.gen.throw(typ, value, traceback)
+.venv/lib/python3.11/site-packages/starlette/_utils.py:82: in collapse_excgroups
+    raise exc
+.venv/lib/python3.11/site-packages/starlette/middleware/base.py:178: in __call__
+    response = await self.dispatch_func(request, call_next)
+app/main.py:35: in security_headers
+    response = JSONResponse({'detail': error[1]}, status_code=error[0], headers={'Retry-After': '60'} if error[0] == 429 else {}) if error else await call_next(request)
+.venv/lib/python3.11/site-packages/starlette/middleware/base.py:156: in call_next
+    raise app_exc
+.venv/lib/python3.11/site-packages/starlette/middleware/base.py:141: in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+.venv/lib/python3.11/site-packages/starlette/middleware/cors.py:93: in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+.venv/lib/python3.11/site-packages/starlette/middleware/cors.py:144: in simple_response
+    await self.app(scope, receive, send)
+.venv/lib/python3.11/site-packages/starlette/middleware/exceptions.py:62: in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+.venv/lib/python3.11/site-packages/starlette/_exception_handler.py:53: in wrapped_app
+    raise exc
+.venv/lib/python3.11/site-packages/starlette/_exception_handler.py:42: in wrapped_app
+    await app(scope, receive, sender)
+.venv/lib/python3.11/site-packages/starlette/routing.py:714: in __call__
+    await self.middleware_stack(scope, receive, send)
+.venv/lib/python3.11/site-packages/starlette/routing.py:734: in app
+    await route.handle(scope, receive, send)
+.venv/lib/python3.11/site-packages/starlette/routing.py:288: in handle
+    await self.app(scope, receive, send)
+.venv/lib/python3.11/site-packages/starlette/routing.py:76: in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+.venv/lib/python3.11/site-packages/starlette/_exception_handler.py:53: in wrapped_app
+    raise exc
+.venv/lib/python3.11/site-packages/starlette/_exception_handler.py:42: in wrapped_app
+    await app(scope, receive, sender)
+.venv/lib/python3.11/site-packages/starlette/routing.py:73: in app
+    response = await f(request)
+.venv/lib/python3.11/site-packages/fastapi/routing.py:301: in app
+    raw_response = await run_endpoint_function(
+.venv/lib/python3.11/site-packages/fastapi/routing.py:214: in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+.venv/lib/python3.11/site-packages/starlette/concurrency.py:37: in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+.venv/lib/python3.11/site-packages/anyio/to_thread.py:65: in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+.venv/lib/python3.11/site-packages/anyio/_backends/_asyncio.py:2779: in run_sync_in_worker_thread
+    return await future
+.venv/lib/python3.11/site-packages/anyio/_backends/_asyncio.py:1124: in run
+    result = context.run(func, *args)
+app/workflow.py:163: in submit_scorecard
+    notify_team(db, application.id, 'scorecard', 'A new scorecard is ready to review.')
+app/common.py:33: in notify_team
+    recipients = set(db.scalars(select(User.id).where(User.active.is_(True), User.role.in_(['recruiter', 'admin']))))
+.venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py:2473: in scalars
+    return self._execute_internal(
+.venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py:2230: in _execute_internal
+    ) = compile_state_cls.orm_pre_session_exec(
+.venv/lib/python3.11/site-packages/sqlalchemy/orm/context.py:577: in orm_pre_session_exec
+    session._autoflush()
+.venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py:3065: in _autoflush
+    raise e.with_traceback(sys.exc_info()[2])
+.venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py:3054: in _autoflush
+    self.flush()
+.venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py:4345: in flush
+    self._flush(objects)
+.venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py:4480: in _flush
+    with util.safe_reraise():
+.venv/lib/python3.11/site-packages/sqlalchemy/util/langhelpers.py:224: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+.venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py:4441: in _flush
+    flush_context.execute()
+.venv/lib/python3.11/site-packages/sqlalchemy/orm/unitofwork.py:466: in execute
+    rec.execute(self)
+.venv/lib/python3.11/site-packages/sqlalchemy/orm/unitofwork.py:642: in execute
+    util.preloaded.orm_persistence.save_obj(
+.venv/lib/python3.11/site-packages/sqlalchemy/orm/persistence.py:93: in save_obj
+    _emit_insert_statements(
+.venv/lib/python3.11/site-packages/sqlalchemy/orm/persistence.py:1233: in _emit_insert_statements
+    result = connection.execute(
+.venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py:1415: in execute
+    return meth(
+.venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py:523: in _execute_on_connection
+    return connection._execute_clauseelement(
+.venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py:1637: in _execute_clauseelement
+    ret = self._execute_context(
+.venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py:1842: in _execute_context
+    return self._exec_single_context(
+.venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py:1982: in _exec_single_context
+    self._handle_dbapi_exception(
+.venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py:2351: in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+.venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py:1963: in _exec_single_context
+    self.dialect.do_execute(
+.venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py:943: in do_execute
+    cursor.execute(statement, parameters)
+E   sqlalchemy.exc.IntegrityError: (raised as a result of Query-invoked autoflush; consider using a session.no_autoflush block if this flush is occurring prematurely)
+E   (sqlite3.IntegrityError) UNIQUE constraint failed: scorecards.interview_id
+E   [SQL: INSERT INTO scorecards (interview_id, submitted_by, technical, communication, culture, recommendation, feedback, submitted_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)]
+E   [parameters: (21, 4, 4, 5, 4, 'yes', 'TEST assessment with specific fictional evidence.', '2026-11-21 04:59:53.602639')]
+E   (Background on this error at: https://sqlalche.me/e/20/gkpj)
+=============================== warnings summary ===============================
+.venv/lib/python3.11/site-packages/starlette/testclient.py:37
+  /Users/softage/Designer Projects/starter/recruitboard/backend/.venv/lib/python3.11/site-packages/starlette/testclient.py:37: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = typing.Callable[[], typing.ContextManager[anyio.abc.BlockingPortal]]
+
+tests/test_business.py: 63 warnings
+tests/test_foundation.py: 10 warnings
+tests/test_reports.py: 3 warnings
+  /Users/softage/Designer Projects/starter/recruitboard/backend/.venv/lib/python3.11/site-packages/alembic/config.py:564: DeprecationWarning: No path_separator found in configuration; falling back to legacy splitting on spaces, commas, and colons for prepend_sys_path.  Consider adding path_separator=os to Alembic config.
+    util.warn_deprecated(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_business.py::test_scorecard_validation_ownership_duplicate_and_notification
+1 failed, 84 passed, 77 warnings in 12.80s

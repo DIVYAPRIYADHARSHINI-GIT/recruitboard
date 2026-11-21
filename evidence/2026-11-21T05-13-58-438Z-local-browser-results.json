@@ -1,0 +1,164 @@
+{
+  "run": "2026-11-21T05-13-58-438Z",
+  "origin": "http://127.0.0.1:4173",
+  "chrome": "157.0.8103.79",
+  "passed": 34,
+  "failed": 1,
+  "results": [
+    {
+      "name": "home-renders-original-product",
+      "passed": true
+    },
+    {
+      "name": "accessibility-home",
+      "passed": true
+    },
+    {
+      "name": "layout-home",
+      "passed": true
+    },
+    {
+      "name": "signin-and-demo-choices",
+      "passed": true
+    },
+    {
+      "name": "accessibility-signin",
+      "passed": true
+    },
+    {
+      "name": "layout-signin",
+      "passed": true
+    },
+    {
+      "name": "recruiter-demo-signin-same-origin-cookie",
+      "passed": true
+    },
+    {
+      "name": "accessibility-jobs",
+      "passed": true
+    },
+    {
+      "name": "layout-jobs",
+      "passed": true
+    },
+    {
+      "name": "kanban-six-stages-and-counts",
+      "passed": true
+    },
+    {
+      "name": "accessibility-kanban",
+      "passed": true
+    },
+    {
+      "name": "layout-kanban",
+      "passed": true
+    },
+    {
+      "name": "recruiter-add-candidate",
+      "passed": true
+    },
+    {
+      "name": "accessibility-candidate-profile",
+      "passed": true
+    },
+    {
+      "name": "layout-candidate-profile",
+      "passed": true
+    },
+    {
+      "name": "resume-upload-download-through-proxy",
+      "passed": true
+    },
+    {
+      "name": "candidate-notes-edit",
+      "passed": true
+    },
+    {
+      "name": "keyboard-only-board-move",
+      "passed": true
+    },
+    {
+      "name": "drag-and-drop-board-move",
+      "passed": true
+    },
+    {
+      "name": "schedule-interview-with-in-app-notification",
+      "passed": true
+    },
+    {
+      "name": "create-unassigned-test-candidate",
+      "passed": true
+    },
+    {
+      "name": "interviewer-demo-and-assigned-list",
+      "passed": true
+    },
+    {
+      "name": "accessibility-interviews",
+      "passed": true
+    },
+    {
+      "name": "layout-interviews",
+      "passed": true
+    },
+    {
+      "name": "interviewer-unassigned-profile-resume-denied",
+      "passed": true
+    },
+    {
+      "name": "interviewer-assigned-profile-and-notes",
+      "passed": true
+    },
+    {
+      "name": "scorecard-form-renders",
+      "passed": true
+    },
+    {
+      "name": "accessibility-scorecard-form",
+      "passed": true
+    },
+    {
+      "name": "layout-scorecard-form",
+      "passed": true
+    },
+    {
+      "name": "interviewer-submits-scorecard",
+      "passed": true
+    },
+    {
+      "name": "recruiter-review-feedback-and-record-offer",
+      "passed": true
+    },
+    {
+      "name": "stage-history-actor-timestamps-complete",
+      "passed": true
+    },
+    {
+      "name": "rejection-confirmation-and-required-reason",
+      "passed": true
+    },
+    {
+      "name": "notifications-panel-scorecard-and-stage",
+      "passed": true
+    },
+    {
+      "name": "accessibility-notifications",
+      "passed": false,
+      "diagnostic": "2026-11-21T05-13-58-438Z-local-accessibility-notifications"
+    }
+  ],
+  "unexpectedBrowserErrors": [],
+  "testCandidates": [
+    {
+      "id": 41,
+      "label": "TEST Journey 05-13-58",
+      "cleaned": true
+    },
+    {
+      "id": 42,
+      "label": "TEST Unassigned 05-13-58",
+      "cleaned": true
+    }
+  ],
+  "live": false
+}

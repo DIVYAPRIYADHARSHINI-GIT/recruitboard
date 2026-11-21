@@ -1,0 +1,21 @@
+LOCAL CHECK: stage4-chrome-retry2
+Asia/Kolkata: 20261121-103926-612667
+Exit code: 1
+
+PASS home-renders-original-product
+PASS accessibility-home
+PASS layout-home
+PASS signin-and-demo-choices
+PASS accessibility-signin
+PASS layout-signin
+PASS recruiter-demo-signin-same-origin-cookie
+PASS accessibility-jobs
+PASS layout-jobs
+PASS kanban-six-stages-and-counts
+PASS accessibility-kanban
+PASS layout-kanban
+FAIL recruiter-add-candidate: locator.selectOption: Timeout 12000ms exceeded.
+Call log:
+  - waiting for getByLabel('Job', { exact: true })
+
+Browser totals: 12 passed, 1 failed. Created 0; cleaned 0.

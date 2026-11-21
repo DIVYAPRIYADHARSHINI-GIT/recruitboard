@@ -1,0 +1,13 @@
+LOCAL CHECK: stage2-backend-retry1
+Asia/Kolkata: 20261121-103102-534684
+Exit code: 0
+
+........................................................................ [ 84%]
+.............                                                            [100%]
+=============================== warnings summary ===============================
+.venv/lib/python3.11/site-packages/starlette/testclient.py:37
+  /Users/softage/Designer Projects/starter/recruitboard/backend/.venv/lib/python3.11/site-packages/starlette/testclient.py:37: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = typing.Callable[[], typing.ContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+85 passed, 1 warning in 14.44s
