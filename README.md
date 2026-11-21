@@ -2,7 +2,7 @@
 
 **Make room for great people.**
 
-> **Hosting update, 21 November 2026:** the user explicitly approved switching the whole app to **Vercel Hobby**, retaining Neon. Follow [VERCEL_DEPLOY.md](VERCEL_DEPLOY.md). The old Render/Netlify guide is historical. The Vercel project/domain is allocated, but it is not a verified live site until the user privately supplies DATABASE_URL and the production deployment succeeds.
+> **Live: [https://recruitboard-pi.vercel.app](https://recruitboard-pi.vercel.app)** — the complete website/API runs on the user-approved **Vercel Hobby** deployment with Neon. Real database health and the one full live Chrome suite passed (66/66; both TEST candidates deleted). Follow [VERCEL_DEPLOY.md](VERCEL_DEPLOY.md). The old Render/Netlify guide is historical. Pooled and direct Neon connections now work with transaction-scoped migration locking; no database-secret change is needed for the resolved startup issue.
 
 An independently designed hiring workspace: a job-specific kanban, candidate profiles, assigned interviews, structured scorecards and SQL-powered hiring reports. Original identity and application code; no real product's branding or code copied. The sample company **Crescent Labs** and every seeded person are fictional.
 

@@ -1,5 +1,7 @@
 # BUG-014 — RecruitBoard Render deployment exits with status 1
 
+> **Historical issue, not the current website status:** the Render root cause below remains unverified, but the user-approved Vercel application at **https://recruitboard-pi.vercel.app** is now working. Commit 556bbe8 passed real database health and the single live Chrome suite (66/66). The current Vercel startup issues were resolved separately; see BUG-018, BUG-019 and BUG-020. This original Render record and screenshot are retained, not erased or relabelled as a proven Render fix.
+
 **Status:** Open — deployment blocked; root cause not yet identified.  
 **Severity:** Blocker for the public application.  
 **Reported:** 21 November 2026, Asia/Kolkata.  

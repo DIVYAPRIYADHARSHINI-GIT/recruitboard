@@ -1,0 +1,287 @@
+{
+  "run": "2026-11-21T11-27-59-347Z",
+  "origin": "https://recruitboard-pi.vercel.app",
+  "chrome": "157.0.8103.79",
+  "passed": 66,
+  "failed": 0,
+  "results": [
+    {
+      "name": "home-renders-original-product",
+      "passed": true
+    },
+    {
+      "name": "accessibility-home",
+      "passed": true
+    },
+    {
+      "name": "layout-home",
+      "passed": true
+    },
+    {
+      "name": "signin-and-demo-choices",
+      "passed": true
+    },
+    {
+      "name": "accessibility-signin",
+      "passed": true
+    },
+    {
+      "name": "layout-signin",
+      "passed": true
+    },
+    {
+      "name": "recruiter-demo-signin-same-origin-cookie",
+      "passed": true
+    },
+    {
+      "name": "accessibility-jobs",
+      "passed": true
+    },
+    {
+      "name": "layout-jobs",
+      "passed": true
+    },
+    {
+      "name": "kanban-six-stages-and-counts",
+      "passed": true
+    },
+    {
+      "name": "accessibility-kanban",
+      "passed": true
+    },
+    {
+      "name": "layout-kanban",
+      "passed": true
+    },
+    {
+      "name": "recruiter-add-candidate",
+      "passed": true
+    },
+    {
+      "name": "accessibility-candidate-profile",
+      "passed": true
+    },
+    {
+      "name": "layout-candidate-profile",
+      "passed": true
+    },
+    {
+      "name": "resume-upload-download-through-proxy",
+      "passed": true
+    },
+    {
+      "name": "candidate-notes-edit",
+      "passed": true
+    },
+    {
+      "name": "keyboard-only-board-move",
+      "passed": true
+    },
+    {
+      "name": "drag-and-drop-board-move",
+      "passed": true
+    },
+    {
+      "name": "schedule-interview-with-in-app-notification",
+      "passed": true
+    },
+    {
+      "name": "create-unassigned-test-candidate",
+      "passed": true
+    },
+    {
+      "name": "interviewer-demo-and-assigned-list",
+      "passed": true
+    },
+    {
+      "name": "accessibility-interviews",
+      "passed": true
+    },
+    {
+      "name": "layout-interviews",
+      "passed": true
+    },
+    {
+      "name": "interviewer-unassigned-profile-resume-denied",
+      "passed": true
+    },
+    {
+      "name": "interviewer-assigned-profile-and-notes",
+      "passed": true
+    },
+    {
+      "name": "scorecard-form-renders",
+      "passed": true
+    },
+    {
+      "name": "accessibility-scorecard-form",
+      "passed": true
+    },
+    {
+      "name": "layout-scorecard-form",
+      "passed": true
+    },
+    {
+      "name": "interviewer-submits-scorecard",
+      "passed": true
+    },
+    {
+      "name": "recruiter-review-feedback-and-record-offer",
+      "passed": true
+    },
+    {
+      "name": "stage-history-actor-timestamps-complete",
+      "passed": true
+    },
+    {
+      "name": "rejection-confirmation-and-required-reason",
+      "passed": true
+    },
+    {
+      "name": "notifications-panel-scorecard-and-stage",
+      "passed": true
+    },
+    {
+      "name": "accessibility-notifications",
+      "passed": true
+    },
+    {
+      "name": "layout-notifications",
+      "passed": true
+    },
+    {
+      "name": "candidate-list-filters-pagination",
+      "passed": true
+    },
+    {
+      "name": "accessibility-candidates",
+      "passed": true
+    },
+    {
+      "name": "layout-candidates",
+      "passed": true
+    },
+    {
+      "name": "reports-with-real-aggregates",
+      "passed": true
+    },
+    {
+      "name": "accessibility-reports-light",
+      "passed": true
+    },
+    {
+      "name": "layout-reports-light",
+      "passed": true
+    },
+    {
+      "name": "reports-csv-download",
+      "passed": true
+    },
+    {
+      "name": "dark-theme-persists",
+      "passed": true
+    },
+    {
+      "name": "accessibility-reports-dark",
+      "passed": true
+    },
+    {
+      "name": "layout-reports-dark",
+      "passed": true
+    },
+    {
+      "name": "admin-demo-signin-and-team",
+      "passed": true
+    },
+    {
+      "name": "accessibility-admin-members",
+      "passed": true
+    },
+    {
+      "name": "layout-admin-members",
+      "passed": true
+    },
+    {
+      "name": "admin-settings-save-and-restore",
+      "passed": true
+    },
+    {
+      "name": "accessibility-admin-scorecards",
+      "passed": true
+    },
+    {
+      "name": "layout-admin-scorecards",
+      "passed": true
+    },
+    {
+      "name": "accessibility-admin-stages",
+      "passed": true
+    },
+    {
+      "name": "layout-admin-stages",
+      "passed": true
+    },
+    {
+      "name": "accessibility-admin-reasons",
+      "passed": true
+    },
+    {
+      "name": "layout-admin-reasons",
+      "passed": true
+    },
+    {
+      "name": "admin-anonymizes-with-explicit-confirmation",
+      "passed": true
+    },
+    {
+      "name": "mobile-responsive-navigation-and-board",
+      "passed": true
+    },
+    {
+      "name": "accessibility-mobile-dark",
+      "passed": true
+    },
+    {
+      "name": "layout-mobile-dark",
+      "passed": true
+    },
+    {
+      "name": "accessibility-mobile-light",
+      "passed": true
+    },
+    {
+      "name": "layout-mobile-light",
+      "passed": true
+    },
+    {
+      "name": "accessibility-mobile-kanban",
+      "passed": true
+    },
+    {
+      "name": "layout-mobile-kanban",
+      "passed": true
+    },
+    {
+      "name": "admin-permanent-delete-cleans-test-candidates",
+      "passed": true
+    },
+    {
+      "name": "no-unexpected-browser-errors",
+      "passed": true
+    }
+  ],
+  "unexpectedBrowserErrors": [],
+  "testCandidates": [
+    {
+      "id": 41,
+      "label": "TEST Journey 11-27-59",
+      "cleaned": true
+    },
+    {
+      "id": 42,
+      "label": "TEST Unassigned 11-27-59",
+      "cleaned": true
+    }
+  ],
+  "live": true
+}

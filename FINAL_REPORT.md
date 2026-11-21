@@ -1,252 +1,243 @@
-# RecruitBoard — delivery and verification report
+# RecruitBoard — final delivery and verification report
 
-> **Latest status, 21 November 2026 at approximately 16:43 Asia/Kolkata:** Vercel alias **https://recruitboard-pi.vercel.app** is deployed from commit **691c5a5**, but the application is **not yet working**. DATABASE_URL is now present in Production. The tested entrypoint fix resolved the earlier missing-public-defaults guard; startup now explicitly rejects the saved **pooled Neon connection** because migrations require a direct connection. See [BUG-020](bugs/BUG-020-neon-pooled-url-startup-guard.md). The user must privately replace the existing value with the direct URL from Neon, pooling OFF. No secret value has been accessed. Latest local suites: **109 backend, 16 frontend unit, 66 Chrome, 8 Vercel config** checks passed; the full live suite remains unused. The older progress blocks below are retained history, not the latest blocker. The exported PDF is still the earlier handoff snapshot.
+**21 November 2026, Asia/Kolkata · Live verification completed at approximately 16:59.**
 
-> **Active-task update after the prior handoff:** the user explicitly approved switching the complete website/API to **Vercel Hobby**, retaining Neon. The approved account is divyapriyadharshini-git, workspace Divya (divya-6411). The first production upload of source commit **a86efa1** succeeded and was aliased to **https://recruitboard-pi.vercel.app**. However, **the backend returns HTTP 500 and the app is not yet functionally verified**: runtime logs show the production PostgreSQL/Secure-cookie guard, and two names-only checks found **DATABASE_URL absent from Production**. After the user approved a conditional corrective deployment, the second preflight still found the name absent, so no second deployment was made. See [BUG-018](bugs/BUG-018-vercel-production-database-config.md) and [VERCEL_DEPLOY.md](VERCEL_DEPLOY.md). The earlier Render handoff below remains historical evidence, not the new target. No secret value was read, printed, saved or pulled.
->
-> The Vercel-compatible source is pinned to Python **3.14** (locally verified on **3.14.6**, and selected by the actual cloud build) and uses same-origin Services routing, guarded cold-start initialization and SQL-backed shared rate limits. Current local checks: **105 backend + 16 frontend unit + 66 Chrome + 8 Vercel configuration = 195 passed**, with the build/typecheck and source-upload dry audit also successful. The local browser run cleaned both TEST candidates; the one full live suite remains unused. Additional preparation failures are preserved in BUG-016; the sequence-offset seeding defect was reproduced and fixed in BUG-017. Neither fix is claimed as the proven cause/resolution of the earlier Render deployment failure. The cloud build retained Node engine/bootstrap npm warnings but completed successfully. Remaining quota was not guaranteed by the usage CLI, although this first upload was accepted on Hobby; stop on any later quota/payment restriction. The previously exported PDF remains the prior handoff snapshot, not a claim that the Vercel app works.
+**Outcome: the complete RecruitBoard website and API are working on Vercel Hobby.** The database remains on the user's Neon Free project. The startup error shown by the user has been resolved without reading, downloading or changing the private database value.
 
-**Report date:** 21 November 2026, Asia/Kolkata. **Current status: local implementation verified and public GitHub main published; Neon creation reported by the user; the user's Render screenshot confirms deployment failed with exit status 1, with the root cause still under investigation. Netlify deployment is not verified.** The root Render Blueprint is published and locally validated. This report distinguishes observed failures, user-reported setup and independently verified results.
-
-**Final handoff outcome: local implementation delivered; live deployment blocked.** This is a final report of the work and evidence available at the user's request, not a production-success sign-off. No additional deployment or live test was triggered to prepare it.
-
-| Delivery link | Status |
+| Link | Verified status |
 |---|---|
-| Working RecruitBoard frontend/live-app URL | **Not available — Netlify has not been deployed** |
-| [Render backend](https://recruitboard-api.onrender.com) | **Deployment failed; health not verified. This is not a working frontend link.** |
-| [Public GitHub repository](https://github.com/DIVYAPRIYADHARSHINI-GIT/recruitboard) | Main published; latest verified pushed commit e8af870 |
-| [Ready-to-share deployment bug report](BUG_REPORT.md) | BUG-014, open, with actual screenshot evidence and unknown root cause clearly stated |
+| **[Open RecruitBoard](https://recruitboard-pi.vercel.app)** | Public live application; all three role journeys tested in real Chrome |
+| [GitHub repository](https://github.com/DIVYAPRIYADHARSHINI-GIT/recruitboard) | Public; deployed application source commit **556bbe8** |
+| [Deployment](https://recruitboard-pd5tkvoml-divya-6411.vercel.app) | Vercel reported Ready; canonical alias above was used for public tests |
+| [Health endpoint](https://recruitboard-pi.vercel.app/health) | HTTP 200, `{"status":"ok"}`, verified through a real database query |
+| [Historical Render bug report](BUG_REPORT.md) | Retained historical failure; Render is not used by the live application |
+
+Use **Sign in → Try demo recruiter / interviewer / admin**. This is a shared fictional demo: **do not enter real candidate information**. No email is sent.
 
 ## 1. Project overview
 
-RecruitBoard is an original hiring-pipeline product with its own geometric mark, calm teal visual identity and application code. It was created in the isolated `recruitboard` folder inside the existing workspace; no other project was edited. `ARCHITECTURE.md` was written before implementation and documents the repository, database, permissions, data flow and report definitions.
+RecruitBoard is an independently designed hiring-pipeline product with an original geometric logo, teal/paper visual identity and application code. It was built in the isolated recruitboard folder. No other local project was modified. ARCHITECTURE.md was written before implementation and extended before consequential hosting/security changes.
 
-The repository contains two separate projects: a static Vite/React/TypeScript frontend and a Python/FastAPI backend using SQLAlchemy and Alembic. PostgreSQL on Neon is the intended production database; SQLite was used for local development and tests. Python is pinned to 3.11.15 and Node to 22.22.0. Automatic, serialized startup migrations and an explicitly enabled, empty-database-only seed are implemented. The seed creates the fictional company Crescent Labs, six demo identities, five jobs and forty fictional candidates with 90-day histories, interviews, scorecards, rejections and offers.
+There are two separate projects in one repository. The frontend uses Vite, React and TypeScript and produces static assets. The backend uses Python, FastAPI, SQLAlchemy, Alembic and Argon2id. Local tests use isolated SQLite databases; the deployed application uses the existing Neon PostgreSQL database. Vercel Services routes the frontend and API through one domain, avoiding third-party cookies or a dependency on the failed Render service. The backend entrypoint applies only public configuration defaults before constructing the application; DATABASE_URL remains a dashboard secret.
 
-Completed locally: sign-in and three demo roles; jobs and job-specific kanban; native keyboard/touch Move to menus and drag-and-drop; required rejection reasons; candidate search, filters, sorting and pagination; profiles, notes, database-stored PDF resumes, timelines, interviews and scorecards; offers; notifications; hiring reports and injection-protected CSV; admin user/role/settings management and candidate anonymization/deletion. Server-side role and assignment rules protect reads as well as writes. Only the exact assigned interviewer can submit a scorecard; recruiters/admins cannot impersonate that person.
+Python is pinned to Vercel's supported **3.14 minor line**, verified locally on **3.14.6** and selected as 3.14 in the cloud build. Vercel controls the deployed patch release. The frontend declares Node 22.x and pins 22.22.0 locally; the cloud build logged Node/bootstrap npm engine warnings, although the static build succeeded. The exact Node patch used by every cloud build subprocess is not claimed verified.
 
-**Links and publication:** public repository [DIVYAPRIYADHARSHINI-GIT/recruitboard](https://github.com/DIVYAPRIYADHARSHINI-GIT/recruitboard), main initially published at `daac6e6`, with the validated Render Blueprint pushed at `e8af870`. Local preview is `http://127.0.0.1:4173` only while the local servers run. The user reported creating Neon project `recruitboard`, Free, AWS Asia Pacific 1 (Singapore), production branch, and retains its connection string privately. At 14:30 Asia/Kolkata the user supplied [the Render service URL](https://recruitboard-api.onrender.com); its health remains unverified after two explicitly approved, bounded requests timed out. No Netlify URL exists in the verified record. No hosting resource or database was created by the agent, no production database was connected locally, and no Vercel or payment details were used.
+Completed features include password and demo sign-in, jobs, per-job kanban with counts, drag-and-drop plus keyboard/touch Move to controls, rejection confirmation/reasons, candidate search/filter/sort/pagination, profiles, tags, notes, resume storage, stage/activity history, interviews, scorecards, offers, notifications, SQL hiring reports, protected CSV export, and admin user/role/settings/privacy actions. An interviewer can read only assigned candidates and can submit a scorecard only for their exact interview. Recruiters/admins cannot impersonate another interviewer. Server-side policies protect lists, counts, nested records and downloads, not just the interface.
 
-The same-origin `/api` proxy design was verified in local Chrome with the actual frontend and backend. Netlify's official documentation supports the external rewrite. Live Netlify cookie forwarding, PostgreSQL startup and cross-service behavior remain unverified until deployment. All private hosting values are reserved for the user to enter directly into dashboards.
+The seed contains six fictional users, five jobs and forty candidates for the fictional Crescent Labs company, with interviews, feedback, rejections, offers and stage histories over the previous 90 days. It is explicitly enabled and refuses existing users or business records. Actual database-generated IDs are used instead of assuming sequences start at 1.
+
+Resumes are stored in the database: **one PDF per candidate, at most 1 MB (1,048,576 bytes)**. Upload checks MIME, extension, signature/end marker and streamed size. Downloads use an attachment filename, nosniff and no-store. Every actual stage change records actor and timestamp; rejection requires an active reason. No email, analytics or external font/image requests are implemented.
+
+### Hosting change and permissions
+
+The original user request prohibited Vercel because of a reported usage limit. The user later explicitly replaced that instruction and approved the whole frontend/API deployment on **Divya (divya-6411), Hobby**, retaining Neon. Separate account/permission checkpoints were respected. Vercel CLI metadata confirmed Hobby and no reported block flag, but the billing-usage query could not guarantee remaining quota. The subsequent authorized uploads were accepted. No paid upgrade, payment details, new account to evade limits or unrelated project change was used.
+
+The old Render deployment and Netlify plan are retained as history. Render was not deleted or altered to hide its failure, and Netlify was not deployed. Git commits for application fixes used the documented [skip render] marker. The active application has no Render/Netlify runtime dependency. The private Neon address never needed to be copied onto this Mac.
+
+### Resolution of the final startup error
+
+After the user supplied the private database variable, the backend first lacked its expected public origin settings. A dedicated Vercel ASGI wrapper fixed configuration delivery. Startup then rejected a pooled Neon URL because the original migration design used a session-level advisory lock.
+
+The final correction supports both pooled and direct Neon connections safely. Initialization begins one explicit transaction, acquires `pg_advisory_xact_lock`, and runs Alembic and seeding on the same connection with no intermediate commit. The outer transaction commits once, or rolls back and releases the lock on failure. Timeouts are transaction-local; psycopg automatic prepared statements are disabled. PostgreSQL-only production, Secure cookies and exact-origin CSRF checks remain enforced. This is an architectural fix, not merely removal of a protective guard.
+
+Source commit **556bbe8** was deployed to Vercel. Public health returned 200 in **0.81 seconds**, and session bootstrap returned 200 with demo enabled. The one full live Chrome suite then passed. No private value was inspected or changed by the agent.
 
 ## 2. Testing and evidence
 
-### Latest completed suites
+### Latest suite results
 
-| Suite | Passed | Failed | What was actually checked |
+| Suite | Passed | Failed | Scope and qualification |
 |---|---:|---:|---|
-| Backend API, SQL and security | 95 | 0 | Role matrix, assignment scope and revocation, CSRF, session expiry/rotation and flags, real-password login, stages/history/concurrency, duplicate email, filters, PDF bounds/type/header checks, scorecards, notifications, offers, privacy actions, SQL aggregates, CSV injection, migration/model parity |
-| Frontend unit tests | 16 | 0 | Formatting, empty rates, file validation, same-origin credentials/CSRF and friendly API errors |
-| Real local Google Chrome journeys | 66 | 0 | Recruiter → interviewer → recruiter → admin journey, real key events for a move, drag-and-drop, uploads/downloads, offer acceptance, report CSV, permissions, theme persistence, mobile navigation, cleanup and console checks |
-| Deployment configuration | 8 | 0 | Reject unsafe proxy origins and produce API rewrite before SPA fallback; no network or hosting resource used |
-| Render Blueprint configuration | 9 | 0 | One Free Singapore service, main/backend, pinned Python, exact commands/port/worker/health, auto-deploy on, complete actual config variables, dashboard-only values and official Render JSON-schema validation |
-| TypeScript and production build | Passed | 0 | Strict TypeScript check and actual static production bundle |
-| Python dependency advisory scan | No known findings | 0 open | Installed local environment after patched versions were installed |
-| Complete npm dependency advisory scan | No known findings | 0 open | Runtime plus build/test dependencies after targeted upgrades |
-| Targeted public health requests | 0 successful | 3 unsuccessful | One earlier placeholder-hostname 404; two actual-service requests timed out. These are not a full live suite. |
-| Render deployment, from user screenshot | 0 successful shown | 1 failed shown | Exit status 1 on commit e8af870; no root cause available in Events summary |
-| Live hosting suite | Not run | Not run | Backend deployment failed and no Netlify frontend was deployed; the one-live-suite quota has not been used |
+| Backend on local Python 3.14 | **115** | **0** | API roles, assignment isolation, sessions/CSRF, strict inputs, workflows/history, duplicates, resumes, scorecards, notifications, privacy, reports/CSV, migrations, shared rate limits, seed offsets, entrypoint defaults and transaction/rollback contracts |
+| Frontend unit tests | **16** | **0** | Formatting, file validation, same-origin API credentials/CSRF and friendly errors |
+| Local real-Chrome journeys | **66** | **0** | Three roles, browser actions, uploads/downloads, keyboard/drag moves, themes/mobile, cleanup; performed before the final pooling-only change |
+| Current Vercel configuration checks | **8** | **0** | Two services, routes, entrypoint, bundle includes, versions, security headers, upload exclusions and schema constraints |
+| **Full live Chrome suite — run once only** | **66** | **0** | Final deployed application and PostgreSQL, all three roles, Secure/HttpOnly same-origin session behavior, full workflow, reports, mobile, accessibility and cleanup |
+| Earlier Netlify proxy configuration | 8 | 0 | Historical, superseded hosting path; not added to active totals |
+| Earlier Render Blueprint configuration | 9 | 0 | Historical configuration/schema validation; did not prove its deployment succeeded |
 
-The five counted functional/configuration suites contain **194 passing checks**; earlier-stage and repeated passes are not added again. The Blueprint task added nine offline checks, all passing in 0.58 seconds; the application/live suites were not rerun for a configuration-only change. The Chrome suite includes **18 axe WCAG A/AA audits**, each with zero violations, and matching layout checks. This is automated coverage, not a certification of all accessibility or all future data. Chrome reported version **157.0.8103.79**. Unexpected browser console/page errors were zero in the successful run.
+The four current local/configuration suites account for **205 passing checks**; the single live suite adds **66 successful live checks**. Repeated historical passes are not added again. Both the local and live Chrome journeys include **18 axe WCAG A/AA page/modal audits** with zero violations and matching layout checks. Those audits are included in the 66, not separate extra tests. Automated coverage is not a full accessibility certification.
 
-The health-request and user-observed deployment rows are separate external outcomes; they are not hidden by the 194 local passing checks. No successful production browser journey is claimed.
+Chrome version was **157.0.8103.79**. The live run lasted approximately **51 seconds**, recorded **zero unexpected console/page errors**, and used the public canonical origin without a Vercel authentication bypass token. It verified the actual Secure/HttpOnly/host-only session cookie, absence from document.cookie, sign-in persistence, assigned-only reads and full recruiter/interviewer/admin actions.
 
-The final patched frontend build passed with approximately 319.40 kB JavaScript (98.61 kB gzip) and 60.72 kB CSS (11.99 kB gzip). Backend tests retain two upstream deprecation warnings concerning Starlette's test-client compatibility with httpx/AnyIO. These warnings are not hidden and did not fail the tests.
+The production static build completed: about **319.40 kB JavaScript (98.61 kB gzip)** and **60.72 kB CSS (11.99 kB gzip)**. TypeScript/build checks passed. Two upstream Python test-client deprecation warnings remain. The earlier dependency audits were clean after targeted upgrades; because later Python compatibility pins changed, that earlier clean scan is not represented as a fresh audit of every final dependency. No load test was performed.
 
-### Historical failures and retries
+### Exact live evidence and cleanup
 
-The initial foundation run had one collection error. Its first retry had one passed test and nine fixture setup errors; the next run passed all ten foundation tests. The first business suite had 84 passes and one failure; after fixing transaction autoflush it passed all 85. Ten additional hardening tests brought the final backend total to 95, all passing.
+- [Live named-check output](evidence/20261121-165850-515288-vercel-full-live-chrome-once.txt)
+- [Live result JSON, browser version and cleanup records](evidence/2026-11-21T11-27-59-347Z-live-browser-results.json)
+- [Successful public database-health check](evidence/20261121-165718-110695-vercel-pool-fix-public-health.txt)
+- [Final backend regression result](evidence/20261121-165352-016212-pool-safe-startup-backend-regressions.txt)
+- [Final deployed build output](evidence/20261121-165641-194816-vercel-pool-compatible-fix-deploy.txt)
 
-Local Chrome attempts before the successful journey recorded **1 pass/1 failure**, **4 passes/1 failure**, **12 passes/1 failure**, and **34 passes/1 failure**, respectively. These were stopped at the first failing check rather than reporting later unexecuted checks as passes. All original diagnostic transcripts, axe JSON and failure screenshots are preserved in `bugs/`. Dependency audits also intentionally stopped publication until their reported findings were resolved. Detailed causes follow in section 3.
+The live suite created **candidate 41, TEST Journey 11-27-59**, and **candidate 42, TEST Unassigned 11-27-59**. **Both were permanently deleted** through the admin flow, with dependent records removed. The temporary scorecard-guidance change was restored. No persistent test user was created in production. Demo authentication sessions are transient and expire under the normal session policy. The built-in fictional company/users/candidates intentionally remain. Earlier local test candidates were also cleaned or existed only in isolated disposable SQLite fixtures.
 
-### Test-data cleanup
+The exclusive live-suite marker remains in evidence/live-suite-started.json. It was not removed or bypassed. This was the **only full live suite**. Earlier deployment checks were brief targeted health requests and bounded log queries.
 
-Browser-created records are visibly named **TEST Journey …** and **TEST Unassigned …**, with fictional `example.invalid` emails. The interrupted 34-pass run created two candidates and deleted both in its cleanup path. The successful 66-check run also created two and deleted both through admin privacy actions. The result JSON files list each created ID and `cleaned: true`. Backend tests use isolated ignored SQLite fixtures, not the demo database or production. No real personal data or production test data has been introduced. Built-in fictional demo identities and the forty seeded fictional candidates intentionally remain.
+### Historical failures were retained
 
-### Actual testing screenshots
+Foundation attempts recorded one collection error, then one pass/nine fixture errors before ten passes. The first business suite recorded 84 passes/one failure before correction. Earlier local browser attempts stopped at the first failure with 1/1, 4/1, 12/1 and 34/1 pass/fail totals. The sequence-offset seed regression deliberately reproduced one failure before its fix. Vercel schema validation initially recorded seven passes/one failure before dialect correction. Actual command/dependency/deployment failures and their retries remain under their original filenames in bugs/.
 
-All images below were captured by real installed Google Chrome against the local production build. They are not generated mockups. Some screenshots were taken before TEST cleanup, so their counts temporarily include the two clearly labelled test candidates.
+External checks also remain visible: one placeholder Render hostname returned 404; two actual Render health requests timed out (75.08 and 15.01 seconds); the user's Render Events capture showed exit status 1. Three earlier Vercel startup checks returned 500 for missing Production database configuration, missing public settings and pooled-connection incompatibility. The final startup correction returned 200 and the live suite passed. A successful build status alone was never treated as functional proof.
 
-![RecruitBoard home](screenshots/local-home.png)
-*Home: original product identity, editorial introduction and illustrative pipeline.*
+### Actual live screenshots
 
-![RecruitBoard sign-in](screenshots/local-signin.png)
-*Sign-in: password entry and three explicit demo-role choices, with the shared-demo warning.*
+All screenshots in this section were captured by real Chrome against **https://recruitboard-pi.vercel.app** during the single live run. They are not generated mockups. Some counts include the two TEST candidates because screenshots preceded cleanup.
 
-![Jobs workspace](screenshots/local-jobs.png)
-*Jobs: five fictional roles, current application counts, openings and status filters.*
+![Live home](screenshots/live-home.png)
+*Live home: RecruitBoard's original identity and introduction.*
 
-![Hiring kanban](screenshots/local-kanban.png)
-*Kanban: canonical stage columns with counts and a keyboard/touch Move to control on every card.*
+![Live sign-in](screenshots/live-signin.png)
+*Live sign-in: explicit demo-role options and fictional-data warning.*
 
-![Candidates list](screenshots/local-candidates.png)
-*Candidates: real server-backed listing, filters, sorting and pagination.*
+![Live jobs](screenshots/live-jobs.png)
+*Live jobs: five seeded roles, stage-independent position counts and job filters.*
 
-![Candidate profile](screenshots/local-candidate-profile.png)
-*Profile: a clearly labelled TEST candidate, shared notes, application stage and the one-PDF/1-MB notice.*
+![Live kanban](screenshots/live-kanban.png)
+*Live kanban: six stages, column counts and accessible Move to controls.*
 
-![Scorecard form](screenshots/local-scorecard-form.png)
-*Scorecard: assigned interviewer ratings, recommendation and evidence-based feedback fields.*
+![Live candidates list](screenshots/live-candidates.png)
+*Live candidates: server-backed search, combined filters, sorting and pagination.*
 
-![Interview list](screenshots/local-interviews.png)
-*Interviews: interviewer-scoped conversations, local time display and feedback status.*
+![Live candidate profile](screenshots/live-candidate-profile.png)
+*Live profile: clearly named TEST candidate, shared notes, application and resume limit.*
 
-![Reports in light theme](screenshots/local-reports-light.png)
-*Light reports: SQL-derived funnel, time to hire, sources, activity, positions, offers and rejection reasons.*
+![Live scorecard form](screenshots/live-scorecard-form.png)
+*Live scorecard form: only the assigned interviewer can submit ratings and written evidence.*
 
-![Reports in dark theme](screenshots/local-reports-dark.png)
-*Dark reports: separately themed surfaces and charts; theme survives reload.*
+![Live interview list](screenshots/live-interviews.png)
+*Live interviews: assigned candidates, interview time/mode and feedback state.*
 
-![Notifications panel](screenshots/local-notifications.png)
-*Notifications: in-app scorecard, assignment and stage updates, without emails.*
+![Live light reports](screenshots/live-reports-light.png)
+*Live light reports: PostgreSQL-derived funnel, hire time, sources, dwell, offers, rejections and activity.*
 
-![Admin members](screenshots/local-admin-members.png)
-*Administration: user identities, roles, active state and protected built-in demo accounts.*
+![Live dark reports](screenshots/live-reports-dark.png)
+*Live dark reports: theme persistence and accessible chart/text treatment.*
 
-![Admin stages](screenshots/local-admin-stages.png)
-*Administration: editable labels/order with stable reporting keys.*
+![Live notifications](screenshots/live-notifications.png)
+*Live notifications: stage and scorecard updates without email.*
 
-![Admin scorecard criteria](screenshots/local-admin-scorecards.png)
-*Administration: three required 1–5 criteria with editable guidance; the test restored its temporary guidance change.*
+![Live admin team](screenshots/live-admin-members.png)
+*Live admin: user roles, active state and protected demo identities.*
 
-![Admin rejection reasons](screenshots/local-admin-reasons.png)
-*Administration: active/deactivated reasons preserve historical references.*
+![Live admin stages](screenshots/live-admin-stages.png)
+*Live stage settings: editable presentation with stable reporting keys.*
 
-![Mobile light](screenshots/local-mobile-light.png)
-*390-pixel mobile light view: single-column jobs, compact navigation and no document overflow.*
+![Live admin criteria](screenshots/live-admin-scorecards.png)
+*Live scorecard criteria: the test's temporary guidance change was restored.*
 
-![Mobile dark](screenshots/local-mobile-dark.png)
-*390-pixel mobile dark view: theme and mobile navigation verified in the same browser.*
+![Live admin reasons](screenshots/live-admin-reasons.png)
+*Live rejection reasons: required reasons and active/inactive configuration.*
 
-![Mobile kanban](screenshots/local-mobile-kanban.png)
-*Mobile kanban: intentionally horizontally scrollable board inside a non-overflowing page, with touch-accessible Move to controls.*
+![Live mobile light](screenshots/live-mobile-light.png)
+*390-pixel light-theme mobile jobs view, no document overflow.*
+
+![Live mobile dark](screenshots/live-mobile-dark.png)
+*390-pixel dark-theme mobile view, navigation tested.*
+
+![Live mobile kanban](screenshots/live-mobile-kanban.png)
+*The board scrolls horizontally within the page; touch/keyboard Move to remains available.*
 
 ## 3. Bugs and issues
 
-### Documentation-search contradiction — resolved, live runtime still pending
+### Backend implementation failures — fixed
 
-The first Netlify research summary incorrectly claimed Node 22 was unsupported. A follow-up against the primary build-dependency documentation confirmed Node 22 static builds are supported. The conflicting result and source URLs are retained in [BUG-001](bugs/BUG-001-documentation-conflict.md). This was a research-tool answer problem, not an observed Netlify deployment error; no deployment had occurred.
+**Validator helper collision:** the initial schema helper named email was shadowed by its field, causing collection to fail. Renaming it normalize_email fixed the error. The [collection diagnostic](bugs/20261121-102728-390446-stage1-backend.txt) remains.
 
-### Pydantic validator name collision — fixed
+**Missing pytest scratch parent:** an explicit project-local scratch path had no parent, causing nine fixture errors. Creating the parent fixed the harness; the [failed retry](bugs/20261121-102758-707581-stage1-backend-retry1.txt) remains.
 
-The first backend test collection failed because a helper named `email` was shadowed by the schema field of the same name. Renaming it `normalize_email` fixed collection. The actual [failed-run transcript](bugs/20261121-102728-390446-stage1-backend.txt) remains. No screenshot applies to a Python collection error.
+**Duplicate scorecard autoflush:** a notification-recipient lookup flushed a duplicate scorecard before the conflict handler, causing an exception instead of 409. Request sessions now use explicit flush/commit boundaries. The [failed business run](bugs/20261121-103000-207733-stage2-backend.txt) is retained. It contained fictional TEST feedback in SQL parameters; later exceptions hide parameters and return/log only safe diagnostics. No real candidate or credential was involved.
 
-### Missing test scratch-directory parent — fixed
+**Seed ID assumptions, BUG-017:** hardcoded user/job/reason IDs failed when generated IDs did not begin at 1. A local offset-ID test reproduced the foreign-key failure. The seed now references inserted row IDs and refuses nonempty business data. [Original failure and fix](bugs/BUG-017-demo-seed-assumed-database-ids.md) remain. This was never falsely assigned as the proven cause of the old Render failure.
 
-The next run produced nine setup errors because the explicitly requested project-local pytest directory had no parent. Creating that parent fixed the harness. The [original diagnostic](bugs/20261121-102758-707581-stage1-backend-retry1.txt) is preserved. Tests never fell back to another project's directory.
+### Browser design/accessibility defects — fixed
 
-### Duplicate scorecard autoflush — fixed
-
-The duplicate-scorecard test exposed an ORM autoflush during recipient lookup, before the transaction conflict handler could return 409. Request sessions now use explicit transaction flush/commit boundaries, and the duplicate returns 409 without a second scorecard or notification. The [failed business suite](bugs/20261121-103000-207733-stage2-backend.txt) is retained. That diagnostic printed fictional TEST feedback as a SQL parameter; no real candidate or credential was involved. SQLAlchemy parameter hiding and sanitized exception handling were added to prevent such disclosure in subsequent failures.
-
-### Landing-page decorative avatar contrast — fixed
-
-The first Chrome accessibility audit found low contrast in the third small decorative avatar. Its text was darkened, and the home audit then passed. The original axe result and screenshot remain.
+The first home audit found low contrast in a small decorative avatar. Darkening its text fixed it. The next sign-in audit found muted text below contrast requirements on a tinted background; darkening the shared light-theme token fixed those nodes.
 
 ![Original home contrast failure](bugs/2026-11-21T05-07-02-032Z-local-accessibility-home.png)
-*Original failing home capture; the issue was the third tiny avatar's text, not the large hero heading.*
-
-### Sign-in muted-text contrast — fixed
-
-The next audit found insufficient contrast on the tinted sign-in panel. Darkening the shared light-theme muted token corrected those two text nodes and avoided repeating the problem on similar surfaces.
+*Original local failed capture; the affected element was the third decorative avatar.*
 
 ![Original sign-in contrast failure](bugs/2026-11-21T05-08-13-386Z-local-accessibility-signin.png)
-*Original failing sign-in capture; axe identified the aside paragraph and footer text.*
+*Original local failed capture; axe identified the aside paragraph and footer text.*
 
-### Form accessible-name/locator mismatch — fixed
+A candidate-form test could not match the exact Job accessible name because implicit label text included option content. Explicit concise labels corrected the control and journey.
 
-The browser found the candidate form, entered the name/email, then could not match the exact Job label because the implicit label included option text. Concise explicit accessible names were added to relevant compact controls, including Job, Source and Notes. The next journey successfully created candidates.
+![Original form locator failure](bugs/2026-11-21T05-09-09-284Z-local-recruiter-add-candidate.png)
+*Actual stopped local test before candidate submission.*
 
-![Original candidate-form test failure](bugs/2026-11-21T05-09-09-284Z-local-recruiter-add-candidate.png)
-*Actual stopped test: the form was rendered, but the exact accessible-name locator failed before submission.*
-
-### Vertically stacked search field — fixed
-
-Designer image review caught a layout problem the overflow check did not detect: the shared label rule made the search icon, input and hint stack vertically. Explicit row direction fixed search, sort and compact Move to labels. This shows why actual screenshot review was useful in addition to automated checks.
+Visual screenshot review caught a vertically stacked search field: the shared label rule had overridden flex direction. Explicit row layout corrected search, sort and Move to labels.
 
 ![Original search layout failure](bugs/BUG-010-search-control-layout.png)
-*Original jobs capture with an unnecessarily tall, vertically stacked search control.*
+*Original jobs capture with the incorrectly tall search field.*
 
-### Invalid ARIA on unread notification markers — fixed
+The notifications audit rejected aria-label on a generic unread span. An appropriate role fixed its semantics.
 
-The journey reached 34 passing checks before axe rejected `aria-label` on a generic span. The unread visual marker now has an appropriate image role and accessible name. All 18 final page/modal audits passed after this correction.
+![Original notifications accessibility failure](bugs/2026-11-21T05-13-58-438Z-local-accessibility-notifications.png)
+*Actual failed local notification audit; the defect was semantic, not visible layout.*
 
-![Original notification accessibility failure](bugs/2026-11-21T05-13-58-438Z-local-accessibility-notifications.png)
-*Original notification-panel capture; the semantic problem was identified by axe, not by a visible layout change.*
+### Deployment failures and their actual outcomes
 
-### Dependency findings and resolver retries — resolved at scan time
+**Historical Render failure, BUG-014:** the user's Events screenshot showed the first deployment exiting with status 1 after 1m 5s. Its actual traceback was never supplied, so its root cause remains unknown. This service is no longer in the active application path, and no fix or deletion of it is claimed. [Historical issue report](BUG_REPORT.md).
 
-The initial frontend runtime audit reported two high-severity router findings. The router was upgraded to 7.18.6, and the runtime audit became clean. The Python environment audit found sixteen advisories across five packages, including development tooling. Targeted upgrades included FastAPI 0.165.0, Starlette 1.6.0, Uvicorn 0.54.0, python-multipart 0.0.31, pytest 9.0.3, and local pip/setuptools. The first upgrade attempt failed because the initially chosen Starlette patch was below FastAPI's required version; the compatible pin resolved it, and all backend tests still passed.
+![Historical Render failure](bugs/BUG-014-render-deployment-failed-user-supplied-detail.png)
+*User-supplied screenshot, privacy-cropped locally. Not a fresh agent dashboard capture. The original failure record was preserved after the hosting change.*
 
-A later full npm audit also checked build/test dependencies, rather than only shipped runtime code. It found four affected dependency entries (one moderate, one high, two critical). Vite was patched to 7.3.8. The initially recommended Vitest 3.2.7 still left three transitive findings, so Node/Vite compatibility was checked and Vitest was updated to 5.1.1. The final complete npm scan reported zero vulnerabilities, and all sixteen unit tests plus the build passed. The failed audit/resolver transcripts are retained under their original filenames in `bugs/`; no `audit fix --force` was used.
+**Missing Vercel Production database variable, BUG-018:** the initial upload built successfully but returned 500. Redacted runtime logs identified the production PostgreSQL/Secure-cookie guard, and names-only metadata confirmed DATABASE_URL was absent. A conditional redeploy was stopped when a second preflight still found it absent. The user subsequently saved the secret correctly. No value was fetched, printed or stored. [Diagnostic history](bugs/BUG-018-vercel-production-database-config.md).
 
-### Audit invocation and package-output mistakes — corrected
+**Public-default delivery, BUG-019:** after the database variable existed, the backend still lacked the expected exact HTTPS origin. The top-level configuration declaration had not delivered the public defaults as intended in Services mode. A dedicated vercel_entry.py now applies only public defaults before importing app.main, preserving explicit overrides. Four new tests verified import order, overrides and startup. [Issue and fix](bugs/BUG-019-vercel-service-public-settings.md).
 
-An initial pip-audit command incorrectly used `--disable-pip` without requirements mode; the tool returned a usage error. Removing the incompatible flag fixed the invocation. A separate read-only package-version command used `head`, causing pip to emit BrokenPipeError when its output pipe closed early. [The labelled diagnostic](bugs/BUG-009-package-version-query-broken-pipe.md) preserves this mistake. These were builder command errors, not RecruitBoard or hosting failures.
+**Pooled Neon incompatibility, BUG-020 — resolved live:** startup then rejected the pooled URL because initialization used a session-level lock. The final design uses a transaction-level advisory lock spanning all migrations and seed work on one connection, with one commit/rollback, transaction-local timeout settings and compatible psycopg configuration. Six new regressions passed; the final cloud health and all live journeys then passed using the existing private connection setting. [Complete retained chronology](bugs/BUG-020-neon-pooled-url-startup-guard.md). The earlier direct-URL-only advice is superseded by this supported design; it was not hidden or silently rewritten as though no error occurred.
 
-### Hosting handoff and Blueprint verification diagnostics
+### Dependency, tool and builder errors — recorded, not hidden
 
-One approved health request to a user-supplied Render hostname returned HTTP 404. The user subsequently clarified that the hostname contained a placeholder; the actual service URL remained unknown at that point. The [original health diagnostic](bugs/20261121-113046-845408-render-health-initial.txt) is retained. This was not a failed PostgreSQL test or evidence that the actual Render service was unhealthy.
+- **Research contradictions:** an early search incorrectly said Netlify did not support Node 22. Primary build docs corrected it (BUG-001). A Blueprint summary mixed unofficial sources and oversimplified existing-service adoption; direct docs established a duplicate-resource risk (BUG-012). Primary sources, not broad search prose, drove the implementation.
+- **Dependency advisories:** initial router/runtime and Python dependency scans found issues. Targeted upgrades resolved the scanned versions. A broader npm scan later found build/test-tool issues; the first Vitest patch still left transitive findings, so a compatible newer version was verified. All original audit and resolver failures remain. No force-fix or paid dependency service was used.
+- **Command errors:** pip-audit initially used an incompatible flag, and a package-version query piped through head caused BrokenPipeError (BUG-009). Both were corrected; neither was an application failure.
+- **Connector unavailable, BUG-013:** Computer Use setup was incomplete, so direct dashboard access was never obtained. The user supplied the screenshot. No local credential/browser-profile workaround or internal API key request was made.
+- **Screenshot crop, BUG-015:** the first crop clipped part of the event label. Visual review caught it; a separate corrected crop was saved. The first derivative and provenance metadata remain unchanged.
+- **Vercel preparation, BUG-016:** billing cost data was unavailable (not proof of zero usage); a managed Python 3.12 download timed out; the public schema mixed draft syntax; a public-variable API call failed and its CLI fallback stalled; a conservative upload audit rejected zero-byte excluded-folder markers. Each was retained and addressed or explicitly limited. Python 3.14 was tested, schema constraints were validated with the correct keyword semantics, and the final upload excluded all private/runtime artifacts.
+- **Publication whitespace check:** a broad check rejected intentional Markdown hard breaks and raw diagnostic whitespace. It was narrowed to source/config files so failure transcripts were not altered. Secret/large-file auditing still passed.
+- **Managed edit conflict, BUG-021:** an incorrectly copied expected-version value caused the tool to reject an edit without changes. The source was reread and retried through the supported tool; no shell bypass or lost work occurred.
+- **Cloud build warnings:** Node engine/bootstrap npm and install-script advisories remain in the real build logs. They did not prevent the build or live run. Exact cloud subprocess patch versions are not invented.
 
-At 14:30 Asia/Kolkata the actual origin `https://recruitboard-api.onrender.com` was provided. Its `/health` check timed out after 75.08 seconds ([diagnostic](bugs/20261121-143128-449606-render-health-actual-service.txt)). After separate explicit user approval, exactly one short retry also timed out after 15.01 seconds ([diagnostic](bugs/20261121-143332-013042-render-health-approved-short-retry.txt)). No success status or response body was received. Further requests were stopped. The cause is undetermined pending redacted Render Events/startup logs; a database failure or ordinary cold start must not be inferred from these timeouts alone. These were targeted health checks, not a full live suite or load test. No secrets or account settings were accessed.
-
-The Blueprint update explicitly configures one Free Singapore Python service, main/backend, the pinned Python version, one Uvicorn worker on Render's port, /health and automatic deployment on. No Render database or unused SESSION_SECRET variable is added; DATABASE_URL and ALLOWED_ORIGINS are supplied through initial dashboard prompts. Broad Blueprint research included non-primary sources and an overly broad existing-service claim, so the primary documents were fetched directly. The initial schema-fetch check also made a local assertion mistake about Render's allOf-based schema; its failure and correction are preserved in [BUG-012](bugs/BUG-012-blueprint-research-verification.md). These are research/checking issues, not fabricated deployment failures.
-
-At approximately 14:42 Asia/Kolkata the user supplied a Render Events screenshot showing the actual recruitboard-api service on Free/Python 3, Blueprint managed, deploying commit e8af870 from main. The deployment failed after 1m 5s, with the visible message “Exited with status 1 while running your code. Check your deploy logs for more information.” This confirms a deployment failure, not an ordinary sleep-only explanation. Its exception/root cause is still unknown because the Events page does not contain the startup traceback. A minimal [labelled transcript is retained](bugs/BUG-014-render-deployment-exit-1.md), without copying unrelated account/workspace metadata from the screenshot. The user is being guided to the purple deploy logs link; no blind redeploy, environment change, further health call or upgrade has been performed.
-
-![Actual Render deployment failure evidence](bugs/BUG-014-render-deployment-failed-user-supplied-detail.png)
-*BUG-014: the actual user-supplied Render Events image, cropped locally to omit unrelated workspace/account navigation. It shows Failed, commit e8af870, the 1m 5s duration and the exit-status-1 event. It is not a new agent-captured live-dashboard screenshot. Root cause remains unknown.*
-
-For a concise issue submission, see [BUG_REPORT.md](BUG_REPORT.md). Classify this as an **open deployment/startup failure**; do not assign it to a Designer, Render or Neon defect without the actual exception.
-
-### Computer Use setup unavailable — access blocker, not an application crash
-
-When the user asked the agent to retrieve the Render URL itself, the Computer Use connector reported incomplete setup: Codex must be installed and Computer Use enabled in the ChatGPT desktop app before reconnecting. No browser/account access was obtained. The [actual diagnostic is retained in BUG-013](bugs/BUG-013-computer-use-connector-not-ready.md). A fresh direct dashboard capture was therefore unavailable; the deployment image above is explicitly sourced from the user's upload instead. No credentials or browser-profile workaround was used.
-
-### Screenshot crop review — corrected, first derivative retained
-
-The first privacy crop clipped the beginning of the failed-event label. Designer image review caught this before the report was finalized. A separate corrected detail crop now retains the complete status and event text. The original crop and its metadata remain unchanged, and [BUG-015](bugs/BUG-015-evidence-crop-review.md) records the correction. This was an evidence-preparation mistake, not another Render failure.
-
-### Open warnings and external blockers
-
-Two upstream Python test-client deprecation warnings remain. The local automated suites previously passed, but **BUG-014 is an open actual Render deployment failure**, awaiting its startup/error log. The real service's two public health requests timed out; the earlier placeholder-hostname 404 is a separate record. Live PostgreSQL compatibility and the full three-host deployment have not been independently verified. No deployment screenshot, root cause or successful live result has been invented.
+Original failure files remain in bugs/ even when fixed. There is no open blocker in the verified Vercel demo after the final live run. The historical Render root cause and the documented limitations below remain unresolved/unverified, rather than being presented as current Vercel failures.
 
 ## 4. Advantages of Designer observed in this build
 
-Designer allowed architecture, source, documentation and evidence to be maintained in one isolated folder. Version-checked edits made the affected paths explicit; no other project needed modification. Background shell tasks made dependency installation, backend tests and frontend work possible without blocking every step.
+Version-checked file operations made changes explicit and kept the work in one isolated project. Source, architecture, tests, screenshots, reports and immutable failure diagnostics could be maintained together. Background tasks let installation, builds and tests run while other local work proceeded.
 
-The image-view tool displayed the real browser screenshots for visual review. This helped catch the stacked search control even after automated layout checks passed. Shell-driven installed Chrome and axe could exercise actual cookies, keyboard input, drag-and-drop, downloads and all three server-backed roles rather than relying on static mockups.
+The image/PDF viewer enabled inspection of actual browser captures and the report, not just source. This exposed the stacked search field and an over-cropped failure screenshot that numeric layout checks did not catch. Installed Chrome and axe exercised genuine cookies, key events, drag-and-drop, downloads and live role journeys.
 
-The question tool provided separate, explicit permission checkpoints. Public hosting research and GitHub publication approval were recorded separately from unapproved database/hosting account access. Tool output and local evidence files made exact pass/fail counts and retained failure records available for this report.
+Permission questions provided explicit checkpoints for services and for later changes in the hosting plan. The workflow supported a secret-blind user handoff: the user entered the database value directly in hosting, while metadata-only checks and redacted logs provided enough evidence for diagnosis.
 
 ## 5. Disadvantages and limits of Designer observed in this build
 
-A web-search summary contradicted primary Netlify build documentation and needed follow-up. The tool's answer could not safely be treated as a verified runtime fact without checking the cited primary source. Some package-tool output was verbose and required careful reading; an attempt to truncate it with a pipe produced a real command error.
+Broad web-search summaries sometimes contradicted primary documents or included unwanted third-party sources. They needed verification, especially for rapidly changing hosting runtimes and configuration semantics. Local schema success also did not prove a cloud service would receive its expected runtime variables.
 
-Browser testing required writing and running a Playwright harness through the installed Chrome executable. The workflow did not automatically provide all journeys, screenshots or accessibility coverage; those had to be implemented and maintained. Native select/label matching and framework transaction behavior required real tests to diagnose.
+Browser journeys, redaction, cleanup, screenshots, PDF export and failure ledgers required custom scripts. There was no automatic complete web-testing/reporting workflow. Captured background-task output was often buffered until completion, making longer tasks less transparent between updates.
 
-No observed Designer capability granted automatic access to Neon, Render or Netlify accounts, nor could it authorize spending or handle secret dashboard values on the user's behalf. Those are deliberate permission boundaries, not reasons to request internal API keys or a developer build. The code and CSS defects described above were builder implementation mistakes; they are not presented as Designer application crashes.
-
-The attempted Computer Use connector was specifically unavailable because its setup was incomplete. This blocked direct retrieval of the dashboard URL/screenshot and required user-provided evidence. The Render exit-status-1 failure is not attributed to Designer without a traceback establishing that cause.
+Computer Use could not be enabled with the installed setup, blocking direct dashboard interaction. This is the actual observed connector limitation; no Designer crash is alleged. The backend/code/configuration mistakes and the Render failure are not assigned to Designer without evidence. Free-tier quota metadata was incomplete, and the tool could not turn a domain allocation or a Ready build status into proof of a working application.
 
 ## 6. Scope for future Designer improvements
 
-A first-class web-testing panel could integrate local servers, browser journeys, screenshots, console events and axe results into one permission-aware view. It would reduce the amount of custom harness code while preserving real evidence and exact counts.
+A first-class local/live web-testing view could connect server tasks, browser journeys, console events, screenshots and accessibility audits while preserving a strict one-live-suite budget. It could display real progress without encouraging repeated polling or tests.
 
-An automatic immutable failure ledger, with redaction before persistence, could link each failed command/test to its later fix without manual cross-referencing. Source-linked dependency audits and clearer primary-source provenance would help avoid obsolete package pins and conflicting hosting summaries.
+An immutable, automatically redacted failure ledger could connect each original diagnostic to its later fix and verification. Source-aware dependency/runtime checks and explicit primary-document provenance would reduce research mistakes. Secret-blind deployment controls could confirm variable presence/target and readiness without exposing values.
 
-Secret-blind deployment handoffs could show a user the exact dashboard fields to fill, confirm only readiness/status, and keep credentials entirely outside the agent transcript and local workspace. A free-tier quota preview before any deploy would further protect users from accidental usage.
+A free-tier quota preflight and an explicit deployment-budget counter would help users understand what is safe to run. Better screenshot crop previews and report layout checks could avoid manually discovering clipped evidence or unreadably scaled images. These are improvements suggested by this actual session, not claims about untested Designer capabilities.
 
-## 7. Unverified work and RecruitBoard limits
+## 7. Unverified work and known RecruitBoard limits
 
-The Render public URL has been supplied, but no successful health response has been verified; there is no verified Netlify frontend URL. Neon PostgreSQL, Render startup migrations/advisory locking, exact cloud runtime availability, Netlify Set-Cookie forwarding, actual production CORS/proxy behavior, production rate-limit client-IP handling and free-account remaining quotas remain unverified. Local SQLite and local proxy success are not represented as production verification. The one permitted full live suite has not run. The latest timeout diagnostics and this status update are local pending diagnosis, not a new deployment-triggering push.
+The public Vercel app, same-origin authentication, real database health, SQL reports and all three user journeys were verified. This does not establish an uptime SLA, disaster recovery, production backups, high-concurrency performance, legal/privacy compliance, manual screen-reader usability, every browser or every possible input. No load test was run. The single live suite will not be repeated without changing the user's explicit testing budget.
 
-Free Render services sleep after fifteen minutes of inactivity and may need about a minute to wake. Netlify's proxy timeout can expire before that wake completes, requiring a user retry. Neon also scales compute to zero. No load tests, continuous keep-alive pings, paid upgrade or SLA are part of this project. Current official free-plan research and exact deployment steps are in `DEPLOY.md` and `evidence/HOSTING_RESEARCH.md`.
+Vercel Hobby and Neon Free quotas are shared and finite. The usage CLI could not guarantee remaining allowance. Builds were accepted on Hobby without payment, but future requests/deployments can be limited. Vercel's runtime may cold-start and Neon may scale to zero. The previous Render sleep behavior is historical, not part of the active website. The old Render resource was not deleted or upgraded, and its root cause remains unknown.
 
-RecruitBoard uses single-worker, in-memory rate counters that reset on restart, not a distributed anti-abuse service. It has no MFA, SSO, password-reset emails, background email jobs or malware scanner. PDF MIME/extension/signature checks do not prove a document is harmless. Passwords are Argon2id-hashed; field-level candidate encryption and compliance certification are not claimed. The shared demo intentionally lets strangers act as demo admins, so it must never hold real candidate data.
+The demo intentionally allows visitors to try an admin account. It must never hold real candidates, private resumes or reused real passwords. There is no MFA, SSO, reset-email workflow, antivirus/CDR or field-level candidate encryption claim. PDF MIME/extension/signature limits do not establish that a document is harmless. Written feedback is plain text.
 
-The board caps rendered cards at 500 while retaining real column counts; the paginated candidate list remains the way to find all records. Activity timelines show the latest 200 generic events, notifications the latest 100, and user administration up to 500 accounts. Interview filters apply to the current 30-item page. Six stable stages and three required criteria can be relabelled/configured, not arbitrarily added or removed. Openings can be overfilled; the system reports that state rather than silently changing the hiring history.
+Shared SQL fixed-window rate limits persist across instances/restarts, but they are not a complete abuse-prevention platform. Window-boundary bursts and proxy/client-IP behavior beyond the tested journeys remain limits. Expired bucket cleanup adds database work. Future nontransactional/autocommit migrations would violate the current pooled-lock contract and require a separate design; they must not be added casually.
 
-Reports have documented cohort/event/snapshot distinctions. Source counts are application counts, open intervals are excluded from dwell averages, and skipped/reopened stages may give non-monotonic conversions. No business or legal conclusion should be inferred from the fictional seed data. Production backups, disaster recovery, long-running concurrency and assistive-technology manual testing remain unverified.
+The board renders at most 500 cards with full counts; use the paginated list for larger jobs. Candidate timelines show the latest 200 generic events, notifications the latest 100 and user administration up to 500 accounts. Interview filters apply to the current 30-row page. The six canonical stages and three criteria can be relabelled/configured, not arbitrarily added or deleted. Job openings can be overfilled; that state is reported rather than silently altering history.
 
-**Summary:** the local product, architecture, documentation, 194 passing local/configuration checks, actual screenshots and retained failure evidence have been delivered. Code and the Blueprint are published on GitHub. The Render deployment is blocked by BUG-014, its cause is not yet known, and the Netlify frontend/full live suite remain incomplete. The latest final report and bug evidence are delivered locally without a reporting-only push that could trigger another failed auto-deploy. No working live application link or production success is claimed.
+Reports distinguish application-created cohorts from event-date aggregates and current snapshots. Sources count applications, dwell excludes open intervals, and skipped/reopened stages may make conversions non-monotonic. These definitions are shown in the UI/export. Fictional data is not evidence for a real hiring decision.
+
+**Final summary:** the displayed startup error is resolved; **https://recruitboard-pi.vercel.app** is the verified complete website. The final backend suite passed 115 checks, and the single live Chrome suite passed 66/66 with clean accessibility audits and both TEST candidates deleted. All failure evidence remains. No production secret was fetched, printed, committed or copied locally, and no paid plan was used.

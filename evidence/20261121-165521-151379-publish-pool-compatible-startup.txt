@@ -1,0 +1,21 @@
+LOCAL CHECK: publish-pool-compatible-startup
+Asia/Kolkata: 20261121-165521-151379
+Exit code: 0
+
+Staged audit passed: 16 files, 127,378 bytes; no environment/private runtime artifacts, file over 5 MB or recognized credential pattern.
+This heuristic supplements manual review; it is not a guarantee that every possible secret is detectable.
+[main 556bbe8] [skip render] Support Neon pooled connections with atomic startup migrations
+ 16 files changed, 449 insertions(+), 21 deletions(-)
+ create mode 100644 backend/tests/test_pool_compatibility.py
+ create mode 100644 bugs/20261121-164225-628735-vercel-entrypoint-fix-live-smoke.txt
+ create mode 100644 bugs/20261121-164301-vercel-wrapper-runtime-redacted.txt
+ create mode 100644 bugs/BUG-020-neon-pooled-url-startup-guard.md
+ create mode 100644 bugs/BUG-021-pooled-migration-edit-conflict.md
+ create mode 100644 evidence/20261121-164014-233363-publish-vercel-entrypoint-fix.txt
+ create mode 100644 evidence/20261121-164145-226990-vercel-approved-public-settings-fix-deploy.txt
+ create mode 100644 evidence/20261121-164301-564947-vercel-wrapper-runtime-diagnostic.txt
+ create mode 100644 evidence/20261121-165109-484706-neon-pool-safe-locking-primary-docs.txt
+ create mode 100644 evidence/20261121-165352-016212-pool-safe-startup-backend-regressions.txt
+To https://github.com/DIVYAPRIYADHARSHINI-GIT/recruitboard.git
+   691c5a5..556bbe8  main -> main
+556bbe883449e6c488db184b780c713c910b387d

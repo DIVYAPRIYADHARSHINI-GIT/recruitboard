@@ -27,3 +27,7 @@ Status: OPEN — awaiting private configuration correction and approval for a si
 ## Follow-up preflight — approximately 16:17 Asia/Kolkata
 
 The user confirmed saving and explicitly approved a corrective deployment only after the name/target check passes. The new Production names-only lookup still reported `DATABASE_URL listed in Production: False`. It stopped the workflow before redeployment; **no corrective build/upload was made**. The original diagnostic is `bugs/20261121-161717-637061-vercel-database-name-preflight.txt`. CLI help confirms the non-JSON list command lists all project environment variables; the value-exposing --json option was not used. No conclusion is drawn about variables in a different project or environment.
+
+## Resolution verified
+
+The user subsequently saved the variable and started a deployment. At approximately 16:27, names-only Production metadata confirmed DATABASE_URL present. Later public-origin and pooled-locking issues were tracked separately as BUG-019/020. After those code fixes, commit 556bbe8 returned real database health HTTP 200 and the only full live Chrome suite passed 66/66. The missing-variable issue is **resolved**; no secret value was retrieved. All earlier failed checks remain unchanged.

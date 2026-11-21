@@ -7,11 +7,11 @@ The user explicitly approved this change on 21 November 2026. The previous Rende
 - CLI identity: `divyapriyadharshini-git`.
 - Approved workspace: **Divya**, slug **divya-6411**, plan **Hobby**.
 - Created project: **recruitboard**.
-- Public alias: **https://recruitboard-pi.vercel.app**. Latest deployment from 691c5a5 reached Ready, but the backend currently returns HTTP 500 because the saved Neon URL is pooled and the startup migration guard requires a direct connection. It is **not yet a working verified app**.
+- Public alias: **https://recruitboard-pi.vercel.app** — **working and verified** after application commit **556bbe8**. Deployment pd5tkvoml reached Ready; public health returned HTTP 200 in 0.81 seconds and the single full live Chrome suite passed **66/66** with zero unexpected browser errors and both TEST candidates deleted.
 - No account block flag was reported. The CLI billing-usage query could not provide remaining quota, so availability is not guaranteed. Stop if the production deployment is refused by a Free-plan limit.
-- DATABASE_URL is present in Production, confirmed by names-only metadata. After the prior public-settings fix exposed the pooled-connection guard, a new tested correction now supports **both pooled and direct Neon TLS URLs** by keeping the migration lock and initialization in one explicit transaction. **Do not change the existing private value for this correction.** Its cloud verification is pending deployment. No production database address is present locally, and no environment/secret pull command is permitted.
+- DATABASE_URL is present in Production, confirmed by names-only metadata. The corrected code supports **both pooled and direct Neon TLS URLs** by keeping migration locking and initialization in one explicit transaction. This has now passed cloud health and all live role journeys with the existing private setting. **Do not change the working secret unnecessarily.** No production database address is present locally, and no environment/secret pull command is permitted.
 
-## One private dashboard step for the user
+## Private dashboard setup for a new installation (already completed here)
 
 1. Open **https://vercel.com/divya-6411/recruitboard/settings/environment-variables**. Confirm the workspace/project names above.
 2. Find the existing **DATABASE_URL** row, open its **⋯** menu, and choose **Edit**. Do not create a duplicate variable.
@@ -53,7 +53,7 @@ From the isolated recruitboard repository, use the existing authenticated CLI; n
 vercel deploy --prod --project recruitboard --scope divya-6411 --yes --archive=tgz
 ```
 
-This is the one initially authorized production attempt. Do not use Pro/trial, `--turbo`, temporary deployments as a quota bypass, `vercel pull`, `vercel env pull`, or `vercel build` that downloads a cloud environment. Stop on a quota or billing restriction rather than changing accounts/plans. Only the project created above may be changed.
+Deployment is already complete; **do not rerun this command just to view the site**. Future redeployments require an intentional change and applicable user approval. Do not use Pro/trial, `--turbo`, temporary deployments as a quota bypass, `vercel pull`, `vercel env pull`, or `vercel build` that downloads a cloud environment. Stop on a quota or billing restriction rather than changing accounts/plans. Only the project above may be changed.
 
 Before upload, `python tools/vercel_upload_audit.py` uses **--dry** to inspect selected filenames without deploying. .vercelignore excludes every .env*, CLI state, venv, node_modules, caches, browser profiles, local DBs, tests, reports and screenshots. If a CLI unexpectedly creates a credential file, do not open it; confirm it is ignored, remove it without reading, and tell the user.
 
@@ -63,7 +63,7 @@ No Vercel Git integration or automatic deployment connection is required for thi
 
 Only after deployment is Ready, make a short same-origin health/sign-in check. The expected /health response is HTTP 200 with `{"status":"ok"}`, from an actual PostgreSQL query. It must not be inferred from domain allocation or a static homepage.
 
-Run the full live Chrome suite **once** at the canonical production domain after readiness. The script refuses another full live run through its exclusive marker. It discovers real IDs, labels TEST candidates, and cleans them via admin privacy actions. Preserve any failure and use only short targeted follow-up checks if approved; never delete the marker to rerun a full suite. No load tests or keep-alive loops.
+The full live Chrome suite has now run **once** at the canonical production domain: **66 passed, 0 failed**, including 18 clean accessibility audits. The exclusive evidence/live-suite-started.json marker remains. TEST candidates 41 and 42 were permanently deleted and the temporary criterion-guidance change restored. **Do not repeat the full live suite or delete its marker.** Any further approved checks must be brief and targeted. No load tests or keep-alive loops.
 
 Official docs checked directly on 21 November 2026:
 - https://vercel.com/docs/services
@@ -77,4 +77,4 @@ Official docs checked directly on 21 November 2026:
 
 Current documented Free inclusions include first 100 GB Fast Data Transfer, first 10 GB Fast Origin Transfer, first 1,000,000 function invocations and first 1,000,000 service requests; account usage is shared across projects. Hobby supports 200 projects, 2 GB/1 vCPU functions and a maximum 300-second duration. Standard Python bundle limit is 500 MB; default request and nonstreamed response bodies are capped at 4.5 MB. RecruitBoard caps PDFs at 1 MB and does not enable paid large-body/performance features. When Hobby limits are exceeded, the docs generally require waiting for the applicable reset period (often 30 days). Do not infer remaining allowance from a zero price or absent block flag.
 
-Remaining unverified items include actual Vercel cloud build/runtime, production PostgreSQL startup, same-origin routing/cookies in the deployed service, runtime client-IP semantics and remaining account quota. The earlier Render failure is not claimed fixed merely because hosting is changing.
+Vercel cloud build, actual PostgreSQL startup/health, public same-origin routing/cookies and all three role journeys are now verified by the single live suite. Remaining unverified items include high-concurrency behavior, client-IP semantics outside these journeys, long-term availability/backup recovery, exact patch versions of every cloud build subprocess and remaining account quota. The earlier Render root cause remains unknown and is not claimed fixed; that service is not used by the working Vercel application.

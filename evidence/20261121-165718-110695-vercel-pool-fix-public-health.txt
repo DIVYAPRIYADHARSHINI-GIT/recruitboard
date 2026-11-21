@@ -1,0 +1,9 @@
+LOCAL CHECK: vercel-pool-fix-public-health
+Asia/Kolkata: 20261121-165718-110695
+Exit code: 0
+
+Public health HTTP: 200 elapsed: 0.81 seconds
+Verified response: {"status":"ok"}
+Session bootstrap HTTP: 200
+Demo enabled: True
+Short public readiness smoke passed; no authenticated session or candidate records created, no secret values printed.
