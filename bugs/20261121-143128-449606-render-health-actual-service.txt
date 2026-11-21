@@ -1,0 +1,7 @@
+LOCAL CHECK: render-health-actual-service
+Asia/Kolkata: 20261121-143128-449606
+Exit code: 1
+
+Approved single public health check: https://recruitboard-api.onrender.com/health
+Health check did not complete: ReadTimeout
+Elapsed seconds: 75.08

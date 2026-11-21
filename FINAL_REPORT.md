@@ -1,6 +1,19 @@
 # RecruitBoard — delivery and verification report
 
-**Report date:** 21 November 2026, Asia/Kolkata. **Current status: local implementation verified and public GitHub main published; Neon creation reported by the user; actual Render/Netlify deployment remains unverified.** A root Render Blueprint is prepared and locally validated for the user's dashboard deployment. This report distinguishes user-reported setup from independently verified results.
+> **Active-task update after the prior handoff:** the user explicitly approved switching the complete website/API to **Vercel Hobby**, retaining Neon. The approved account is divyapriyadharshini-git, workspace Divya (divya-6411). Project recruitboard has been created and assigned **recruitboard-pi.vercel.app**, but **no Vercel production deployment has been made or verified yet**. It awaits the user's private Production DATABASE_URL entry. See [VERCEL_DEPLOY.md](VERCEL_DEPLOY.md). The earlier Render handoff and failures below are preserved historical evidence, not the new hosting target.
+>
+> The Vercel-compatible source is pinned to Python **3.14** (locally verified on **3.14.6**) and uses same-origin Services routing, guarded cold-start initialization and SQL-backed shared rate limits. Current local checks: **105 backend + 16 frontend unit + 66 Chrome + 8 Vercel configuration = 195 passed**, with the build/typecheck and source-upload dry audit also successful. The local browser run cleaned both TEST candidates; the one full live suite remains unused. Additional preparation failures are preserved in BUG-016; the sequence-offset seeding defect was reproduced and fixed in BUG-017. Neither fix is claimed as the proven cause/resolution of the earlier Render deployment failure. Remaining Vercel quota could not be guaranteed by the CLI, so a quota/payment refusal must stop the authorized first production attempt. The previously exported PDF is the prior handoff snapshot and will be refreshed after the new deployment outcome is known.
+
+**Report date:** 21 November 2026, Asia/Kolkata. **Current status: local implementation verified and public GitHub main published; Neon creation reported by the user; the user's Render screenshot confirms deployment failed with exit status 1, with the root cause still under investigation. Netlify deployment is not verified.** The root Render Blueprint is published and locally validated. This report distinguishes observed failures, user-reported setup and independently verified results.
+
+**Final handoff outcome: local implementation delivered; live deployment blocked.** This is a final report of the work and evidence available at the user's request, not a production-success sign-off. No additional deployment or live test was triggered to prepare it.
+
+| Delivery link | Status |
+|---|---|
+| Working RecruitBoard frontend/live-app URL | **Not available — Netlify has not been deployed** |
+| [Render backend](https://recruitboard-api.onrender.com) | **Deployment failed; health not verified. This is not a working frontend link.** |
+| [Public GitHub repository](https://github.com/DIVYAPRIYADHARSHINI-GIT/recruitboard) | Main published; latest verified pushed commit e8af870 |
+| [Ready-to-share deployment bug report](BUG_REPORT.md) | BUG-014, open, with actual screenshot evidence and unknown root cause clearly stated |
 
 ## 1. Project overview
 
@@ -10,7 +23,7 @@ The repository contains two separate projects: a static Vite/React/TypeScript fr
 
 Completed locally: sign-in and three demo roles; jobs and job-specific kanban; native keyboard/touch Move to menus and drag-and-drop; required rejection reasons; candidate search, filters, sorting and pagination; profiles, notes, database-stored PDF resumes, timelines, interviews and scorecards; offers; notifications; hiring reports and injection-protected CSV; admin user/role/settings management and candidate anonymization/deletion. Server-side role and assignment rules protect reads as well as writes. Only the exact assigned interviewer can submit a scorecard; recruiters/admins cannot impersonate that person.
 
-**Links and publication:** public repository [DIVYAPRIYADHARSHINI-GIT/recruitboard](https://github.com/DIVYAPRIYADHARSHINI-GIT/recruitboard), main initially published at `daac6e6`. Remote existence, public visibility and the pushed main commit were rechecked before the Blueprint update. Local preview is `http://127.0.0.1:4173` while the local servers run. The user reported creating Neon project `recruitboard`, Free, AWS Asia Pacific 1 (Singapore), production branch, and retains its connection string privately. There is still no confirmed real public frontend/backend URL. No hosting resource or database was created by the agent, no production database was connected locally, and no Vercel or payment details were used.
+**Links and publication:** public repository [DIVYAPRIYADHARSHINI-GIT/recruitboard](https://github.com/DIVYAPRIYADHARSHINI-GIT/recruitboard), main initially published at `daac6e6`, with the validated Render Blueprint pushed at `e8af870`. Local preview is `http://127.0.0.1:4173` only while the local servers run. The user reported creating Neon project `recruitboard`, Free, AWS Asia Pacific 1 (Singapore), production branch, and retains its connection string privately. At 14:30 Asia/Kolkata the user supplied [the Render service URL](https://recruitboard-api.onrender.com); its health remains unverified after two explicitly approved, bounded requests timed out. No Netlify URL exists in the verified record. No hosting resource or database was created by the agent, no production database was connected locally, and no Vercel or payment details were used.
 
 The same-origin `/api` proxy design was verified in local Chrome with the actual frontend and backend. Netlify's official documentation supports the external rewrite. Live Netlify cookie forwarding, PostgreSQL startup and cross-service behavior remain unverified until deployment. All private hosting values are reserved for the user to enter directly into dashboards.
 
@@ -28,9 +41,13 @@ The same-origin `/api` proxy design was verified in local Chrome with the actual
 | TypeScript and production build | Passed | 0 | Strict TypeScript check and actual static production bundle |
 | Python dependency advisory scan | No known findings | 0 open | Installed local environment after patched versions were installed |
 | Complete npm dependency advisory scan | No known findings | 0 open | Runtime plus build/test dependencies after targeted upgrades |
-| Live hosting suite | Not run | Not run | The real service URL is not verified; the one-live-suite quota has not been used |
+| Targeted public health requests | 0 successful | 3 unsuccessful | One earlier placeholder-hostname 404; two actual-service requests timed out. These are not a full live suite. |
+| Render deployment, from user screenshot | 0 successful shown | 1 failed shown | Exit status 1 on commit e8af870; no root cause available in Events summary |
+| Live hosting suite | Not run | Not run | Backend deployment failed and no Netlify frontend was deployed; the one-live-suite quota has not been used |
 
 The five counted functional/configuration suites contain **194 passing checks**; earlier-stage and repeated passes are not added again. The Blueprint task added nine offline checks, all passing in 0.58 seconds; the application/live suites were not rerun for a configuration-only change. The Chrome suite includes **18 axe WCAG A/AA audits**, each with zero violations, and matching layout checks. This is automated coverage, not a certification of all accessibility or all future data. Chrome reported version **157.0.8103.79**. Unexpected browser console/page errors were zero in the successful run.
+
+The health-request and user-observed deployment rows are separate external outcomes; they are not hidden by the 194 local passing checks. No successful production browser journey is claimed.
 
 The final patched frontend build passed with approximately 319.40 kB JavaScript (98.61 kB gzip) and 60.72 kB CSS (11.99 kB gzip). Backend tests retain two upstream deprecation warnings concerning Starlette's test-client compatibility with httpx/AnyIO. These warnings are not hidden and did not fail the tests.
 
@@ -167,13 +184,30 @@ An initial pip-audit command incorrectly used `--disable-pip` without requiremen
 
 ### Hosting handoff and Blueprint verification diagnostics
 
-One approved health request to a user-supplied Render hostname returned HTTP 404. The user subsequently clarified that the hostname contained a placeholder; the actual service URL remains unknown. The [original health diagnostic](bugs/20261121-113046-845408-render-health-initial.txt) is retained. This is not a failed PostgreSQL test or evidence that the actual Render service is unhealthy.
+One approved health request to a user-supplied Render hostname returned HTTP 404. The user subsequently clarified that the hostname contained a placeholder; the actual service URL remained unknown at that point. The [original health diagnostic](bugs/20261121-113046-845408-render-health-initial.txt) is retained. This was not a failed PostgreSQL test or evidence that the actual Render service was unhealthy.
+
+At 14:30 Asia/Kolkata the actual origin `https://recruitboard-api.onrender.com` was provided. Its `/health` check timed out after 75.08 seconds ([diagnostic](bugs/20261121-143128-449606-render-health-actual-service.txt)). After separate explicit user approval, exactly one short retry also timed out after 15.01 seconds ([diagnostic](bugs/20261121-143332-013042-render-health-approved-short-retry.txt)). No success status or response body was received. Further requests were stopped. The cause is undetermined pending redacted Render Events/startup logs; a database failure or ordinary cold start must not be inferred from these timeouts alone. These were targeted health checks, not a full live suite or load test. No secrets or account settings were accessed.
 
 The Blueprint update explicitly configures one Free Singapore Python service, main/backend, the pinned Python version, one Uvicorn worker on Render's port, /health and automatic deployment on. No Render database or unused SESSION_SECRET variable is added; DATABASE_URL and ALLOWED_ORIGINS are supplied through initial dashboard prompts. Broad Blueprint research included non-primary sources and an overly broad existing-service claim, so the primary documents were fetched directly. The initial schema-fetch check also made a local assertion mistake about Render's allOf-based schema; its failure and correction are preserved in [BUG-012](bugs/BUG-012-blueprint-research-verification.md). These are research/checking issues, not fabricated deployment failures.
 
+At approximately 14:42 Asia/Kolkata the user supplied a Render Events screenshot showing the actual recruitboard-api service on Free/Python 3, Blueprint managed, deploying commit e8af870 from main. The deployment failed after 1m 5s, with the visible message “Exited with status 1 while running your code. Check your deploy logs for more information.” This confirms a deployment failure, not an ordinary sleep-only explanation. Its exception/root cause is still unknown because the Events page does not contain the startup traceback. A minimal [labelled transcript is retained](bugs/BUG-014-render-deployment-exit-1.md), without copying unrelated account/workspace metadata from the screenshot. The user is being guided to the purple deploy logs link; no blind redeploy, environment change, further health call or upgrade has been performed.
+
+![Actual Render deployment failure evidence](bugs/BUG-014-render-deployment-failed-user-supplied-detail.png)
+*BUG-014: the actual user-supplied Render Events image, cropped locally to omit unrelated workspace/account navigation. It shows Failed, commit e8af870, the 1m 5s duration and the exit-status-1 event. It is not a new agent-captured live-dashboard screenshot. Root cause remains unknown.*
+
+For a concise issue submission, see [BUG_REPORT.md](BUG_REPORT.md). Classify this as an **open deployment/startup failure**; do not assign it to a Designer, Render or Neon defect without the actual exception.
+
+### Computer Use setup unavailable — access blocker, not an application crash
+
+When the user asked the agent to retrieve the Render URL itself, the Computer Use connector reported incomplete setup: Codex must be installed and Computer Use enabled in the ChatGPT desktop app before reconnecting. No browser/account access was obtained. The [actual diagnostic is retained in BUG-013](bugs/BUG-013-computer-use-connector-not-ready.md). A fresh direct dashboard capture was therefore unavailable; the deployment image above is explicitly sourced from the user's upload instead. No credentials or browser-profile workaround was used.
+
+### Screenshot crop review — corrected, first derivative retained
+
+The first privacy crop clipped the beginning of the failed-event label. Designer image review caught this before the report was finalized. A separate corrected detail crop now retains the complete status and event text. The original crop and its metadata remain unchanged, and [BUG-015](bugs/BUG-015-evidence-crop-review.md) records the correction. This was an evidence-preparation mistake, not another Render failure.
+
 ### Open warnings and external blockers
 
-Two upstream Python test-client deprecation warnings remain. No application test failure is currently open. Live PostgreSQL compatibility and the three-host deployment have not been independently verified. No deployment screenshot was fabricated; the only external health diagnostic concerns the hostname later identified as a placeholder.
+Two upstream Python test-client deprecation warnings remain. The local automated suites previously passed, but **BUG-014 is an open actual Render deployment failure**, awaiting its startup/error log. The real service's two public health requests timed out; the earlier placeholder-hostname 404 is a separate record. Live PostgreSQL compatibility and the full three-host deployment have not been independently verified. No deployment screenshot, root cause or successful live result has been invented.
 
 ## 4. Advantages of Designer observed in this build
 
@@ -191,6 +225,8 @@ Browser testing required writing and running a Playwright harness through the in
 
 No observed Designer capability granted automatic access to Neon, Render or Netlify accounts, nor could it authorize spending or handle secret dashboard values on the user's behalf. Those are deliberate permission boundaries, not reasons to request internal API keys or a developer build. The code and CSS defects described above were builder implementation mistakes; they are not presented as Designer application crashes.
 
+The attempted Computer Use connector was specifically unavailable because its setup was incomplete. This blocked direct retrieval of the dashboard URL/screenshot and required user-provided evidence. The Render exit-status-1 failure is not attributed to Designer without a traceback establishing that cause.
+
 ## 6. Scope for future Designer improvements
 
 A first-class web-testing panel could integrate local servers, browser journeys, screenshots, console events and axe results into one permission-aware view. It would reduce the amount of custom harness code while preserving real evidence and exact counts.
@@ -201,7 +237,7 @@ Secret-blind deployment handoffs could show a user the exact dashboard fields to
 
 ## 7. Unverified work and RecruitBoard limits
 
-There are no confirmed live URLs yet. Neon PostgreSQL, Render startup migrations/advisory locking, exact cloud runtime availability, Netlify Set-Cookie forwarding, actual production CORS/proxy behavior, production rate-limit client-IP handling and free-account remaining quotas remain unverified. Local SQLite and local proxy success are not represented as production verification. The one permitted full live suite has not run.
+The Render public URL has been supplied, but no successful health response has been verified; there is no verified Netlify frontend URL. Neon PostgreSQL, Render startup migrations/advisory locking, exact cloud runtime availability, Netlify Set-Cookie forwarding, actual production CORS/proxy behavior, production rate-limit client-IP handling and free-account remaining quotas remain unverified. Local SQLite and local proxy success are not represented as production verification. The one permitted full live suite has not run. The latest timeout diagnostics and this status update are local pending diagnosis, not a new deployment-triggering push.
 
 Free Render services sleep after fifteen minutes of inactivity and may need about a minute to wake. Netlify's proxy timeout can expire before that wake completes, requiring a user retry. Neon also scales compute to zero. No load tests, continuous keep-alive pings, paid upgrade or SLA are part of this project. Current official free-plan research and exact deployment steps are in `DEPLOY.md` and `evidence/HOSTING_RESEARCH.md`.
 
@@ -211,4 +247,4 @@ The board caps rendered cards at 500 while retaining real column counts; the pag
 
 Reports have documented cohort/event/snapshot distinctions. Source counts are application counts, open intervals are excluded from dwell averages, and skipped/reopened stages may give non-monotonic conversions. No business or legal conclusion should be inferred from the fictional seed data. Production backups, disaster recovery, long-running concurrency and assistive-technology manual testing remain unverified.
 
-**Summary:** the local product, architecture, documentation, tests, real screenshots and retained bug evidence are complete. Publication and hosting are separate permission-gated steps; no live success is claimed until it is observed.
+**Summary:** the local product, architecture, documentation, 194 passing local/configuration checks, actual screenshots and retained failure evidence have been delivered. Code and the Blueprint are published on GitHub. The Render deployment is blocked by BUG-014, its cause is not yet known, and the Netlify frontend/full live suite remain incomplete. The latest final report and bug evidence are delivered locally without a reporting-only push that could trigger another failed auto-deploy. No working live application link or production success is claimed.

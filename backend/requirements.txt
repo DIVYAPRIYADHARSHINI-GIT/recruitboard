@@ -1,11 +1,11 @@
 fastapi==0.165.0
 starlette==1.6.0
 uvicorn==0.54.0
-SQLAlchemy==2.0.41
+SQLAlchemy==2.0.58
 alembic==1.16.1
-psycopg[binary]==3.2.9
+psycopg[binary]==3.3.9
 argon2-cffi==23.1.0
 python-multipart==0.0.31
-pydantic==2.11.5
+pydantic==2.14.4
 httpx==0.28.1
 pytest==9.0.3

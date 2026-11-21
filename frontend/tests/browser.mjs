@@ -75,7 +75,7 @@ async function addCandidate(page, name, email) {
   await page.getByLabel('Full name', { exact: true }).fill(name);
   await page.getByLabel('Email address', { exact: true }).fill(email);
   const job = page.getByLabel('Job', { exact: true });
-  await job.selectOption('1');
+  await job.selectOption(String(primaryJobId));
   await page.getByLabel('Source', { exact: true }).selectOption('referral');
   await page.getByLabel('Tags (comma separated)').fill('TEST, portfolio');
   await page.getByLabel('Notes', { exact: true }).fill('TEST fictional candidate. Please remove at the end of this run.');
@@ -89,7 +89,7 @@ async function addCandidate(page, name, email) {
 const recruiter = await context();
 const interviewer = await context();
 const admin = await context();
-let mainId, otherId, applicationId, scheduledId;
+let mainId, otherId, applicationId, scheduledId, primaryJobId, primaryJobTitle, demoInterviewerId, rejectionReasonId;
 const candidateName = `TEST Journey ${run.slice(11,19)}`;
 const candidateEmail = `test.journey.${Date.now()}@example.invalid`;
 let failure;
@@ -100,6 +100,13 @@ try {
   await screenshotAudit(recruiter.page, 'signin');
   await check('recruiter-demo-signin-same-origin-cookie', recruiter.page, async () => {
     await login(recruiter.page, 'recruiter');
+    const jobs = (await request(recruiter.page, '/jobs')).data;
+    const primary = jobs.find(j => j.title === 'Senior Product Designer' && j.status === 'open') || jobs.find(j => j.status === 'open');
+    assert.ok(primary, 'The demo needs an open job before its journey can run.');
+    primaryJobId = primary.id; primaryJobTitle = primary.title;
+    demoInterviewerId = (await request(recruiter.page, '/interviewers')).data.find(u => u.name === 'Demo Interviewer')?.id;
+    rejectionReasonId = (await request(recruiter.page, '/settings')).data.rejection_reasons.find(r => r.active)?.id;
+    assert.ok(demoInterviewerId && rejectionReasonId, 'Required fictional demo metadata is missing.');
     const cookie = (await recruiter.context.cookies()).find(c => c.name === 'rb_session');
     assert.ok(cookie?.httpOnly); assert.equal(cookie.sameSite, 'Lax');
     assert.equal(cookie.domain, new URL(base).hostname);
@@ -108,7 +115,7 @@ try {
     await recruiter.page.reload(); await recruiter.page.getByRole('heading', { name: 'Let’s build your next great team.' }).waitFor();
   });
   await screenshotAudit(recruiter.page, 'jobs');
-  await check('kanban-six-stages-and-counts', recruiter.page, async () => { await go(recruiter.page, '/jobs/1', 'Senior Product Designer'); assert.equal(await recruiter.page.locator('.kanban-column').count(), 6); assert.ok(await recruiter.page.locator('.candidate-card').count() > 0); });
+  await check('kanban-six-stages-and-counts', recruiter.page, async () => { await go(recruiter.page, `/jobs/${primaryJobId}`, primaryJobTitle); assert.equal(await recruiter.page.locator('.kanban-column').count(), 6); assert.ok(await recruiter.page.locator('.candidate-card').count() > 0); });
   await screenshotAudit(recruiter.page, 'kanban');
   await check('recruiter-add-candidate', recruiter.page, async () => { mainId = await addCandidate(recruiter.page, candidateName, candidateEmail); const response = await request(recruiter.page, `/candidates/${mainId}`); applicationId = response.data.applications[0].id; });
   await screenshotAudit(recruiter.page, 'candidate-profile');
@@ -126,7 +133,7 @@ try {
     await recruiter.page.getByText('TEST updated notes visible only to the recruiting team and assigned interviewers.', { exact: true }).waitFor();
   });
   await check('keyboard-only-board-move', recruiter.page, async () => {
-    await go(recruiter.page, '/jobs/1', 'Senior Product Designer');
+    await go(recruiter.page, `/jobs/${primaryJobId}`, primaryJobTitle);
     const select = recruiter.page.getByLabel(`Move ${candidateName} to stage`);
     await select.focus(); await recruiter.page.keyboard.press('s'); await recruiter.page.keyboard.press('Enter');
     await recruiter.page.getByRole('status').filter({ hasText: 'Moved to Screening.' }).waitFor();
@@ -141,7 +148,7 @@ try {
   await check('schedule-interview-with-in-app-notification', recruiter.page, async () => {
     await go(recruiter.page, `/candidates/${mainId}`, candidateName);
     await recruiter.page.getByRole('button', { name: 'Schedule interview', exact: true }).click();
-    await recruiter.page.getByLabel('Interviewer', { exact: true }).selectOption('4');
+    await recruiter.page.getByLabel('Interviewer', { exact: true }).selectOption(String(demoInterviewerId));
     await recruiter.page.getByLabel('Interview date and time').fill('2026-12-02T11:00');
     await recruiter.page.getByRole('button', { name: 'Schedule interview', exact: true }).last().click();
     await recruiter.page.getByText('Waiting for the interviewer’s perspective.', { exact: true }).waitFor();
@@ -206,7 +213,7 @@ try {
     await recruiter.page.getByRole('heading', { name: 'Confirm rejection' }).waitFor();
     await recruiter.page.getByRole('button', { name: 'Confirm rejection', exact: true }).click();
     assert.equal((await request(recruiter.page, `/applications/${profile.applications[0].id}`)).data.stage, 'applied');
-    await recruiter.page.getByLabel('Rejection reason', { exact: true }).selectOption('1');
+    await recruiter.page.getByLabel('Rejection reason', { exact: true }).selectOption(String(rejectionReasonId));
     await recruiter.page.getByRole('button', { name: 'Confirm rejection', exact: true }).click();
     await recruiter.page.getByRole('status').filter({ hasText: 'Moved to Rejected.' }).waitFor();
   });
@@ -221,7 +228,7 @@ try {
     await recruiter.page.getByLabel('Filter by source').selectOption('referral');
     await recruiter.page.getByLabel('Filter by stage').selectOption('hired');
     await recruiter.page.getByLabel('Filter by tag').fill('test');
-    await recruiter.page.getByLabel('Filter by interviewer').selectOption('4');
+    await recruiter.page.getByLabel('Filter by interviewer').selectOption(String(demoInterviewerId));
     await recruiter.page.getByRole('link', { name: new RegExp(candidateName) }).first().waitFor();
     assert.equal(await recruiter.page.locator('tbody tr').count(), 1);
     await recruiter.page.getByRole('button', { name: 'Reset', exact: true }).click();
@@ -264,7 +271,7 @@ try {
   });
   await screenshotAudit(recruiter.page, 'mobile-dark');
   await recruiter.page.getByRole('button', { name: 'Switch to light theme' }).click(); await screenshotAudit(recruiter.page, 'mobile-light');
-  await go(recruiter.page, '/jobs/1', 'Senior Product Designer'); await screenshotAudit(recruiter.page, 'mobile-kanban');
+  await go(recruiter.page, `/jobs/${primaryJobId}`, primaryJobTitle); await screenshotAudit(recruiter.page, 'mobile-kanban');
   await check('admin-permanent-delete-cleans-test-candidates', admin.page, async () => {
     for (const candidate of created) {
       await go(admin.page, `/candidates/${candidate.id}`);

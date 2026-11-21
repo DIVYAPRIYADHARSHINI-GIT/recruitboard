@@ -1,0 +1,241 @@
+LOCAL CHECK: vercel-services-free-runtime-details
+Asia/Kolkata: 20261121-152152-604605
+Exit code: 0
+
+
+OFFICIAL services/pricing HTTP 200
+Services Pricing and Limits | Skip to content | Copy Wordmark | Copy Logo | Download Brand Assets | Brand Guidelines
+CLI | Functions | Delivery Network | Storage | Integrations | Microfrontends | Domains
+Templates | Getting Started | Ask AI | Log In | Sign Up | Build | Build with AI
+CLI | Functions | Delivery Network | Storage | Integrations | Microfrontends | Domains
+Templates | Getting Started | Ask AI | Sign Up | Log In | Search | Docs
+⌘ K | Start | Getting started | Fundamentals | Frameworks | Incremental Migration | Production Checklist
+Start | Getting started | Fundamentals | Frameworks | Incremental Migration | Production Checklist | Agent Checklist
+Run agents and backends | Functions | Fluid Compute | Routing Middleware | Background Workers | Schedules | Queues
+Spend Management | Limits | Notifications | Support Center | Reference | Project Configuration | REST API
+Experimental Services | Pricing and Limits | On this page | Compute | Service requests | Data transfer | Limits
+Data transfer | Limits | Copy page | Copy page | Services Pricing and Limits | Copy page | Copy page
+Copy page | Services Pricing and Limits | Copy page | Copy page | Vercel bills Services across the compute each service runs on, the requests services make to each other, and the data services return. | All prices shown are in USD and exclude value-added tax (VAT), goods and services tax (GST), and other applicable taxes. Taxes are calculated based on your billing address and added to your invoice where required by law. | Learn more about taxes
+Each service runs on Vercel's compute and is billed the same as | Vercel Functions | : Active CPU, provisioned memory, and invocations. | Fluid Compute | applies, so concurrent requests can share an instance. | Service requests | When one service calls another over a
+regionally priced | , like other Managed Infrastructure resources, and are billed separately from CDN requests. A service-to-service call does not incur a separate CDN Request or Fast Data Transfer charge. | Managed Infrastructure hobby and pro resources | Resource | Hobby Included | Pro Included | On-demand Rates
+, like other Managed Infrastructure resources, and are billed separately from CDN requests. A service-to-service call does not incur a separate CDN Request or Fast Data Transfer charge. | Managed Infrastructure hobby and pro resources | Resource | Hobby Included | Pro Included | On-demand Rates | Service Requests
+Resource | Hobby Included | Pro Included | On-demand Rates | Service Requests | First 1,000,000 | Usage-based
+Fast Origin Transfer | , the same as other origin traffic on Vercel, whether the response is a static file or comes from a function. | Limits | The same | function limits | apply to each service, such as memory and maximum duration. | Last updated
+, the same as other origin traffic on Vercel, whether the response is a static file or comes from a function. | Limits | The same | function limits | apply to each service, such as memory and maximum duration. | Last updated | August 31, 2026
+The same | function limits | apply to each service, such as memory and maximum duration. | Last updated | August 31, 2026 | Previous | Experimental Services
+Services | Pricing and Limits | Agent Stack | AI SDK | AI Gateway | Sandbox | Workflows
+Turborepo | Tanstack Start | FastAPI | All frameworks | SDKs | Vercel SDK | Workflow SDK
+Events | Startups | Shipped on Vercel | Open Source Program | Enterprise | Pricing | Help
+
+OFFICIAL services/routing HTTP 200
+Run agents and backends | Functions | Fluid Compute | Routing Middleware | Background Workers | Schedules | Queues
+Spend Management | Limits | Notifications | Support Center | Reference | Project Configuration | REST API
+Experimental Services | Pricing and Limits | On this page | How requests are routed | Route by host | Rules inside a service | Internal calls between services
+On this page | How requests are routed | Route by host | Rules inside a service | Internal calls between services | Copy page | Copy page
+How requests are routed | Route by host | Rules inside a service | Internal calls between services | Copy page | Copy page | Services routing
+vercel.json | controls all public routing for the deployment. A service
+receives public traffic only when there is a top-level rewrite that routes
+requests to it. Each service then handles its own routes, and the routes of one
+service are never mixed with another, so every public routing rule has a single
+owner. For how services are defined and built, see | Services | . | Where usual | rewrite rules | target URLs, service rewrites target
+services instead. Set the
+, | "entrypoint" | : | "main:app" | } | } | ,
+No | The path used to select a route inside the service. It changes which route runs, not the path your code sees. See | Rules inside a service | for an example. | How requests are routed | Vercel evaluates your top-level rewrites in order and routes each request to the first matching service. Using the configuration above, where | /api/(.*)
+for an example. | How requests are routed | Vercel evaluates your top-level rewrites in order and routes each request to the first matching service. Using the configuration above, where | /api/(.*) | routes to | my_backend | and everything else routes to
+How requests are routed | Vercel evaluates your top-level rewrites in order and routes each request to the first matching service. Using the configuration above, where | /api/(.*) | routes to | my_backend | and everything else routes to | my_frontend
+/api/(.*) | routes to | my_backend | and everything else routes to | my_frontend | : | Request
+my_backend | and everything else routes to | my_frontend | : | Request | Handled by | Service receives
+. | Once a request is routed to a service, that service handles the rest of routing. If nothing inside the service matches, the service is expected to return its own 404 or 405 response. | Routing into a service is final. If no route matches inside the service,
+Vercel does not fall back to your other top-level rewrites. It returns the
+service's not-found response. | Route by host | The examples above route by path prefix on a shared domain. You can also route by hostname, so each service is reached on its own subdomain. Routing by host keeps existing production hostnames unchanged when you move several services into one deployment. | A service rewrite accepts the same | has
+Once a request is routed to a service, that service handles the rest of routing. If nothing inside the service matches, the service is expected to return its own 404 or 405 response. | Routing into a service is final. If no route matches inside the service,
+Vercel does not fall back to your other top-level rewrites. It returns the
+service's not-found response. | Route by host | The examples above route by path prefix on a shared domain. You can also route by hostname, so each service is reached on its own subdomain. Routing by host keeps existing production hostnames unchanged when you move several services into one deployment. | A service rewrite accepts the same | has | and
+Routing into a service is final. If no route matches inside the service,
+Vercel does not fall back to your other top-level rewrites. It returns the
+service's not-found response. | Route by host | The examples above route by path prefix on a shared domain. You can also route by hostname, so each service is reached on its own subdomain. Routing by host keeps existing production hostnames unchanged when you move several services into one deployment. | A service rewrite accepts the same | has | and | missing
+Route by host | The examples above route by path prefix on a shared domain. You can also route by hostname, so each service is reached on its own subdomain. Routing by host keeps existing production hostnames unchanged when you move several services into one deployment. | A service rewrite accepts the same | has | and | missing | conditions as an ordinary rewrite. Add a
+. | The following configuration routes | service-one.example.com | to | service_one | and | service-two.example.com
+, and | routes | , using the same syntax as the | top-level configuration | . These run only after a top-level rewrite routes a request into the service, and they can match on the state the rewrite passed in. | For example, capture an organization slug at the top level, pass it to the service as query state, and let the service add a response header based on it: | vercel.json
+top-level configuration | . These run only after a top-level rewrite routes a request into the service, and they can match on the state the rewrite passed in. | For example, capture an organization slug at the top level, pass it to the service as query state, and let the service add a response header based on it: | vercel.json | { | "services" | :
+, | "entrypoint" | : | "main:app" | , | "headers" | :
+GET /org/acme/api/users | routes to | my_backend | with the route lookup path | /users | and the query state | org=acme
+my_backend | with the route lookup path | /users | and the query state | org=acme | . The service's own | headers
+path | only selects which route runs and the query state these rules match against, not the path your code sees. To change the path your service code observes, add a | request.path | transform | to the service's own | routes | .
+to the service's own | routes | . | Internal calls between services | Top-level rewrites are public ingress. To let one service call another over the internal network, server-side and without a public route, use a | service binding | instead.
+Internal calls between services | Top-level rewrites are public ingress. To let one service call another over the internal network, server-side and without a public route, use a | service binding | instead. | Last updated | June 30, 2026 | Previous
+Turborepo | Tanstack Start | FastAPI | All frameworks | SDKs | Vercel SDK | Workflow SDK
+Events | Startups | Shipped on Vercel | Open Source Program | Enterprise | Pricing | Help
+CODE: {
+  "services": {
+    "my_frontend": {
+      "root": "frontend/"
+    },
+    "my_backend": {
+      "root": "backend/",
+      "entrypoint": "main:app"
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": { "service": "my_backend" }
+    },
+    {
+      "source": "/(.*)",
+      "destination": { "service": "my_frontend" }
+    }
+  ]
+}
+CODE: {
+  "services": {
+    "service_one": {
+      "root": "service-one/"
+    },
+    "service_two": {
+      "root": "service-two/"
+    },
+    "site": {
+      "root": "site/"
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": { "pre": "service-one." } }],
+      "destination": { "service": "service_one" }
+    },
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": { "pre": "service-two." } }],
+      "destination": { "service": "service_two" }
+    },
+    {
+      "source": "/(.*)",
+      "destination": { "service": "site" }
+    }
+  ]
+}
+CODE: {
+  "services": {
+    "my_backend": {
+      "root": "backend/",
+      "entrypoint": "main:app",
+      "headers": [
+        {
+          "source": "/(.*)",
+          "has": [{ "type": "query", "key": "org", "value": "(?<org>.*)" }],
+          "headers": [{ "key": "x-org-id", "value": ":org" }]
+        }
+      ]
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/org/:orgSlug/api/:path*",
+      "destination": {
+        "service": "my_backend",
+        "path": "/:path*?org=:orgSlug"
+      }
+    }
+  ]
+}
+
+OFFICIAL frameworks/backend/fastapi HTTP 200
+= | lifespan) | Cleanup logic during shutdown is limited to a maximum of | 500ms | after
+receiving the | SIGTERM
+signal | .
+Logs printed during the shutdown step will not appear in the Vercel dashboard.
+lifespan) | Cleanup logic during shutdown is limited to a maximum of | 500ms | after
+receiving the | SIGTERM
+signal | .
+Logs printed during the shutdown step will not appear in the Vercel dashboard. | Vercel Functions
+.
+Logs printed during the shutdown step will not appear in the Vercel dashboard. | Vercel Functions | When you deploy a FastAPI app to Vercel, it becomes a single | Vercel
+Function | . Vercel uses | Fluid
+compute | by default, so the function scales with traffic.
+When you deploy a FastAPI app to Vercel, it becomes a single | Vercel
+Function | . Vercel uses | Fluid
+compute | by default, so the function scales with traffic. | To configure that function, add an entry to the | functions
+Fluid
+compute | by default, so the function scales with traffic. | To configure that function, add an entry to the | functions | object | in | vercel.json
+by default, so the function scales with traffic. | To configure that function, add an entry to the | functions | object | in | vercel.json | keyed by your
+resolved entrypoint file. For example, to let an app defined in
+To configure that function, add an entry to the | functions | object | in | vercel.json | keyed by your
+resolved entrypoint file. For example, to let an app defined in | app/main.py
+vercel.json | keyed by your
+resolved entrypoint file. For example, to let an app defined in | app/main.py | run for up to 60 seconds, set | maxDuration | : | vercel.json
+, | "functions" | : | { | "app/main.py" | : | {
+For more options, see | Configuring
+functions | and the | functions | property | . | Run background and scheduled tasks
+and the | functions | property | . | Run background and scheduled tasks | To process work independently of an API response, enqueue tasks with | Celery
+Dramatiq | . Both integrations use Vercel Queues to invoke worker functions, and their guides show how to enqueue work from a Python web application. | To use the Queues SDK directly, | process background jobs in Python with Vercel Queues | . For a process that needs multiple steps, retries, or long waits, | build durable workflows in Python | . Both guides start work from a FastAPI route.
+To use the Queues SDK directly, | process background jobs in Python with Vercel Queues | . For a process that needs multiple steps, retries, or long waits, | build durable workflows in Python | . Both guides start work from a FastAPI route. | For scheduled work, configure Cron Jobs to call a FastAPI route that runs the task or enqueues it. The | FastAPI cron job example
+. For a process that needs multiple steps, retries, or long waits, | build durable workflows in Python | . Both guides start work from a FastAPI route. | For scheduled work, configure Cron Jobs to call a FastAPI route that runs the task or enqueues it. The | FastAPI cron job example | includes the schedule and | CRON_SECRET
+build durable workflows in Python | . Both guides start work from a FastAPI route. | For scheduled work, configure Cron Jobs to call a FastAPI route that runs the task or enqueues it. The | FastAPI cron job example | includes the schedule and | CRON_SECRET | authorization check.
+. Both guides start work from a FastAPI route. | For scheduled work, configure Cron Jobs to call a FastAPI route that runs the task or enqueues it. The | FastAPI cron job example | includes the schedule and | CRON_SECRET | authorization check. | Stream responses
+FastAPI WebSocket setup | to add a WebSocket endpoint. Connections follow function duration limits, so clients need to handle reconnects. | For a complete application, | build a multiplayer board with Next.js and FastAPI | . The guide uses Redis to coordinate presence and messages across function instances. | Protect an internal API | Use Vercel Passport to require sign-in through your company's identity provider before requests reach your FastAPI app. Passport requires an Enterprise plan. Follow the
+build a multiplayer board with Next.js and FastAPI | . The guide uses Redis to coordinate presence and messages across function instances. | Protect an internal API | Use Vercel Passport to require sign-in through your company's identity provider before requests reach your FastAPI app. Passport requires an Enterprise plan. Follow the | FastAPI Passport guide | to verify visitor identity and authorize access within your app. | Monitor and debug requests
+for details. | Limitations | All | Vercel Functions limitations | apply to FastAPI applications, including: | Application size | : The FastAPI application becomes a single bundle, which has a standard bundle size limit of 500MB.
+All | Vercel Functions limitations | apply to FastAPI applications, including: | Application size | : The FastAPI application becomes a single bundle, which has a standard bundle size limit of 500MB. | Large Functions | support Python bundles up to 5GB on Fluid compute when enabled (public beta).
+Application size | : The FastAPI application becomes a single bundle, which has a standard bundle size limit of 500MB. | Large Functions | support Python bundles up to 5GB on Fluid compute when enabled (public beta). | More resources | For more about deploying FastAPI on Vercel, see: | FastAPI official documentation
+: The FastAPI application becomes a single bundle, which has a standard bundle size limit of 500MB. | Large Functions | support Python bundles up to 5GB on Fluid compute when enabled (public beta). | More resources | For more about deploying FastAPI on Vercel, see: | FastAPI official documentation | Build with a FastAPI starter template
+Large Functions | support Python bundles up to 5GB on Fluid compute when enabled (public beta). | More resources | For more about deploying FastAPI on Vercel, see: | FastAPI official documentation | Build with a FastAPI starter template | How to ship a FastAPI app on Vercel
+FastAPI official documentation | Build with a FastAPI starter template | How to ship a FastAPI app on Vercel | Vercel Functions documentation | Backend templates on Vercel | Last updated | November 14, 2026
+How to ship a FastAPI app on Vercel | Vercel Functions documentation | Backend templates on Vercel | Last updated | November 14, 2026 | Previous | Elysia
+Turborepo | Tanstack Start | FastAPI | All frameworks | SDKs | Vercel SDK | Workflow SDK
+Events | Startups | Shipped on Vercel | Open Source Program | Enterprise | Pricing | Help
+CODE: vc init fastapi
+CODE: from fastapi import FastAPI
+ 
+app = FastAPI()
+ 
+@app.get("/")
+def read_root():
+    return {"Python": "on Vercel"}
+CODE: [tool.vercel]
+entrypoint = "backend.server:app"
+CODE: [tool.vercel.scripts]
+build = "python build.py"
+CODE: def main():
+    print("Running build command...")
+    with open("build.txt", "w") as f:
+        f.write("BUILD_COMMAND")
+ 
+if __name__ == "__main__":
+    main()
+CODE: python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+vercel dev
+CODE: vc deploy
+CODE: vercel deploy --temporary
+
+OFFICIAL limits/fair-use-guidelines HTTP 200
+Start | Getting started | Fundamentals | Frameworks | Incremental Migration | Production Checklist | Agent Checklist
+Run agents and backends | Functions | Fluid Compute | Routing Middleware | Background Workers | Schedules | Queues
+Spend Management | Limits | Notifications | Support Center | Reference | Project Configuration | REST API
+Glossary | Limits | Overview | Fair Use Guidelines | On this page | Examples of fair use | Never fair use
+Additional resources | General Limits | Learn More | Copy page | Copy page | Fair Use Guidelines | Copy page
+Single page applications | Functions that query DBs or APIs | Blogs, ecommerce, and marketing sites | Never fair use | Proxies and VPNs | Media hosting for hot-linking | Scrapers
+Typical monthly usage guidelines | Managed Infrastructure hobby and pro resources | Resource | Hobby Included | Pro Included | Fast Data Transfer | First 100 GB
+Resource | Hobby Included | Pro Included | Fast Data Transfer | First 100 GB | Flat Rate CDN | Function Invocations
+Flat Rate CDN | Function Invocations | First 1,000,000 | Usage-based | Fast Origin Transfer | First 10 GB | Usage-based
+Usage-based | For storage limits, see | Global Config limits | . | For Teams on the Pro plan, you can pay for | additional usage | as you go.
+For storage limits, see | Global Config limits | . | For Teams on the Pro plan, you can pay for | additional usage | as you go. | Other guidelines
+edge | runtime configured CPU Limits | - Middleware with the | edge | runtime configured can use no more than | 50ms of CPU time on average | . This limitation refers to the actual net CPU time, not the execution time. For example, when you are blocked from talking to the network, the time spent waiting for a response does not count toward CPU time limitations.
+50ms of CPU time on average | . This limitation refers to the actual net CPU time, not the execution time. For example, when you are blocked from talking to the network, the time spent waiting for a response does not count toward CPU time limitations. | For | on-demand concurrent builds | , there is a fair usage limit of 500 concurrent builds per team. If you exceed this limit, any new on-demand build request will be queued until your total concurrent builds goes below 500. | Additional resources | Pro plan members can use a pay-as-you-go model for additional usage, giving you greater flexibility and control over your usage. Vercel automatically charges usage at the following rates once you use your credit:
+on-demand concurrent builds | , there is a fair usage limit of 500 concurrent builds per team. If you exceed this limit, any new on-demand build request will be queued until your total concurrent builds goes below 500. | Additional resources | Pro plan members can use a pay-as-you-go model for additional usage, giving you greater flexibility and control over your usage. Vercel automatically charges usage at the following rates once you use your credit: | Managed Infrastructure hobby and pro resources | Resource | On-demand Rates
+Additional resources | Pro plan members can use a pay-as-you-go model for additional usage, giving you greater flexibility and control over your usage. Vercel automatically charges usage at the following rates once you use your credit: | Managed Infrastructure hobby and pro resources | Resource | On-demand Rates | Fast Data Transfer | Regional
+Pro plan members can use a pay-as-you-go model for additional usage, giving you greater flexibility and control over your usage. Vercel automatically charges usage at the following rates once you use your credit: | Managed Infrastructure hobby and pro resources | Resource | On-demand Rates | Fast Data Transfer | Regional | Function Invocations
+Regional | Function Invocations | $0.60 per 1,000,000 Invocations | Fast Origin Transfer | Regional | Active CPU | Starting at $0.128 per hour
+Active CPU | Starting at $0.128 per hour | Provisioned Memory | Starting at $0.0106 per GB-hr | Image Optimization Transformations | $0.05 per 1K transformations | Image Optimization Cache Reads
+Provisioned Memory | Starting at $0.0106 per GB-hr | Image Optimization Transformations | $0.05 per 1K transformations | Image Optimization Cache Reads | $0.40 per 1M reads | Image Optimization Cache Writes
+$4.00 per 1M writes | General Limits | Take a look at our Limits documentation | for the limits we apply to all accounts. | Learn More | Circumventing or otherwise misusing Vercel's limits or usage guidelines is a violation of our fair use guidelines. | For further information regarding these guidelines and acceptable use of our services, refer to our
+General Limits | Take a look at our Limits documentation | for the limits we apply to all accounts. | Learn More | Circumventing or otherwise misusing Vercel's limits or usage guidelines is a violation of our fair use guidelines. | For further information regarding these guidelines and acceptable use of our services, refer to our | Terms of Service
+Take a look at our Limits documentation | for the limits we apply to all accounts. | Learn More | Circumventing or otherwise misusing Vercel's limits or usage guidelines is a violation of our fair use guidelines. | For further information regarding these guidelines and acceptable use of our services, refer to our | Terms of Service | or your Enterprise Service Agreement.
+Learn More | Circumventing or otherwise misusing Vercel's limits or usage guidelines is a violation of our fair use guidelines. | For further information regarding these guidelines and acceptable use of our services, refer to our | Terms of Service | or your Enterprise Service Agreement. | Last updated | November 12, 2026
+Previous | Limits | Next | Notifications | Was this helpful? | supported. | Send
+Send | Limits | Fair Use Guidelines | Agent Stack | AI SDK | AI Gateway | Sandbox
+Turborepo | Tanstack Start | FastAPI | All frameworks | SDKs | Vercel SDK | Workflow SDK
+Events | Startups | Shipped on Vercel | Open Source Program | Enterprise | Pricing | Help

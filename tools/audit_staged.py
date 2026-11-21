@@ -21,7 +21,7 @@ for name in filter(None, paths):
     if any(part.startswith('.env') for part in parts):
         problems.append(f'Environment file staged: {name}')
         continue
-    if any(part in {'.venv', 'node_modules', '.cache', '.browser', '.test-data'} for part in parts) or name.endswith(('.db', '.sqlite', '.sqlite3')):
+    if any(part.startswith('.venv') or part in {'.vercel', 'node_modules', '.cache', '.browser', '.test-data'} for part in parts) or name.endswith(('.db', '.sqlite', '.sqlite3')):
         problems.append(f'Private/runtime artifact staged: {name}')
         continue
     blob = subprocess.check_output(['git', 'show', ':'+name], cwd=root)

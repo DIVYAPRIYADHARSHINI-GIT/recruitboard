@@ -1,0 +1,32 @@
+LOCAL CHECK: publish-vercel-ready-source
+Asia/Kolkata: 20261121-160200-751176
+Exit code: 2
+
+Staged audit passed: 84 files, 5,972,415 bytes; no environment/private runtime artifacts, file over 5 MB or recognized credential pattern.
+This heuristic supplements manual review; it is not a guarantee that every possible secret is detectable.
+BUG_REPORT.md:3: trailing whitespace.
++**Status:** Open — deployment blocked; root cause not yet identified.  
+BUG_REPORT.md:4: trailing whitespace.
++**Severity:** Blocker for the public application.  
+BUG_REPORT.md:5: trailing whitespace.
++**Reported:** 21 November 2026, Asia/Kolkata.  
+BUG_REPORT.md:6: trailing whitespace.
++**Service:** [recruitboard-api](https://recruitboard-api.onrender.com) — deployment failed; not a working frontend link.  
+bugs/20261121-152849-646588-vercel-services-offline-validation.txt:17: trailing whitespace.
++tools/test_vercel_config.py:73: 
+bugs/20261121-152849-646588-vercel-services-offline-validation.txt:18: trailing whitespace.
++_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+bugs/20261121-152849-646588-vercel-services-offline-validation.txt:36: trailing whitespace.
++E           
+bugs/20261121-152849-646588-vercel-services-offline-validation.txt:40: trailing whitespace.
++E           
+evidence/20261121-152042-953092-vercel-services-routing-details.txt:352: trailing whitespace.
++Services links: 
+evidence/20261121-152042-953092-vercel-services-routing-details.txt:359: trailing whitespace.
++Services links: 
+evidence/20261121-152152-604605-vercel-services-free-runtime-details.txt:190: trailing whitespace.
++ 
+evidence/20261121-152152-604605-vercel-services-free-runtime-details.txt:192: trailing whitespace.
++ 
+evidence/20261121-152152-604605-vercel-services-free-runtime-details.txt:204: trailing whitespace.
++ 

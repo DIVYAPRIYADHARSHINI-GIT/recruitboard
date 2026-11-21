@@ -11,7 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 def make_engine(url):
     if url.startswith('postgresql://'):
         url = url.replace('postgresql://', 'postgresql+psycopg://', 1)
-    engine = create_engine(url, pool_pre_ping=True, hide_parameters=True, **({'connect_args': {'check_same_thread': False, 'timeout': 30}} if url.startswith('sqlite') else {'pool_size': 3, 'max_overflow': 2}))
+    engine = create_engine(url, pool_pre_ping=True, hide_parameters=True, **({'connect_args': {'check_same_thread': False, 'timeout': 30}} if url.startswith('sqlite') else {'pool_size': 1, 'max_overflow': 1, 'pool_timeout': 10, 'connect_args': {'connect_timeout': 10, 'options': '-c statement_timeout=15000'}}))
     if engine.dialect.name == 'sqlite':
         @event.listens_for(engine, 'connect')
         def foreign_keys(connection, _):

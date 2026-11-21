@@ -1,0 +1,14 @@
+{
+  "provenance": "User-supplied Render Events screenshot; cropped locally to omit unrelated workspace/account navigation. Not an agent-captured live dashboard.",
+  "originalDimensions": {
+    "width": 2880,
+    "height": 1680
+  },
+  "crop": {
+    "x": 417,
+    "y": 378,
+    "width": 2419,
+    "height": 1201
+  },
+  "networkRequests": 0
+}

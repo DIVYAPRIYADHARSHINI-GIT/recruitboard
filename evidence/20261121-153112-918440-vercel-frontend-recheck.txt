@@ -1,0 +1,23 @@
+LOCAL CHECK: vercel-frontend-recheck
+Asia/Kolkata: 20261121-153112-918440
+Exit code: 0
+
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.1.1 [39m[90m/Users/softage/Designer Projects/starter/recruitboard/frontend[39m
+
+ [32m✓[39m tests/unit.test.ts [2m([22m[2m16 tests[22m[2m)[22m[32m 29[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m16 passed[39m[22m[90m (16)[39m
+[2m   Start at [22m 15:31:07
+[2m   Duration [22m 130ms[2m (tests 62%, import 18%, transform 13%, worker 6%)[22m
+
+vite v7.3.8 building client environment for production...
+transforming...
+✓ 1693 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.71 kB │ gzip:  0.43 kB
+dist/assets/index-KVHADkzX.css   60.72 kB │ gzip: 11.99 kB
+dist/assets/index-CDzkuNVb.js   319.40 kB │ gzip: 98.61 kB
+✓ built in 1.85s

@@ -1,0 +1,7 @@
+LOCAL CHECK: vercel-upload-audit-recheck
+Asia/Kolkata: 20261121-153433-684107
+Exit code: 0
+
+Dry-result structure: ['framework', 'basePath', 'fileCount', 'totalSize', 'ignoredCount', 'ignored', 'directories', 'largestFiles', 'files']
+Upload audit passed: 44 source files; no environment files, local data, dependencies, reports or credentials included.
+No Vercel environment-pull or local-cloud-build command was run.

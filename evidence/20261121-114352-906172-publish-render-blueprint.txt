@@ -1,0 +1,24 @@
+LOCAL CHECK: publish-render-blueprint
+Asia/Kolkata: 20261121-114352-906172
+Exit code: 0
+
+Staged audit passed: 16 files, 3,832,464 bytes; no environment/private runtime artifacts, file over 5 MB or recognized credential pattern.
+This heuristic supplements manual review; it is not a guarantee that every possible secret is detectable.
+[main e8af870] Configure free Singapore Render Blueprint with dashboard-only secrets
+ 16 files changed, 303 insertions(+), 41 deletions(-)
+ create mode 100644 bugs/20261121-113046-845408-render-health-initial.txt
+ create mode 100644 bugs/20261121-114043-842163-render-official-schema-fetch.txt
+ create mode 100644 bugs/BUG-012-blueprint-research-verification.md
+ create mode 100644 evidence/20261121-113956-266908-render-blueprint-primary-docs.txt
+ create mode 100644 evidence/20261121-114055-521461-render-official-schema-fetch-retry.txt
+ create mode 100644 evidence/20261121-114128-444540-blueprint-validation-tools-install.txt
+ create mode 100644 evidence/20261121-114129-359015-render-blueprint-validation.txt
+ create mode 100644 evidence/20261121-114316-142095-blueprint-report-pdf-refresh.txt
+ create mode 100644 tools/test_render_blueprint.py
+To https://github.com/DIVYAPRIYADHARSHINI-GIT/recruitboard.git
+   daac6e6..e8af870  main -> main
+
+Local main commit: e8af87048a9a4a9fd3c88cd28e6d0990aee8a9ad
+
+Remote main commit:
+e8af87048a9a4a9fd3c88cd28e6d0990aee8a9ad	refs/heads/main

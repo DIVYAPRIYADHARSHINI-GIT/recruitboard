@@ -1,8 +1,6 @@
 import hashlib
 import hmac
 import secrets
-import time
-from collections import OrderedDict, deque
 from datetime import timedelta
 from fastapi import Depends, HTTPException, Request, Response
 from sqlalchemy import delete, select
@@ -77,27 +75,6 @@ def valid_password(encoded, supplied):
         return hasher.verify(encoded, supplied)
     except (VerificationError, InvalidHashError):
         return False
-
-
-class Limiter:
-    """Single-worker fixed-window counters. Bounded keys; fail closed on capacity."""
-    def __init__(self):
-        self.events = OrderedDict()
-
-    def allow(self, key, limit, window=60):
-        t = time.monotonic()
-        for old_key in list(self.events):
-            if self.events[old_key][-1] <= t - 900:
-                del self.events[old_key]
-        if key not in self.events and len(self.events) >= 10000:
-            return False
-        queue = self.events.setdefault(key, deque())
-        while queue and queue[0] <= t-window:
-            queue.popleft()
-        if len(queue) >= limit:
-            return False
-        queue.append(t)
-        return True
 
 
 def unsafe_request_error(request):

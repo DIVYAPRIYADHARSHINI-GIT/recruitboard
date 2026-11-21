@@ -1,0 +1,6 @@
+LOCAL CHECK: vercel-upload-dry-audit
+Asia/Kolkata: 20261121-153108-617838
+Exit code: 1
+
+Dry-result structure: ['framework', 'basePath', 'fileCount', 'totalSize', 'ignoredCount', 'ignored', 'directories', 'largestFiles', 'files']
+Forbidden upload filenames: [".browser", ".test-data", "backend/.venv-vercel", "bugs", "evidence", "screenshots"]

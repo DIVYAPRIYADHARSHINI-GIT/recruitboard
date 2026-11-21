@@ -1,5 +1,5 @@
 from datetime import datetime, timezone
-from sqlalchemy import Boolean, CheckConstraint, DateTime, ForeignKey, Index, Integer, LargeBinary, String, Text, UniqueConstraint
+from sqlalchemy import BigInteger, Boolean, CheckConstraint, DateTime, ForeignKey, Index, Integer, LargeBinary, String, Text, UniqueConstraint
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
 
@@ -164,3 +164,12 @@ class Notification(Base):
     message: Mapped[str] = mapped_column(String(200))
     read_at: Mapped[datetime | None] = mapped_column(DateTime)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=now)
+
+
+class RateBucket(Base):
+    __tablename__ = 'rate_buckets'
+    key_digest: Mapped[str] = mapped_column(String(64), primary_key=True)
+    window_start: Mapped[int] = mapped_column(BigInteger, primary_key=True)
+    expires_at: Mapped[int] = mapped_column(BigInteger, index=True)
+    hits: Mapped[int] = mapped_column(Integer, default=1)
+    __table_args__ = (CheckConstraint('hits >= 1'),)

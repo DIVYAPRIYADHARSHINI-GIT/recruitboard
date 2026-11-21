@@ -1,0 +1,9 @@
+LOCAL CHECK: local-whole-site-preview-smoke
+Asia/Kolkata: 20261121-145308-809907
+Exit code: 0
+
+PASS local database health
+PASS full frontend home renders
+PASS recruiter sign-in and populated jobs workspace; no page errors
+Verified complete local site: http://127.0.0.1:4173
+Local SQLite only; no hosted service request, candidate creation or live test suite.

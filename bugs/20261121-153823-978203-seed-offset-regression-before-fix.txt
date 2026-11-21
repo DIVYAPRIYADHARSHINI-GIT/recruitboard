@@ -1,0 +1,60 @@
+LOCAL CHECK: seed-offset-regression-before-fix
+Asia/Kolkata: 20261121-153823-978203
+Exit code: 1
+
+F
+=================================== FAILURES ===================================
+___________ test_seed_uses_real_generated_ids_after_sequence_offsets ___________
+.venv-vercel/lib/python3.14/site-packages/sqlalchemy/engine/base.py:2000: in _exec_single_context
+    self.dialect.do_execute(
+.venv-vercel/lib/python3.14/site-packages/sqlalchemy/engine/default.py:964: in do_execute
+    cursor.execute(statement, parameters)
+E   sqlite3.IntegrityError: FOREIGN KEY constraint failed
+
+The above exception was the direct cause of the following exception:
+tests/test_seed_sequences.py:24: in test_seed_uses_real_generated_ids_after_sequence_offsets
+    assert seed_demo(db) is True
+           ^^^^^^^^^^^^^
+app/seed.py:43: in seed_demo
+    db.flush()
+.venv-vercel/lib/python3.14/site-packages/sqlalchemy/orm/session.py:4360: in flush
+    self._flush(objects)
+.venv-vercel/lib/python3.14/site-packages/sqlalchemy/orm/session.py:4495: in _flush
+    with util.safe_reraise():
+         ^^^^^^^^^^^^^^^^^^^
+.venv-vercel/lib/python3.14/site-packages/sqlalchemy/util/langhelpers.py:122: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+.venv-vercel/lib/python3.14/site-packages/sqlalchemy/orm/session.py:4456: in _flush
+    flush_context.execute()
+.venv-vercel/lib/python3.14/site-packages/sqlalchemy/orm/unitofwork.py:465: in execute
+    rec.execute(self)
+.venv-vercel/lib/python3.14/site-packages/sqlalchemy/orm/unitofwork.py:641: in execute
+    util.preloaded.orm_persistence.save_obj(
+.venv-vercel/lib/python3.14/site-packages/sqlalchemy/orm/persistence.py:94: in save_obj
+    _emit_insert_statements(
+.venv-vercel/lib/python3.14/site-packages/sqlalchemy/orm/persistence.py:1234: in _emit_insert_statements
+    result = connection.execute(
+.venv-vercel/lib/python3.14/site-packages/sqlalchemy/engine/base.py:1464: in execute
+    return meth(
+.venv-vercel/lib/python3.14/site-packages/sqlalchemy/sql/elements.py:526: in _execute_on_connection
+    return connection._execute_clauseelement(
+.venv-vercel/lib/python3.14/site-packages/sqlalchemy/engine/base.py:1686: in _execute_clauseelement
+    ret = self._execute_context(
+.venv-vercel/lib/python3.14/site-packages/sqlalchemy/engine/base.py:1891: in _execute_context
+    return self._exec_single_context(
+.venv-vercel/lib/python3.14/site-packages/sqlalchemy/engine/base.py:2019: in _exec_single_context
+    self._handle_dbapi_exception(
+.venv-vercel/lib/python3.14/site-packages/sqlalchemy/engine/base.py:2381: in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+.venv-vercel/lib/python3.14/site-packages/sqlalchemy/engine/base.py:2000: in _exec_single_context
+    self.dialect.do_execute(
+.venv-vercel/lib/python3.14/site-packages/sqlalchemy/engine/default.py:964: in do_execute
+    cursor.execute(statement, parameters)
+E   sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) FOREIGN KEY constraint failed
+E   [SQL: INSERT INTO applications (candidate_id, job_id, stage, version, created_at) VALUES (?, ?, ?, ?, ?)]
+E   [SQL parameters hidden due to hide_parameters=True]
+E   (Background on this error at: https://sqlalche.me/e/20/gkpj)
+=========================== short test summary info ============================
+FAILED tests/test_seed_sequences.py::test_seed_uses_real_generated_ids_after_sequence_offsets
+!!!!!!!!!!!!!!!!!!!!!!!!!! stopping after 1 failures !!!!!!!!!!!!!!!!!!!!!!!!!!!
+1 failed in 0.64s

@@ -1,0 +1,359 @@
+LOCAL CHECK: vercel-services-routing-details
+Asia/Kolkata: 20261121-152042-953092
+Exit code: 0
+
+
+PRIMARY DOCUMENT: services
+{ | "root" | : | "frontend/" | } | ,
+{ | "root" | : | "backend/" | , | "entrypoint"
+, | "entrypoint" | : | "main:app" | } | }
+{ | "root" | : | "api/" | } } | ,
+Using custom container images with services | A project with one root | Dockerfile | and no other detected framework deploys
+with the | Container runtime | . Use the
+configuration below when a project defines more than one service.
+, | "root" | : | "frontend/" | } | ,
+, | "root" | : | "backend/" | } | }
+, | installCommand | , | buildCommand | , | devCommand
+, | buildCommand | , | devCommand | , | ignoreCommand
+, | devCommand | , | ignoreCommand | , | outputDirectory
+, | ignoreCommand | , | outputDirectory | and | framework
+CODE EXAMPLES:
+{
+  "services": {
+    "my_frontend": {
+      "root": "frontend/"
+    },
+    "my_backend": {
+      "root": "backend/",
+      "entrypoint": "main:app"
+    }
+  },
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": { "service": "my_backend" } },
+    { "source": "/(.*)", "destination": { "service": "my_frontend" } }
+  ]
+}
+{
+  "services": { "api": { "root": "api/" } },
+  "rewrites": [ { "source": "/(.*)", "destination": { "service": "api" } } ]
+}
+{
+  "services": {
+    "frontend": {
+      "runtime": "container",
+      "root": "frontend/"
+    },
+    "backend": {
+      "runtime": "container",
+      "root": "backend/"
+    }
+  }
+}
+vercel dev
+vercel dev --local
+Services links: /docs/services/bindings,/docs/services/config-reference,/docs/services/experimental,/docs/services/pricing,/docs/services/routing
+
+PRIMARY DOCUMENT: services-config-reference
+On this page
+root
+framework
+runtime
+entrypoint
+command
+installCommand
+buildCommand
+devCommand
+ignoreCommand
+outputDirectory
+bindings
+functions
+headers
+redirects
+rewrites
+routes
+cleanUrls
+trailingSlash
+Copy page
+Copy page
+Service configuration reference
+Copy page
+Copy page
+A service is configured like any standalone Vercel project, using the same build and runtime settings.
+The service configuration object supports the following properties. Settings are optional unless indicated otherwise.
+root
+framework
+runtime
+entrypoint
+command
+installCommand
+buildCommand
+devCommand
+ignoreCommand
+outputDirectory
+bindings
+functions
+headers
+redirects
+rewrites
+routes
+cleanUrls
+trailingSlash
+root
+Type:
+string
+Required. The path to the service root, relative to
+vercel.json
+.
+framework
+Type:
+string
+The
+Framework
+slug for the service, for example,
+"nextjs"
+,
+"fastapi"
+, or
+"express"
+. Vercel detects the framework automatically when
+framework
+is not set.
+runtime
+Type:
+string
+The
+Runtime
+for the service. Vercel detects the runtime automatically when
+runtime
+is not set.
+entrypoint
+Type:
+string
+The framework or runtime entrypoint, such as
+main:app
+for a Python ASGI app or a file path for Node.js.
+command
+Type:
+string
+or
+string[]
+The command that overrides the container image's default
+CMD
+. This property applies to container services that set
+runtime
+to
+"container"
+or use a
+Dockerfile
+or
+Containerfile
+as the
+entrypoint
+. Vercel ignores
+command
+for other services.
+installCommand
+Type:
+string
+The
+install command
+override for the service.
+buildCommand
+Type:
+string
+The
+build command
+override for the service.
+devCommand
+Type:
+string
+The
+development command
+override for the service.
+ignoreCommand
+Type:
+string
+The
+build-skip command
+for the service.
+outputDirectory
+Type:
+string
+The
+output directory
+for the service.
+bindings
+Type:
+array
+Caller-side bindings to other services. See
+Service bindings
+.
+functions
+Type:
+object
+Function configuration
+scoped to the service.
+headers
+Type:
+array
+Header rules
+scoped to the service.
+redirects
+Type:
+array
+Redirect rules
+scoped to the service.
+rewrites
+Type:
+array
+Rewrite rules
+scoped to the service.
+routes
+Type:
+array
+Low-level route rules
+scoped to the service.
+cleanUrls
+Type:
+boolean
+cleanUrls
+behavior scoped to the service.
+trailingSlash
+Type:
+boolean
+trailingSlash
+behavior scoped to the service.
+The routing and URL keys run only after a request enters the service. See
+Routing
+.
+Last updated
+June 30, 2026
+Previous
+Service bindings
+Next
+Experimental Services
+Was this helpful?
+supported.
+Send
+Services
+Service configuration reference
+Agent Stack
+AI SDK
+AI Gateway
+Sandbox
+Workflows
+Connect
+New
+Passport
+New
+eve
+New
+Core Platform
+Build and deploy
+Vercel CI
+New
+Fluid Compute
+Content Delivery
+Observability
+Security
+Platform Security
+WAF
+Bot Management
+BotID
+Tools
+Vercel Drop
+Vercel Agent
+Vercel Plugin
+Agent Skills
+Domains
+v0
+Frameworks
+eve
+New
+Next.js
+Nuxt
+SvelteKit
+Nitro
+Turborepo
+Tanstack Start
+FastAPI
+All frameworks
+SDKs
+Vercel SDK
+Workflow SDK
+Flags SDK
+Chat SDK
+Queues SDK
+Streamdown
+Build
+AI Apps
+Web Apps
+Marketing Sites
+Platforms
+Commerce
+Platform Engineers
+Design Engineers
+Learn
+Docs
+Blog
+Changelog
+Knowledge Base
+Academy
+Articles
+Community
+Is Agentic
+Explore
+Customers
+Marketplace
+Templates
+Partner Finder
+Vercel + AWS
+Company
+About
+Careers
+Press
+Events
+Startups
+Shipped on Vercel
+Open Source Program
+Enterprise
+Pricing
+Help
+Legal & Trust
+Privacy Policy
+Terms of Service
+Cookie Policy
+DPA
+Acceptable Use Policy
+Legal (all documents)
+Trust Center
+Status
+Cookie Preferences
+Social
+GitHub
+X
+LinkedIn
+YouTube
+Instagram
+CODE EXAMPLES:
+Services links: /docs/services/bindings,/docs/services/config-reference,/docs/services/experimental,/docs/services/pricing,/docs/services/routing
+
+PRIMARY DOCUMENT: plans-hobby
+On this page | Hobby billing cycle | Comparing Hobby and Pro plans | Upgrading to Pro | Copy page | Copy page
+Resource | Hobby Included Usage | Global Config Reads | First | 100,000 | Global Config Writes
+CPU-hrs | Provisioned Memory | 360 | GB-hrs | Function Invocations | First
+1,000 | Hobby billing cycle | As the Hobby plan is a free tier there are no billing cycles. In most cases, if you exceed your usage limits on the Hobby plan, you will have to wait until 30 days have passed before you can use the feature again. | Some usage limits have shorter pause periods: | Web Analytics | : collection pauses
+after the grace period and can resume after 7 days
+Hobby billing cycle | As the Hobby plan is a free tier there are no billing cycles. In most cases, if you exceed your usage limits on the Hobby plan, you will have to wait until 30 days have passed before you can use the feature again. | Some usage limits have shorter pause periods: | Web Analytics | : collection pauses
+after the grace period and can resume after 7 days | When your personal account gets converted to a Hobby team, your usage and activity log will be reset. To learn more about this change, read the
+: collection pauses
+after the grace period and can resume after 7 days | When your personal account gets converted to a Hobby team, your usage and activity log will be reset. To learn more about this change, read the | changelog | . | Comparing Hobby and Pro plans | The Pro plan offers more resources and advanced features compared to the Hobby plan. The following table provides a side-by-side comparison of the two plans:
+CODE EXAMPLES:
+Services links: 
+
+PRIMARY DOCUMENT: functions-runtimes-python-python-version
+CODE EXAMPLES:
+[project]
+requires-python = ">=3.12"
+3.13
+Services links: 

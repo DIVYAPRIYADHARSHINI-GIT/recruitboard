@@ -2,3 +2,4 @@
 markdown-it-py==4.3.0
 PyYAML==6.0.3
 jsonschema==4.25.1
+uv==0.9.17

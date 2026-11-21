@@ -2,6 +2,8 @@
 
 **Make room for great people.**
 
+> **Hosting update, 21 November 2026:** the user explicitly approved switching the whole app to **Vercel Hobby**, retaining Neon. Follow [VERCEL_DEPLOY.md](VERCEL_DEPLOY.md). The old Render/Netlify guide is historical. The Vercel project/domain is allocated, but it is not a verified live site until the user privately supplies DATABASE_URL and the production deployment succeeds.
+
 An independently designed hiring workspace: a job-specific kanban, candidate profiles, assigned interviews, structured scorecards and SQL-powered hiring reports. Original identity and application code; no real product's branding or code copied. The sample company **Crescent Labs** and every seeded person are fictional.
 
 > **Shared demo: do not enter real candidate information.** Demo admins can anonymize or permanently delete records. The demo is not an appropriate place for confidential hiring data.
@@ -9,10 +11,10 @@ An independently designed hiring workspace: a job-specific kanban, candidate pro
 ## Two projects, one repository
 
 - `frontend/`: Vite, React, TypeScript, static output in `dist/`. Pinned Node **22.22.0**. System fonts, Lucide generic UI icons and an original RecruitBoard mark. No email, analytics or external image/font requests.
-- `backend/`: FastAPI, SQLAlchemy 2, Alembic, Argon2id, SQLite locally, PostgreSQL on Neon for the intended deployment. Pinned Python **3.11.15**. All direct Python dependencies in `requirements.txt`.
+- `backend/`: FastAPI, SQLAlchemy 2, Alembic, Argon2id, SQLite locally, PostgreSQL on Neon. Vercel runtime pinned to **Python 3.14**, verified locally on **3.14.6**; Vercel manages the patch release. All direct Python dependencies in `requirements.txt`.
 - `ARCHITECTURE.md`: design written before implementation, including data model, server policy, reports and data flow.
 - `BUILDER_LOG.md`, `bugs/`, `evidence/`, `screenshots/`: observed build history, retained failures, real test outputs and real browser captures.
-- `DEPLOY.md`: permission-gated GitHub → Neon → Render → Netlify instructions. **No Vercel. No expiring Render PostgreSQL.**
+- `VERCEL_DEPLOY.md`: current user-approved, Vercel-only website/API deployment on Hobby, with the existing Neon database. `DEPLOY.md` preserves the superseded Render/Netlify handoff and its failure evidence.
 
 Live deployment status and links are recorded in `FINAL_REPORT.md`; do not infer deployment from the presence of configuration files.
 
@@ -50,11 +52,11 @@ The idempotent seed creates six users, five jobs and forty fictional candidates 
 
 ## Local run
 
-Use a standalone Python 3.11.15 installation. All commands below are run inside this repository; they do not require a production database, hosting CLI or any secret.
+Use a standalone Python 3.14 installation (verified on 3.14.6). All commands below are run inside this repository; they do not require a production database, hosting CLI or any secret.
 
 ```sh
 cd backend
-python3.11 -m venv .venv
+python3.14 -m venv .venv
 .venv/bin/python -m pip install --cache-dir ../.cache/pip -r requirements.txt
 APP_ENV=development COOKIE_SECURE=false DEMO_MODE=true SEED_DEMO=true \
 ALLOWED_ORIGINS=http://localhost:5173,http://localhost:4173,http://127.0.0.1:4173 \
@@ -116,7 +118,7 @@ See `FINAL_REPORT.md` for actual latest counts, historical failures and outstand
 
 ## Operational limits
 
-- Single-worker in-memory rate limiting resets on restart and is not a distributed abuse-control system. Sign-in default: 10 attempts/15 minutes per connecting IP; writes: 120/minute. Forwarded client-IP accuracy behind Netlify/Render still needs live verification; a shared proxy IP can share limits.
+- Rate limits now use atomic SQL fixed-window counters shared across instances/restarts (migration 0002). Sign-in default: 10 attempts/15-minute window per connecting IP; writes: 120/minute. Expired counters are deleted and keys are hashed. This is not a full distributed anti-abuse/WAF system; a window boundary can allow adjacent-window bursts. Vercel's effective client-IP behavior still needs live verification; a shared proxy IP can share limits.
 - Host-only HttpOnly Secure SameSite=Lax cookies in production; synchronizer CSRF and exact Origin checks on writes. Local HTTP explicitly uses non-Secure cookies. No tokens in localStorage. There is no password-reset email, MFA or SSO.
 - PDF type checks do not replace antivirus/CDR. Notes and feedback are plain text, not HTML. No field-level encryption beyond the database provider's capabilities is claimed.
 - Board displays latest 500 cards, with real column counts and a notice; use the paginated candidate list for larger jobs. Candidate timeline shows latest 200 generic activities. Notifications show latest 100. Interview list filters apply to the current 30-item page. User admin list caps at 500.

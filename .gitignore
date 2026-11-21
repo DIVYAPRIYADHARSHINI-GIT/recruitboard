@@ -3,6 +3,8 @@
 **/.env*
 node_modules/
 .venv/
+.venv*/
+.vercel/
 .cache/
 .browser/
 .test-data/

@@ -1,4 +1,8 @@
 from contextlib import asynccontextmanager
+import asyncio
+import logging
+import re
+import threading
 from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
@@ -6,32 +10,53 @@ from starlette.middleware.cors import CORSMiddleware
 from sqlalchemy import text
 from .config import Config
 from .db import initialize, make_engine
-from .security import Limiter, unsafe_request_error
+from .security import unsafe_request_error
+from .rate_limit import DatabaseLimiter
 
 
 def create_app(config=None):
     config = config or Config()
     config.validate()
     engine = make_engine(config.database_url)
+    ready = False
+    initialization_lock = threading.Lock()
+
+    def ensure_initialized():
+        nonlocal ready
+        if ready:
+            return
+        with initialization_lock:
+            if ready:
+                return
+            try:
+                initialize(engine, seed=config.seed)
+            except Exception as error:
+                state = str(getattr(getattr(error, 'orig', None), 'sqlstate', '') or '')
+                state = state if re.fullmatch(r'[0-9A-Z]{5}', state) else 'unknown'
+                # Never print raw exception text: driver messages can reveal a DB address.
+                logging.getLogger('recruitboard').error('Database initialization failed: %s; SQLSTATE=%s', type(error).__name__, state)
+                raise RuntimeError('Database initialization failed. Check the hosting settings; sensitive driver details are withheld.') from None
+            ready = True
 
     @asynccontextmanager
     async def lifespan(app):
-        try:
-            initialize(engine, seed=config.seed)
-        except Exception:
-            # Driver exception text may contain a database address. Never propagate it.
-            raise RuntimeError('Database initialization failed. Verify the database and migration settings in the hosting dashboard.') from None
+        await asyncio.to_thread(ensure_initialized)
         yield
         engine.dispose()
 
     app = FastAPI(title='RecruitBoard API', version='1.0.0', lifespan=lifespan, docs_url=None, redoc_url=None, openapi_url=None)
     app.state.engine = engine
     app.state.config = config
-    app.state.limiter = Limiter()
+    app.state.limiter = DatabaseLimiter(engine)
     app.add_middleware(CORSMiddleware, allow_origins=list(config.origins), allow_credentials=True, allow_methods=['GET', 'POST', 'PUT', 'PATCH', 'DELETE'], allow_headers=['Content-Type', 'X-CSRF-Token'])
 
     @app.middleware('http')
     async def security_headers(request: Request, call_next):
+        if not ready:
+            try:
+                await asyncio.to_thread(ensure_initialized)
+            except RuntimeError:
+                return JSONResponse({'detail': 'Database startup is not ready. Check hosting configuration.'}, status_code=503, headers={'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff'})
         try:
             content_length = int(request.headers.get('content-length', '0') or 0)
         except ValueError:
@@ -40,7 +65,7 @@ def create_app(config=None):
             response = JSONResponse({'detail': 'Request is too large. PDFs must be at most 1 MB.'}, status_code=413)
         else:
             try:
-                error = unsafe_request_error(request)
+                error = await asyncio.to_thread(unsafe_request_error, request)
                 response = JSONResponse({'detail': error[1]}, status_code=error[0], headers={'Retry-After': '60'} if error[0] == 429 else {}) if error else await call_next(request)
             except Exception as error:
                 import logging

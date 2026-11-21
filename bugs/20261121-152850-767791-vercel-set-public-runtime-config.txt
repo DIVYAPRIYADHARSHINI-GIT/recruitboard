@@ -1,0 +1,6 @@
+LOCAL CHECK: vercel-set-public-runtime-config
+Asia/Kolkata: 20261121-152850-767791
+Exit code: 1
+
+Setting public RecruitBoard configuration failed; response values withheld.
+CLI exit status: 1

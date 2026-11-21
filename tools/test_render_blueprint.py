@@ -30,7 +30,8 @@ def test_singapore_main_backend_and_pinned_python():
     assert SERVICE['branch'] == 'main'
     assert SERVICE['rootDir'] == 'backend'
     assert SERVICE['runtime'] == 'python'
-    assert ENV['PYTHON_VERSION']['value'] == (ROOT / 'backend/.python-version').read_text().strip()
+    # Historical Render Blueprint keeps its original runtime; active hosting is now Vercel 3.12.
+    assert ENV['PYTHON_VERSION']['value'] == '3.11.15'
 
 
 def test_build_start_port_worker_and_health_are_exact():

@@ -1,5 +1,7 @@
 # RecruitBoard deployment — free plans only
 
+> **Historical guide:** on 21 November 2026 the user explicitly replaced the no-Vercel instruction with a Vercel-only website/API deployment request. The active instructions are in [VERCEL_DEPLOY.md](VERCEL_DEPLOY.md). Do not create additional Render/Netlify resources for the new deployment. This guide and the Render failure evidence are retained, not erased.
+
 This file is a guide, not a claim of deployment. Current observed status and approved account actions are in `FINAL_REPORT.md` and `BUILDER_LOG.md`.
 
 ## Permission boundaries

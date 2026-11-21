@@ -1,0 +1,11 @@
+LOCAL CHECK: vercel-account-plan-status
+Asia/Kolkata: 20261121-150944-474521
+Exit code: 0
+
+Workspace name: Divya
+Workspace slug: divya-6411
+Plan: hobby
+Account metadata blocked flag: False
+Account metadata soft-block reason: none reported
+No remaining-quota guarantee is inferred from absence of a block flag.
+Only allowlisted non-secret metadata printed; no environment/credential endpoint called.

@@ -1,0 +1,7 @@
+LOCAL CHECK: render-health-approved-short-retry
+Asia/Kolkata: 20261121-143332-013042
+Exit code: 1
+
+Approved single short retry: https://recruitboard-api.onrender.com/health
+Health check did not complete: TimeoutError
+Elapsed seconds: 15.01

@@ -1,0 +1,8 @@
+LOCAL CHECK: render-failure-evidence-crop-corrected
+Asia/Kolkata: 20261121-144836-341622
+Exit code: 0
+
+Saved bugs/BUG-014-render-deployment-failed-user-supplied-detail.png; first crop retained unchanged.
+Provenance: user-supplied screenshot, privacy-cropped only. No network requests.
+Original dimensions: 2880 x 1680
+Crop dimensions: 2649 x 873

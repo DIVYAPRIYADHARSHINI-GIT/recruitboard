@@ -1,0 +1,133 @@
+LOCAL CHECK: vercel-primary-hosting-docs
+Asia/Kolkata: 20261121-150932-998904
+Exit code: 0
+
+
+OFFICIAL DOCUMENT https://vercel.com/docs/services HTTP 200
+} | Because every public request enters through the top-level route table, your
+deployment has one public surface. Firewall, Deployment Protection, redirects
+are configured once at the top level and apply across all services, instead of
+being redefined per service. | Read | Service Routing | to learn more about service
+public routing configuration. For a walkthrough that connects a frontend and backend with public routing, private bindings, and local development, follow the | Vercel Services guide
+Service Routing | to learn more about service
+public routing configuration. For a walkthrough that connects a frontend and backend with public routing, private bindings, and local development, follow the | Vercel Services guide | . | Calling another service | A service can call another service directly over an internal
+to learn more about service
+public routing configuration. For a walkthrough that connects a frontend and backend with public routing, private bindings, and local development, follow the | Vercel Services guide | . | Calling another service | A service can call another service directly over an internal | binding
+, without going through the public internet. The calling service declares the binding, and Vercel injects the target service's URL as an environment variable for your server-side code to use. | Bindings are how services communicate privately. The target stays unreachable from the internet unless a separate top-level rewrite exposes it, so a binding grants internal access without creating a public route. See | Service bindings | to declare and use them. | Connect an eve agent to a Python backend | The
+FastAPI backend | together in one project. The frontend and agent use service bindings to call the same private backend for shared tasks and Python tools. | The template's | vercel.ts | configures the services and injects the backend URL as | BACKEND_URL
+vercel.ts | configures the services and injects the backend URL as | BACKEND_URL | into the frontend and agent. The backend has no public route. See the | template repository | for the configuration and setup instructions.
+for the configuration and setup instructions. | Using custom container images with services | A project with one root | Dockerfile | and no other detected framework deploys
+with the | Container runtime
+{ | "services" | : | { | "frontend" | :
+for more information
+about using container images with Vercel. | To move an existing Docker app to Vercel Services, follow the migration guide for | Railway | , | Fly.io | , or
+. These guides cover adapting your deployment configuration, routing, and stored data. | Top-level configuration in services mode | When a project does not define | services | , Vercel evaluates | vercel.json
+When a project does not define | services | , Vercel evaluates | vercel.json | normally. When | services
+normally. When | services | is present, the top-level keys split into two groups: | Public routing and URL behavior | stay at the top level, where they own public traffic for the whole deployment. See | Routing
+Build and runtime fields | are not valid at the top level, because their owner would be ambiguous across services. | functions | , | installCommand | ,
+Local development | Run all your services together locally with | vercel dev | : | Terminal | vercel
+--local | In both cases, generated binding environment variables are injected automatically, so calls between services work the same locally as in production. | Learn more | Routing | : How public requests reach services and how to control the path your code sees. | Service bindings
+Routing | : How public requests reach services and how to control the path your code sees. | Service bindings | : How one service calls another. | Pricing and Limits | : How billing works for services and which limits apply.
+Pricing and Limits | : How billing works for services and which limits apply. | Queues with services | : How a service consumes queue messages. | Experimental Services | : The earlier
+: How billing works for services and which limits apply. | Queues with services | : How a service consumes queue messages. | Experimental Services | : The earlier | experimentalServices
+: How a service consumes queue messages. | Experimental Services | : The earlier | experimentalServices | configuration model. | Services guides
+: The earlier | experimentalServices | configuration model. | Services guides | : Guides and examples for deploying with Vercel Services. | Last updated
+configuration model. | Services guides | : Guides and examples for deploying with Vercel Services. | Last updated | August 10, 2026 | Previous
+Services guides | : Guides and examples for deploying with Vercel Services. | Last updated | August 10, 2026 | Previous | Vercel Agent
+
+OFFICIAL DOCUMENT https://vercel.com/docs/services/config-reference HTTP 200
+Vercel Agent | Services | Observe and improve | Observability | Agent Runs | Vercel Toolbar
+Glossary | Services | Overview | Routing | Service bindings | Service configuration reference
+Service configuration reference | Experimental Services | Pricing and Limits | On this page | root | framework
+CMD | . This property applies to container services that set | runtime | to | "container" | or use a
+command | for other services. | installCommand | Type: | string | The
+array | Caller-side bindings to other services. See | Service bindings | . | functions | Type:
+Next | Experimental Services | Was this helpful? | supported. | Send | Services
+Send | Services | Service configuration reference | Agent Stack | AI SDK | AI Gateway
+
+OFFICIAL DOCUMENT https://vercel.com/docs/functions/runtimes/python/python-version HTTP 200
+Vercel Agent | Services | Observe and improve | Observability | Agent Runs | Vercel Toolbar
+Expand menu | Duration | Memory | Runtime | Region | Advanced Configuration
+Duration | Memory | Runtime | Region | Advanced Configuration | API Reference
+Vercel supports the following Python versions: | 3.12 | (default) | 3.13 | 3.14 | Add the version to a supported file
+= | ">=3.12" | .python-version | Create or update a | .python-version | file:
+If the version is missing or unsupported | Vercel uses Python 3.12 when your repository does not define a supported Python
+version. | Related | Using the Python Runtime with Vercel Functions | Last updated | April 10, 2026
+
+OFFICIAL DOCUMENT https://vercel.com/docs/functions/runtimes/python HTTP 200
+Vercel Agent | Services | Observe and improve | Observability | Agent Runs | Vercel Toolbar
+Expand menu | Duration | Memory | Runtime | Region | Advanced Configuration
+Duration | Memory | Runtime | Region | Advanced Configuration | API Reference
+Combine Python with another framework | Build with Vercel services | Python entrypoints | Python version | Dependencies | Streaming
+To run a Python backend and a frontend together in one project, you can use | Services | . Each part builds independently and routes to a
+shared domain. | Build with Vercel services | Use these guides to add storage, background processing, and AI capabilities to a Python application. Each guide includes a FastAPI example and deployment steps. | Task
+. Each part builds independently and routes to a
+shared domain. | Build with Vercel services | Use these guides to add storage, background processing, and AI capabilities to a Python application. Each guide includes a FastAPI example and deployment steps. | Task | Guide | Process background jobs
+= | ">=3.12" | dependencies | = | [ | "fastapi>=0.117.1"
+. | If the required Python version is not defined or not supported, Vercel uses the
+default version. The available versions are: | 3.12 | (default) | 3.13 | 3.14
+If the required Python version is not defined or not supported, Vercel uses the
+default version. The available versions are: | 3.12 | (default) | 3.13 | 3.14 | Dependencies
+The standard Python bundle size limit is | 500 MB | uncompressed. | Large Functions | support Python bundles up to | 5 GB
+
+OFFICIAL DOCUMENT https://vercel.com/docs/plans/hobby HTTP 200
+1,000 | Hobby billing cycle | As the Hobby plan is a free tier there are no billing cycles. In most cases, if you exceed your usage limits on the Hobby plan, you will have to wait until 30 days have passed before you can use the feature again. | Some usage limits have shorter pause periods: | Web Analytics | : collection pauses
+after the grace period and can resume after 7 days
+Hobby billing cycle | As the Hobby plan is a free tier there are no billing cycles. In most cases, if you exceed your usage limits on the Hobby plan, you will have to wait until 30 days have passed before you can use the feature again. | Some usage limits have shorter pause periods: | Web Analytics | : collection pauses
+after the grace period and can resume after 7 days | When your personal account gets converted to a Hobby team, your usage and activity log will be reset. To learn more about this change, read the
+: collection pauses
+after the grace period and can resume after 7 days | When your personal account gets converted to a Hobby team, your usage and activity log will be reset. To learn more about this change, read the | changelog | . | Comparing Hobby and Pro plans | The Pro plan offers more resources and advanced features compared to the Hobby plan. The following table provides a side-by-side comparison of the two plans:
+. | Comparing Hobby and Pro plans | The Pro plan offers more resources and advanced features compared to the Hobby plan. The following table provides a side-by-side comparison of the two plans: | Feature | Hobby | Pro
+Comparing Hobby and Pro plans | The Pro plan offers more resources and advanced features compared to the Hobby plan. The following table provides a side-by-side comparison of the two plans: | Feature | Hobby | Pro | Projects
+Feature | Hobby | Pro | Projects | 200 | Unlimited
+Unlimited | Vercel Function maximum duration | 300s (5 minutes) | 300s (default) - | configurable up to 800s | ;
+; | extended max duration up to 1800s | (30 minutes, beta) | Build vCPUs | 2 | 4, up to
+(30 minutes, beta) | Build vCPUs | 2 | 4, up to | 30 | Build memory (GB)
+30 | Build memory (GB) | 8 | 8GB, up to | 60GB | Build disk size
+RBAC | available | N/A | Owner | , | Member
+Comments | Available | Available for team collaboration | Drains | - | Configurable
+Available | Available for team collaboration | Drains | - | Configurable | (not on a trial)
+Vercel Toolbar | Available for certain features | Available | Storage | Blob | Blob
+Available for certain features | Available | Storage | Blob | Blob | Activity Logs
+Activity Logs | Available | Available | Runtime Logs | 1 | hour of logs
+Available | Available | Runtime Logs | 1 | hour of logs | 1
+Shareable Links | The Hobby features, plus | Password Protection | for $ | 20 | per month per protected project
+free first-year domain offer | is not available during the Pro trial. It applies to paid Pro teams: a team becomes eligible once it is on a paid Pro plan. | Experience Vercel Pro for free | Unlock the full potential of Vercel Pro during your 14-day trial with $20 in credits. Benefit from Pro features like team collaboration and enhanced analytics. | Start your free Pro trial | To upgrade from a Hobby plan:
+Start your free Pro trial | To upgrade from a Hobby plan: | Go to your | dashboard | . If you're upgrading a team, make sure to select the team you want to upgrade | Open
+If you would like to end your paid plan, you can | downgrade to Hobby | . | Last updated | November 12, 2026 | Previous
+Plans | Hobby Plan | Agent Stack | AI SDK | AI Gateway | Sandbox
+
+OFFICIAL DOCUMENT https://vercel.com/docs/functions/limitations HTTP 200
+Vercel
+Workflows | , which allow your code to pause, resume, and
+maintain state for minutes to months without duration limits. | Edge runtime | Vercel Functions using the | Edge runtime | must begin sending a response within 25 seconds to maintain streaming capabilities beyond this period, and can continue
+data for up to 300 seconds. | Memory size limits | Vercel Functions have the following defaults and maximum limits: | Default | Maximum | Hobby
+Maximum | Hobby | 2 GB / 1 vCPU | 2 GB / 1 vCPU | Pro / Enterprise | 2 GB / 1 vCPU
+Hobby | 2 GB / 1 vCPU | 2 GB / 1 vCPU | Pro / Enterprise | 2 GB / 1 vCPU | 4 GB / 2 vCPU
+2 GB / 1 vCPU | 2 GB / 1 vCPU | Pro / Enterprise | 2 GB / 1 vCPU | 4 GB / 2 vCPU | Users on Pro and Enterprise plans can
+Pro / Enterprise | 2 GB / 1 vCPU | 4 GB / 2 vCPU | Users on Pro and Enterprise plans can | configure the default memory size | for all functions in the dashboard.
+2 GB / 1 vCPU | 4 GB / 2 vCPU | Users on Pro and Enterprise plans can | configure the default memory size | for all functions in the dashboard. | The maximum size for a Function includes your JavaScript code, imported libraries and files (such as fonts), and all files bundled in the function.
+Users on Pro and Enterprise plans can | configure the default memory size | for all functions in the dashboard. | The maximum size for a Function includes your JavaScript code, imported libraries and files (such as fonts), and all files bundled in the function. | If you reach the limit, make sure the code you are importing in your function is used
+and is not too heavy. You can use a package size checker tool like | bundle
+Vercel Functions accept request bodies up to | 4.5 MB | by default (see | How do I bypass the 4.5MB body size limit of Vercel Functions | ). Request bodies up to | 20 MiB
+by default (see | How do I bypass the 4.5MB body size limit of Vercel Functions | ). Request bodies up to | 20 MiB | are available in | Public Beta
+20 MiB | are available in | Public Beta | for the Node.js, Python, and Bun runtimes. | To enable the 20 MiB limit: | Enable
+Set your project's | function memory | to | Performance (4 GB) | , available on Pro and Enterprise plans. | Set
+Performance (4 GB) | , available on Pro and Enterprise plans. | Set | VERCEL_SUPPORT_LARGE_REQUEST_BODY=1 | in your project's | environment variables
+keep the | 4.5 MB | limit. Switch to the Node.js runtime to use larger bodies. | For larger requests, start reading the body as soon as it arrives. Where possible, process the data in smaller chunks to keep uploads moving and reduce memory use. | Requests exceeding the applicable limit return | 413:
+limit. Switch to the Node.js runtime to use larger bodies. | For larger requests, start reading the body as soon as it arrives. Where possible, process the data in smaller chunks to keep uploads moving and reduce memory use. | Requests exceeding the applicable limit return | 413: | FUNCTION_PAYLOAD_TOO_LARGE | .
+The response body size limit is | 4.5 MB | , except for | streamed responses | . | File descriptors
+1,024 file descriptors | shared across all concurrent executions. This limit includes file descriptors used by the runtime itself, so the actual number available to your application code will be strictly less than 1,024. | File descriptors are used for: | Open files | Network connections (TCP sockets, HTTP requests) | Database connections
+Cost and usage | The Hobby plan offers functions for free, within | limits | . The Pro plan extends these limits, and charges usage based on active CPU time and provisioned memory time for Vercel Functions. | Active CPU time is based on the amount of CPU time your code actively consumes, measured in milliseconds. Waiting for I/O (e.g. calling AI models, database queries) does not count towards active CPU time. Provisioned memory time is based on the memory allocated to your function instances multiplied by the time they are running. | It is important to make sure you've set a reasonable
+limits | . The Pro plan extends these limits, and charges usage based on active CPU time and provisioned memory time for Vercel Functions. | Active CPU time is based on the amount of CPU time your code actively consumes, measured in milliseconds. Waiting for I/O (e.g. calling AI models, database queries) does not count towards active CPU time. Provisioned memory time is based on the memory allocated to your function instances multiplied by the time they are running. | It is important to make sure you've set a reasonable | maximum duration | for your function. See "Managing usage and pricing for
+. The Pro plan extends these limits, and charges usage based on active CPU time and provisioned memory time for Vercel Functions. | Active CPU time is based on the amount of CPU time your code actively consumes, measured in milliseconds. Waiting for I/O (e.g. calling AI models, database queries) does not count towards active CPU time. Provisioned memory time is based on the memory allocated to your function instances multiplied by the time they are running. | It is important to make sure you've set a reasonable | maximum duration | for your function. See "Managing usage and pricing for | Vercel Functions
+It is important to make sure you've set a reasonable | maximum duration | for your function. See "Managing usage and pricing for | Vercel Functions | " for more information. | Environment variables
+AWS_LAMBDA_EXEC_WRAPPER | AWS_LAMBDA_FUNCTION_MEMORY_SIZE | AWS_LAMBDA_FUNCTION_NAME | AWS_LAMBDA_FUNCTION_VERSION | AWS_LAMBDA_INITIALIZATION_TYPE | AWS_LAMBDA_LOG_GROUP_NAME
+
+OFFICIAL DOCUMENT https://vercel.com/docs/functions/runtimes/python/api-directory HTTP 200
+Vercel Agent | Services | Observe and improve | Observability | Agent Runs | Vercel Toolbar
+Expand menu | Duration | Memory | Runtime | Region | Advanced Configuration
+Duration | Memory | Runtime | Region | Advanced Configuration | API Reference
+. To run a Python backend alongside
+another framework, use | Services | . | How files map to routes | Without a detected Python framework preset, each | .py
+Deploy a Django app on Vercel | Combine frontends and backends with Services | Last updated | August 12, 2026 | Previous | Python

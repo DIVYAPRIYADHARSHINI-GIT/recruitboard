@@ -36,7 +36,7 @@ def test_seed_and_migrations_idempotent(client):
         assert db.scalar(select(func.count()).select_from(Candidate)) == 40
         assert db.scalar(select(func.count()).select_from(User)) == 6
         assert db.scalar(select(func.count()).select_from(StageHistory)) > 40
-        assert db.scalar(text('SELECT version_num FROM alembic_version')) == '0001'
+        assert db.scalar(text('SELECT version_num FROM alembic_version')) == '0002'
 
 
 @pytest.mark.parametrize('role', ['admin', 'recruiter', 'interviewer'])

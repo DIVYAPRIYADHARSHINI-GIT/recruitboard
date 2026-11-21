@@ -1,0 +1,165 @@
+LOCAL CHECK: vercel-services-offline-validation
+Asia/Kolkata: 20261121-152849-646588
+Exit code: 1
+
+.......F                                                                 [100%]
+=================================== FAILURES ===================================
+_____________________ test_against_official_vercel_schema ______________________
+
+    def test_against_official_vercel_schema():
+        path = ROOT / '.cache/vercel-docs/vercel.schema.json'
+        if not path.exists():
+            pytest.skip('Official public schema not cached; this test never fetches the network.')
+        schema = json.loads(path.read_text())
+        validator = validator_for(schema)
+>       validator.check_schema(schema)
+
+tools/test_vercel_config.py:73: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+cls = <class 'jsonschema.validators.Draft4Validator'>
+schema = {'$schema': 'http://json-schema.org/draft-04/schema#', 'additionalProperties': False, 'properties': {'$schema': {'desc...used this value will be automatically detected', 'maxLength': 256, 'type': ['string', 'null']}, ...}, 'type': 'object'}
+format_checker = <FormatChecker checkers=['email', 'idn-email', 'ipv4', 'ipv6', 'regex']>
+
+    @classmethod
+    def check_schema(cls, schema, format_checker=_UNSET):
+        Validator = validator_for(cls.META_SCHEMA, default=cls)
+        if format_checker is _UNSET:
+            format_checker = Validator.FORMAT_CHECKER
+        validator = Validator(
+            schema=cls.META_SCHEMA,
+            format_checker=format_checker,
+        )
+        for error in validator.iter_errors(schema):
+>           raise exceptions.SchemaError.create_from(error)
+E           jsonschema.exceptions.SchemaError: {'oneOf': [{'type': 'object', 'required': ['type', 'topic', 'consumer'], 'additionalProperties': False, 'properties': {'type': {'description': 'Event type pattern this trigger handles', 'type': 'string', 'const': 'queue/v1beta'}, 'topic': {'description': 'Name of the queue topic to consume from', 'type': 'string', 'minLength': 1, 'maxLength': 256}, 'consumer': {'description': 'Name of the consumer group for this trigger', 'type': 'string', 'minLength': 1, 'maxLength': 256}, 'maxDeliveries': {'description': 'Maximum number of delivery attempts', 'type': 'number', 'minimum': 1, 'maximum': 64}, 'retryAfterSeconds': {'description': 'Delay in seconds before retrying failed executions', 'type': 'number', 'minimum': 5, 'maximum': 86400}, 'initialDelaySeconds': {'description': 'Initial delay in seconds before first execution attempt', 'type': 'number', 'minimum': 0, 'maximum': 86400}, 'maxConcurrency': {'description': 'Maximum number of concurrent executions for this consumer', 'type': 'number', 'minimum': 1, 'maximum': 100}}}, {'type': 'object', 'required': ['type', 'topic'], 'additionalProperties': False, 'properties': {'type': {'description': 'Event type pattern this trigger handles', 'type': 'string', 'const': 'queue/v2beta'}, 'topic': {'description': 'Name of the queue topic to consume from', 'type': 'string', 'minLength': 1, 'maxLength': 256}, 'maxDeliveries': {'description': 'Maximum number of delivery attempts', 'type': 'number', 'minimum': 1, 'maximum': 1048576}, 'retryAfterSeconds': {'description': 'Delay in seconds before retrying failed executions', 'type': 'number', 'exclusiveMinimum': 0, 'maximum': 86400}, 'initialDelaySeconds': {'description': 'Initial delay in seconds before first execution attempt', 'type': 'number', 'minimum': 0, 'maximum': 86400}, 'maxConcurrency': {'description': 'Maximum number of concurrent executions for this consumer', 'type': 'number', 'minimum': 1, 'maximum': 16384}}}, {'type': 'object', 'required': ['type'], 'additionalProperties': False, 'properties': {'type': {'description': 'Event type pattern this trigger handles', 'type': 'string', 'const': 'schedule/v1beta'}}}]} is not valid under any of the given schemas
+E           
+E           Failed validating 'anyOf' in metaschema['properties']['properties']['additionalProperties']['properties']['patternProperties']['additionalProperties']['properties']['properties']['additionalProperties']['properties']['items']:
+E               {'anyOf': [{'$ref': '#'}, {'$ref': '#/definitions/schemaArray'}],
+E                'default': {}}
+E           
+E           On schema['properties']['functions']['patternProperties']['^.{1,256}$']['properties']['experimentalTriggers']['items']:
+E               {'oneOf': [{'type': 'object',
+E                           'required': ['type', 'topic', 'consumer'],
+E                           'additionalProperties': False,
+E                           'properties': {'type': {'description': 'Event type pattern '
+E                                                                  'this trigger '
+E                                                                  'handles',
+E                                                   'type': 'string',
+E                                                   'const': 'queue/v1beta'},
+E                                          'topic': {'description': 'Name of the queue '
+E                                                                   'topic to consume '
+E                                                                   'from',
+E                                                    'type': 'string',
+E                                                    'minLength': 1,
+E                                                    'maxLength': 256},
+E                                          'consumer': {'description': 'Name of the '
+E                                                                      'consumer group '
+E                                                                      'for this '
+E                                                                      'trigger',
+E                                                       'type': 'string',
+E                                                       'minLength': 1,
+E                                                       'maxLength': 256},
+E                                          'maxDeliveries': {'description': 'Maximum '
+E                                                                           'number of '
+E                                                                           'delivery '
+E                                                                           'attempts',
+E                                                            'type': 'number',
+E                                                            'minimum': 1,
+E                                                            'maximum': 64},
+E                                          'retryAfterSeconds': {'description': 'Delay '
+E                                                                               'in '
+E                                                                               'seconds '
+E                                                                               'before '
+E                                                                               'retrying '
+E                                                                               'failed '
+E                                                                               'executions',
+E                                                                'type': 'number',
+E                                                                'minimum': 5,
+E                                                                'maximum': 86400},
+E                                          'initialDelaySeconds': {'description': 'Initial '
+E                                                                                 'delay '
+E                                                                                 'in '
+E                                                                                 'seconds '
+E                                                                                 'before '
+E                                                                                 'first '
+E                                                                                 'execution '
+E                                                                                 'attempt',
+E                                                                  'type': 'number',
+E                                                                  'minimum': 0,
+E                                                                  'maximum': 86400},
+E                                          'maxConcurrency': {'description': 'Maximum '
+E                                                                            'number '
+E                                                                            'of '
+E                                                                            'concurrent '
+E                                                                            'executions '
+E                                                                            'for this '
+E                                                                            'consumer',
+E                                                             'type': 'number',
+E                                                             'minimum': 1,
+E                                                             'maximum': 100}}},
+E                          {'type': 'object',
+E                           'required': ['type', 'topic'],
+E                           'additionalProperties': False,
+E                           'properties': {'type': {'description': 'Event type pattern '
+E                                                                  'this trigger '
+E                                                                  'handles',
+E                                                   'type': 'string',
+E                                                   'const': 'queue/v2beta'},
+E                                          'topic': {'description': 'Name of the queue '
+E                                                                   'topic to consume '
+E                                                                   'from',
+E                                                    'type': 'string',
+E                                                    'minLength': 1,
+E                                                    'maxLength': 256},
+E                                          'maxDeliveries': {'description': 'Maximum '
+E                                                                           'number of '
+E                                                                           'delivery '
+E                                                                           'attempts',
+E                                                            'type': 'number',
+E                                                            'minimum': 1,
+E                                                            'maximum': 1048576},
+E                                          'retryAfterSeconds': {'description': 'Delay '
+E                                                                               'in '
+E                                                                               'seconds '
+E                                                                               'before '
+E                                                                               'retrying '
+E                                                                               'failed '
+E                                                                               'executions',
+E                                                                'type': 'number',
+E                                                                'exclusiveMinimum': 0,
+E                                                                'maximum': 86400},
+E                                          'initialDelaySeconds': {'description': 'Initial '
+E                                                                                 'delay '
+E                                                                                 'in '
+E                                                                                 'seconds '
+E                                                                                 'before '
+E                                                                                 'first '
+E                                                                                 'execution '
+E                                                                                 'attempt',
+E                                                                  'type': 'number',
+E                                                                  'minimum': 0,
+E                                                                  'maximum': 86400},
+E                                          'maxConcurrency': {'description': 'Maximum '
+E                                                                            'number '
+E                                                                            'of '
+E                                                                            'concurrent '
+E                                                                            'executions '
+E                                                                            'for this '
+E                                                                            'consumer',
+E                                                             'type': 'number',
+E                                                             'minimum': 1,
+E                                                             'maximum': 16384}}},
+E                          {'type': 'object',
+E                           'required': ['type'],
+E                           'additionalProperties': False,
+E                           'properties': {'type': {'description': 'Event type pattern '
+E                                                                  'this trigger '
+E                                                                  'handles',
+E                                                   'type': 'string',
+E                                                   'const': 'schedule/v1beta'}}}]}
+
+backend/.venv/lib/python3.11/site-packages/jsonschema/validators.py:317: SchemaError
+=========================== short test summary info ============================
+FAILED tools/test_vercel_config.py::test_against_official_vercel_schema - jso...
+1 failed, 7 passed in 0.13s

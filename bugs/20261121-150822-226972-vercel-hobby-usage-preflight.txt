@@ -1,0 +1,7 @@
+LOCAL CHECK: vercel-hobby-usage-preflight
+Asia/Kolkata: 20261121-150822-226972
+Exit code: 1
+
+Vercel CLI 64.2.0
+Fetching usage data for divya-6411
+Error: Billing cost data is unavailable for 2026-11-01 through 2026-11-21. This does not mean usage was zero. It usually means the team has no active subscription for that range, or the range is before the team's billing data starts. Check that the selected team and date range are correct.

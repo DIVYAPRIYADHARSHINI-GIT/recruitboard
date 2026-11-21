@@ -1,0 +1,8 @@
+LOCAL CHECK: vercel-local-python312
+Asia/Kolkata: 20261121-152449-564363
+Exit code: 2
+
+error: Request failed after 3 retries
+  Caused by: Failed to download https://github.com/astral-sh/python-build-standalone/releases/download/20251209/cpython-3.12.12%2B20251209-aarch64-apple-darwin-install_only_stripped.tar.gz
+  Caused by: error sending request for url (https://github.com/astral-sh/python-build-standalone/releases/download/20251209/cpython-3.12.12%2B20251209-aarch64-apple-darwin-install_only_stripped.tar.gz)
+  Caused by: operation timed out
