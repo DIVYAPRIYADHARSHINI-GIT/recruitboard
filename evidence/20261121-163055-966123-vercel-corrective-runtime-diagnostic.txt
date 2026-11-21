@@ -1,0 +1,24 @@
+LOCAL CHECK: vercel-corrective-runtime-diagnostic
+Asia/Kolkata: 20261121-163055-966123
+Exit code: 0
+
+Corrective deployment startup diagnostic; all connection/credential lines redacted before storage.
+could not import "app/main.py":
+Traceback (most recent call last):
+File "/var/task/_vendor/vercel_runtime/vc_init.py", line 540, in <module>
+__vc_module = import_module(_entrypoint_modname, _entrypoint_abs)
+File "/var/task/_vendor/vercel_runtime/resolver.py", line 24, in import_module
+spec.loader.exec_module(mod)
+~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+File "<frozen importlib._bootstrap_external>", line 763, in exec_module
+File "<frozen importlib._bootstrap>", line 491, in _call_with_frames_removed
+File "/var/task/app/main.py", line 107, in <module>
+app = create_app()
+File "/var/task/app/main.py", line 19, in create_app
+config.validate()
+~~~~~~~~~~~~~~~^^
+File "/var/task/app/config.py", line 21, in validate
+raise RuntimeError('Production requires exact HTTPS allowed origins')
+RuntimeError: Production requires exact HTTPS allowed origins
+Python process exited with exit status: 1. The logs above can help with debugging the issue.
+Saved redacted diagnostic: bugs/20261121-163055-vercel-corrective-runtime-redacted.txt

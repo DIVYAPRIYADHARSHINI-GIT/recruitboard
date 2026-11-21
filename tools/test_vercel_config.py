@@ -12,7 +12,7 @@ def test_only_frontend_and_backend_services():
     assert set(CONFIG['services']) == {'frontend', 'backend'}
     assert CONFIG['services']['frontend']['root'] == 'frontend/'
     assert CONFIG['services']['backend']['root'] == 'backend/'
-    assert CONFIG['services']['backend']['entrypoint'] == 'app.main:app'
+    assert CONFIG['services']['backend']['entrypoint'] == 'vercel_entry:app'
     assert CONFIG['regions'] == ['sin1']
 
 
@@ -36,7 +36,7 @@ def test_same_origin_api_and_health_route_before_frontend():
 
 
 def test_function_duration_and_migrations_bundled():
-    function = CONFIG['services']['backend']['functions']['app/main.py']
+    function = CONFIG['services']['backend']['functions']['vercel_entry.py']
     assert CONFIG['services']['backend']['framework'] == 'fastapi'
     assert function['maxDuration'] == 60
     assert 'migrations/**' in function['includeFiles'] and 'alembic.ini' in function['includeFiles']
@@ -51,12 +51,9 @@ def test_supported_pinned_runtimes():
 def test_sensitive_and_large_local_files_excluded_from_upload():
     excluded = set((ROOT / '.vercelignore').read_text().splitlines())
     assert {'.env*', '**/.env*', '.vercel/', '.cache/', '.browser/', '.test-data/', '**/.venv*/', '**/*.db', 'screenshots/', 'bugs/', 'evidence/', '*.pdf'} <= excluded
-    assert CONFIG['env'] == {
-        'APP_ENV': 'production', 'COOKIE_SECURE': 'true', 'DEMO_MODE': 'true',
-        'SEED_DEMO': 'true', 'ALLOWED_ORIGINS': 'https://recruitboard-pi.vercel.app',
-        'LOGIN_LIMIT': '10', 'WRITE_LIMIT': '120',
-    }
-    assert 'DATABASE_URL' not in CONFIG['env']
+    assert 'env' not in CONFIG  # Public defaults are applied by the dedicated ASGI entrypoint.
+    entrypoint = (ROOT / 'backend/vercel_entry.py').read_text()
+    assert entrypoint.index('configure_vercel_defaults()') < entrypoint.index('from app.main import app')
     assert 'builds' not in CONFIG  # Use the supported Services model, not mixed legacy builders.
     assert 'onrender.com' not in json.dumps(CONFIG)
     assert 'netlify' not in json.dumps(CONFIG)

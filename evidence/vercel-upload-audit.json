@@ -1,6 +1,6 @@
 {
   "mode": "dry; no deployment created",
-  "file_count": 44,
+  "file_count": 46,
   "files": [
     ".vercelignore",
     "backend/.python-version",
@@ -13,6 +13,7 @@
     "backend/app/common.py",
     "backend/app/config.py",
     "backend/app/db.py",
+    "backend/app/deployment.py",
     "backend/app/main.py",
     "backend/app/models.py",
     "backend/app/policy.py",
@@ -28,6 +29,7 @@
     "backend/pytest.ini",
     "backend/requirements.txt",
     "backend/start.sh",
+    "backend/vercel_entry.py",
     "frontend/.nvmrc",
     "frontend/index.html",
     "frontend/package-lock.json",

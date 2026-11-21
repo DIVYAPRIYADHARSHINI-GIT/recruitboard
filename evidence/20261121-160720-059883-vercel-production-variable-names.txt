@@ -1,0 +1,13 @@
+LOCAL CHECK: vercel-production-variable-names
+Asia/Kolkata: 20261121-160720-059883
+Exit code: 0
+
+DATABASE_URL: not listed in Production metadata
+APP_ENV: listed in Production metadata
+COOKIE_SECURE: not listed in Production metadata
+ALLOWED_ORIGINS: not listed in Production metadata
+DEMO_MODE: not listed in Production metadata
+SEED_DEMO: not listed in Production metadata
+LOGIN_LIMIT: not listed in Production metadata
+WRITE_LIMIT: not listed in Production metadata
+Public defaults may also come from vercel.json. No variable value was printed, saved or pulled.

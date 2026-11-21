@@ -7,9 +7,9 @@ The user explicitly approved this change on 21 November 2026. The previous Rende
 - CLI identity: `divyapriyadharshini-git`.
 - Approved workspace: **Divya**, slug **divya-6411**, plan **Hobby**.
 - Created project: **recruitboard**.
-- Assigned public domain: **https://recruitboard-pi.vercel.app**. **Allocation is not deployment success; the site is not verified live yet.**
+- Public alias: **https://recruitboard-pi.vercel.app**. The first production build/upload reached Ready, but the backend currently returns HTTP 500 because its required Production database configuration is missing. It is **not yet a working verified app**.
 - No account block flag was reported. The CLI billing-usage query could not provide remaining quota, so availability is not guaranteed. Stop if the production deployment is refused by a Free-plan limit.
-- Production deployment awaits the user's private DATABASE_URL entry. No production database address is present locally, and no environment/secret pull command is permitted.
+- The first approved deployment has been made. A names-only lookup did not find DATABASE_URL in Production, including a second check after user confirmation. A corrective deployment was therefore stopped before spending another build. No production database address is present locally, and no environment/secret pull command is permitted.
 
 ## One private dashboard step for the user
 
@@ -19,7 +19,7 @@ The user explicitly approved this change on 21 November 2026. The previous Rende
 4. Value: privately paste the **direct** Neon connection string for project recruitboard, **production branch**. In Neon's Connect dialog, turn **Connection pooling OFF** and keep `sslmode=require` plus any supplied channel-binding option. A `-pooler` hostname is intentionally rejected because migrations use a session-level advisory lock.
 5. Select **Production only**. Mark it **Secret/Sensitive** if the UI offers that choice. Do not select Development or download it.
 6. Click **Save**. Do not click Deploy/Redeploy yet; the authorized CLI deployment will follow after confirmation.
-7. Tell the agent only **“DATABASE_URL saved”**. Never paste its value or an unredacted Environment screenshot into chat.
+7. Confirm that the Vercel website itself lists a row named **DATABASE_URL** tagged **Production** in this exact project. The chat confirmation button does not create the variable. Then tell the agent only **“The DATABASE_URL row is visible under Production.”** Never paste its value or an unredacted Environment screenshot into chat. A names-only preflight must confirm it before the separately authorized corrective deployment.
 
 All other runtime values are non-secret and already declared in vercel.json:
 

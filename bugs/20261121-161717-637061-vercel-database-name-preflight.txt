@@ -1,0 +1,7 @@
+LOCAL CHECK: vercel-database-name-preflight
+Asia/Kolkata: 20261121-161717-637061
+Exit code: 1
+
+DATABASE_URL listed in Production: False
+Only presence checked. No value printed, saved, downloaded or pulled.
+Corrective deployment NOT started. Required Production variable is still absent.

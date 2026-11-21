@@ -1,0 +1,6 @@
+LOCAL CHECK: vercel-user-redeploy-variable-preflight
+Asia/Kolkata: 20261121-162714-542296
+Exit code: 0
+
+DATABASE_URL listed in Production: True
+Only name/target checked. No value printed, saved or pulled. No deployment started by this check.

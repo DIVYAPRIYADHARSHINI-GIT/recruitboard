@@ -1,0 +1,67 @@
+LOCAL CHECK: publish-vercel-source-code-check
+Asia/Kolkata: 20261121-160235-270528
+Exit code: 0
+
+Staged audit passed: 85 files, 5,974,249 bytes; no environment/private runtime artifacts, file over 5 MB or recognized credential pattern.
+This heuristic supplements manual review; it is not a guarantee that every possible secret is detectable.
+[main a86efa1] [skip render] Prepare complete Vercel Hobby deployment and serverless safeguards
+ 85 files changed, 3036 insertions(+), 87 deletions(-)
+ create mode 100644 .vercelignore
+ create mode 100644 BUG_REPORT.md
+ create mode 100644 VERCEL_DEPLOY.md
+ create mode 100644 backend/app/rate_limit.py
+ create mode 100644 backend/migrations/versions/0002_shared_rate_limits.py
+ create mode 100644 backend/tests/test_seed_sequences.py
+ create mode 100644 backend/tests/test_serverless.py
+ create mode 100644 bugs/20261121-143128-449606-render-health-actual-service.txt
+ create mode 100644 bugs/20261121-143332-013042-render-health-approved-short-retry.txt
+ create mode 100644 bugs/20261121-150822-226972-vercel-hobby-usage-preflight.txt
+ create mode 100644 bugs/20261121-152449-564363-vercel-local-python312.txt
+ create mode 100644 bugs/20261121-152849-646588-vercel-services-offline-validation.txt
+ create mode 100644 bugs/20261121-152850-767791-vercel-set-public-runtime-config.txt
+ create mode 100644 bugs/20261121-153108-617838-vercel-upload-dry-audit.txt
+ create mode 100644 bugs/20261121-153823-978203-seed-offset-regression-before-fix.txt
+ create mode 100644 bugs/20261121-160200-751176-publish-vercel-ready-source.txt
+ create mode 100644 bugs/BUG-013-computer-use-connector-not-ready.md
+ create mode 100644 bugs/BUG-014-render-deployment-exit-1.md
+ create mode 100644 bugs/BUG-014-render-deployment-failed-user-supplied-detail.json
+ create mode 100644 bugs/BUG-014-render-deployment-failed-user-supplied-detail.png
+ create mode 100644 bugs/BUG-014-render-deployment-failed-user-supplied.json
+ create mode 100644 bugs/BUG-014-render-deployment-failed-user-supplied.png
+ create mode 100644 bugs/BUG-015-evidence-crop-review.md
+ create mode 100644 bugs/BUG-016-vercel-preparation-diagnostics.md
+ create mode 100644 bugs/BUG-017-demo-seed-assumed-database-ids.md
+ create mode 100644 evidence/2026-11-21T10-05-22-113Z-local-browser-results.json
+ create mode 100644 evidence/2026-11-21T10-10-22-405Z-local-browser-results.json
+ create mode 100644 evidence/20261121-114352-906172-publish-render-blueprint.txt
+ create mode 100644 evidence/20261121-144704-761233-render-failure-screenshot-evidence.txt
+ create mode 100644 evidence/20261121-144836-341622-render-failure-evidence-crop-corrected.txt
+ create mode 100644 evidence/20261121-144953-311398-final-report-pdf-with-deployment-bug.txt
+ create mode 100644 evidence/20261121-145308-809907-local-whole-site-preview-smoke.txt
+ create mode 100644 evidence/20261121-150932-998904-vercel-primary-hosting-docs.txt
+ create mode 100644 evidence/20261121-150944-474521-vercel-account-plan-status.txt
+ create mode 100644 evidence/20261121-152042-953092-vercel-services-routing-details.txt
+ create mode 100644 evidence/20261121-152152-604605-vercel-services-free-runtime-details.txt
+ create mode 100644 evidence/20261121-152246-462471-vercel-python-tool-install.txt
+ create mode 100644 evidence/20261121-152517-330284-vercel-serverless-backend-precheck.txt
+ create mode 100644 evidence/20261121-152530-612372-vercel-config-and-render-skip-docs.txt
+ create mode 100644 evidence/20261121-152602-604514-vercel-create-recruitboard-project.txt
+ create mode 100644 evidence/20261121-152742-854835-vercel-python314-dependencies.txt
+ create mode 100644 evidence/20261121-152750-250099-vercel-recruitboard-public-domains.txt
+ create mode 100644 evidence/20261121-152802-598978-vercel-python314-tests.txt
+ create mode 100644 evidence/20261121-153016-450210-vercel-services-config-recheck.txt
+ create mode 100644 evidence/20261121-153112-918440-vercel-frontend-recheck.txt
+ create mode 100644 evidence/20261121-153432-091738-vercel-config-final-local.txt
+ create mode 100644 evidence/20261121-153433-684107-vercel-upload-audit-recheck.txt
+ create mode 100644 evidence/20261121-153539-055358-vercel-python314-local-chrome.txt
+ create mode 100644 evidence/20261121-154041-656200-vercel-local-browser-id-discovery.txt
+ create mode 100644 evidence/20261121-154045-110919-vercel-backend-final-seed-fix.txt
+ create mode 100644 evidence/vercel-upload-audit.json
+ create mode 100644 frontend/scripts/crop-render-evidence.mjs
+ create mode 100644 screenshots/local-preview-ready-2026-11-21T09-23-00-217Z.png
+ create mode 100644 tools/test_vercel_config.py
+ create mode 100644 tools/vercel_upload_audit.py
+ create mode 100644 vercel.json
+To https://github.com/DIVYAPRIYADHARSHINI-GIT/recruitboard.git
+   e8af870..a86efa1  main -> main
+a86efa1ad17cb2b0139f1136d42c45509a665e3e

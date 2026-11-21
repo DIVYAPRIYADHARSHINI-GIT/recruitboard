@@ -1,0 +1,7 @@
+LOCAL CHECK: vercel-production-readiness
+Asia/Kolkata: 20261121-160444-117127
+Exit code: 1
+
+Public /health HTTP status: 500
+Elapsed seconds: 2.08
+Database health is not verified. Public access may be gated or startup may have failed; body withheld.

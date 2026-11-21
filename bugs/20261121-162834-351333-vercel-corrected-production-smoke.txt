@@ -1,0 +1,6 @@
+LOCAL CHECK: vercel-corrected-production-smoke
+Asia/Kolkata: 20261121-162834-351333
+Exit code: 1
+
+Public /health: 500 elapsed 2.05 seconds
+Database readiness not confirmed; response body withheld. No full live suite started.

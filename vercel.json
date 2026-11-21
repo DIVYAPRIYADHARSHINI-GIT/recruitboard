@@ -1,15 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "regions": ["sin1"],
-  "env": {
-    "APP_ENV": "production",
-    "COOKIE_SECURE": "true",
-    "DEMO_MODE": "true",
-    "SEED_DEMO": "true",
-    "ALLOWED_ORIGINS": "https://recruitboard-pi.vercel.app",
-    "LOGIN_LIMIT": "10",
-    "WRITE_LIMIT": "120"
-  },
   "services": {
     "frontend": {
       "root": "frontend/",
@@ -22,9 +13,9 @@
     "backend": {
       "root": "backend/",
       "framework": "fastapi",
-      "entrypoint": "app.main:app",
+      "entrypoint": "vercel_entry:app",
       "functions": {
-        "app/main.py": { "maxDuration": 60, "includeFiles": "{migrations/**,alembic.ini}" }
+        "vercel_entry.py": { "maxDuration": 60, "includeFiles": "{app/**,migrations/**,alembic.ini}" }
       }
     }
   },
