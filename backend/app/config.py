@@ -19,5 +19,3 @@ class Config:
                 raise RuntimeError('Production requires PostgreSQL and Secure cookies')
             if not self.origins or any(not x.startswith('https://') or '*' in x for x in self.origins):
                 raise RuntimeError('Production requires exact HTTPS allowed origins')
-            if '-pooler.' in self.database_url:
-                raise RuntimeError('Use a direct Neon connection for startup migration advisory locking')

@@ -1,0 +1,6 @@
+LOCAL CHECK: vercel-entrypoint-fix-live-smoke
+Asia/Kolkata: 20261121-164225-628735
+Exit code: 1
+
+Public /health: 500 elapsed 2.13 seconds
+Database readiness not confirmed; body withheld. Full live suite remains unused.

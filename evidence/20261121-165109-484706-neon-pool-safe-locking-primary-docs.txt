@@ -1,0 +1,69 @@
+LOCAL CHECK: neon-pool-safe-locking-primary-docs
+Asia/Kolkata: 20261121-165109-484706
+Exit code: 0
+
+
+PRIMARY SOURCE: https://www.pgbouncer.org/features.html HTTP 200
+Most polite method.  When a client connects, a server
+connection will be assigned to it for the whole duration it
+stays connected.  When the client disconnects, the server
+connection will be put back into pool.  This mode supports all
+PostgreSQL features. | Transaction pooling | A server connection is assigned to a client only during a
+transaction.  When PgBouncer notices that the transaction is
+over, the server will be put back into the pool. | This mode breaks a few session-based features of PostgreSQL.
+You can use it only when the application cooperates by not
+using features that break.  See the table below for
+incompatible features. | Statement pooling
+Statement pooling | Most aggressive method.  This is transaction pooling with a
+twist: Multi-statement transactions are disallowed.  This is
+meant to enforce “autocommit” mode on the client, mostly
+targeted at PL/Proxy. | Low memory requirements (2 kB per connection by default).  This is
+because PgBouncer does not need to see full packets at once. | It is not tied to one backend server.  The destination databases
+can reside on different hosts. | Supports online reconfiguration for most settings.
+Session pooling | Transaction pooling | Startup parameters | 1 | Yes
+Never | Session-level advisory locks | Yes | Never | Startup parameters are:
+
+PRIMARY SOURCE: https://www.postgresql.org/docs/current/explicit-locking.html HTTP 200
+13.3.4. Deadlocks | 13.3.5. Advisory Locks | PostgreSQL | provides various lock modes to control concurrent access to data in tables. These modes can be used for application-controlled locking in situations where | MVCC
+FOR KEY SHARE | options is specified (in addition to | ACCESS SHARE | locks on any other tables that are referenced without any explicit | FOR ...
+So long as no deadlock situation is detected, a transaction seeking either a table-level or row-level lock will wait indefinitely for conflicting locks to be released. This means it is a bad idea for applications to hold transactions open for long periods of time (e.g., while waiting for user input). | 13.3.5. Advisory Locks | # | PostgreSQL | provides a means for creating locks that have application-defined meanings. These are called
+provides a means for creating locks that have application-defined meanings. These are called | advisory locks | , because the system does not enforce their use — it is up to the application to use them correctly. Advisory locks can be useful for locking strategies that are an awkward fit for the MVCC model. For example, a common use of advisory locks is to emulate pessimistic locking strategies typical of so-called | “ | flat file
+advisory locks | , because the system does not enforce their use — it is up to the application to use them correctly. Advisory locks can be useful for locking strategies that are an awkward fit for the MVCC model. For example, a common use of advisory locks is to emulate pessimistic locking strategies typical of so-called | “ | flat file | ”
+” | data management systems. While a flag stored in a table could be used for the same purpose, advisory locks are faster, avoid table bloat, and are automatically cleaned up by the server at the end of the session. | There are two ways to acquire an advisory lock in | PostgreSQL | : at session level or at transaction level. Once acquired at session level, an advisory lock is held until explicitly released or the session ends. Unlike standard lock requests, session-level advisory lock requests do not honor transaction semantics: a lock acquired during a transaction that is later rolled back will still be held following the rollback, and likewise an unlock is effective even if the calling transaction fails later. A lock can be acquired multiple times by its owning process; for each completed lock request there must be a corresponding unlock request before the lock is actually released. Transaction-level lock requests, on the other hand, behave more like regular lock requests: they are automatically released at the end of the transaction, and there is no explicit unlock operation. This behavior is often more convenient than the session-level behavior for short-term usage of an advisory lock. Session-level and transaction-level lock requests for the same advisory lock identifier will block each other in the expected way. If a session already holds a given advisory lock, additional requests by it will always succeed, even if other sessions are awaiting the lock; this statement is
+data management systems. While a flag stored in a table could be used for the same purpose, advisory locks are faster, avoid table bloat, and are automatically cleaned up by the server at the end of the session. | There are two ways to acquire an advisory lock in | PostgreSQL | : at session level or at transaction level. Once acquired at session level, an advisory lock is held until explicitly released or the session ends. Unlike standard lock requests, session-level advisory lock requests do not honor transaction semantics: a lock acquired during a transaction that is later rolled back will still be held following the rollback, and likewise an unlock is effective even if the calling transaction fails later. A lock can be acquired multiple times by its owning process; for each completed lock request there must be a corresponding unlock request before the lock is actually released. Transaction-level lock requests, on the other hand, behave more like regular lock requests: they are automatically released at the end of the transaction, and there is no explicit unlock operation. This behavior is often more convenient than the session-level behavior for short-term usage of an advisory lock. Session-level and transaction-level lock requests for the same advisory lock identifier will block each other in the expected way. If a session already holds a given advisory lock, additional requests by it will always succeed, even if other sessions are awaiting the lock; this statement is tru
+PostgreSQL | : at session level or at transaction level. Once acquired at session level, an advisory lock is held until explicitly released or the session ends. Unlike standard lock requests, session-level advisory lock requests do not honor transaction semantics: a lock acquired during a transaction that is later rolled back will still be held following the rollback, and likewise an unlock is effective even if the calling transaction fails later. A lock can be acquired multiple times by its owning process; for each completed lock request there must be a corresponding unlock request before the lock is actually released. Transaction-level lock requests, on the other hand, behave more like regular lock requests: they are automatically released at the end of the transaction, and there is no explicit unlock operation. This behavior is often more convenient than the session-level behavior for short-term usage of an advisory lock. Session-level and transaction-level lock requests for the same advisory lock identifier will block each other in the expected way. If a session already holds a given advisory lock, additional requests by it will always succeed, even if other sessions are awaiting the lock; this statement is true regardless of whether the existing lock hold and new request are at session level or transaction level. | Like all locks in | PostgreSQL | , a complete list of advisory locks currently held by any session can be found in the
+PostgreSQL | , a complete list of advisory locks currently held by any session can be found in the | pg_locks | system view. | Both advisory locks and regular locks are stored in a shared memory pool whose size is defined by the configuration variables
+system view. | Both advisory locks and regular locks are stored in a shared memory pool whose size is defined by the configuration variables | max_locks_per_transaction | and | max_connections
+max_connections | . Care must be taken not to exhaust this memory or the server will be unable to grant any locks at all. This imposes an upper limit on the number of advisory locks grantable by the server, typically in the tens to hundreds of thousands depending on how the server is configured. | In certain cases using advisory locking methods, especially in queries involving explicit ordering and | LIMIT | clauses, care must be taken to control the locks acquired because of the order in which SQL expressions are evaluated. For example:
+. Care must be taken not to exhaust this memory or the server will be unable to grant any locks at all. This imposes an upper limit on the number of advisory locks grantable by the server, typically in the tens to hundreds of thousands depending on how the server is configured. | In certain cases using advisory locking methods, especially in queries involving explicit ordering and | LIMIT | clauses, care must be taken to control the locks acquired because of the order in which SQL expressions are evaluated. For example: | SELECT pg_advisory_lock(id) FROM foo WHERE id = 12345; -- ok
+SELECT pg_advisory_lock(id) FROM foo WHERE id > 12345 LIMIT 100; -- danger!
+SELECT pg_advisory_lock(q.id) FROM
+(
+  SELECT id FROM foo WHERE id > 12345 LIMIT 100
+) q; -- ok
+clauses, care must be taken to control the locks acquired because of the order in which SQL expressions are evaluated. For example: | SELECT pg_advisory_lock(id) FROM foo WHERE id = 12345; -- ok
+SELECT pg_advisory_lock(id) FROM foo WHERE id > 12345 LIMIT 100; -- danger!
+SELECT pg_advisory_lock(q.id) FROM
+(
+  SELECT id FROM foo WHERE id > 12345 LIMIT 100
+) q; -- ok | In the above queries, the second form is dangerous because the | LIMIT | is not guaranteed to be applied before the locking function is executed. This might cause some locks to be acquired that the application was not expecting, and hence would fail to release (until it ends the session). From the point of view of the application, such locks would be dangling, although still viewable in
+. | The functions provided to manipulate advisory locks are described in | Section 9.29.10 | . | Prev
+
+PRIMARY SOURCE: https://neon.com/docs/connect/connection-pooling HTTP 200
+Direct | Tools may not support transaction pooling | Long-running analytics queries | Direct | Avoid pool contention
+statement | Session-level advisory locks | Common issues with SET statements | The most common issue users encounter is with | SET
+, | statement_timeout | , and | synchronous_commit | , carry over.
+Use | SET LOCAL | inside a transaction | so the setting reverts when the transaction ends: | BEGIN
+Discord Server | to ask questions or see what others are doing with Neon. For paid plan support options, see | Support | . | Was this page helpful?
+
+PRIMARY SOURCE: https://www.psycopg.org/psycopg3/docs/advanced/prepare.html HTTP 200
+A query is prepared automatically after it is executed more than | prepare_threshold | times on a connection. | psycopg | will make
+sure that no more than
+You can disable the use of prepared statements on a connection by setting
+its | prepare_threshold | attribute to | None | .
+You can set | prepare_threshold | as a | connect() | keyword
+parameter too.
+Unless a connection pooling middleware explicitly declares otherwise, they
+are not compatible with prepared statements, because the same client
+connection may change the server session it refers to. If such middleware
+is used you should disable prepared statements, by setting the | Connection.prepare_threshold | attribute to | None | .

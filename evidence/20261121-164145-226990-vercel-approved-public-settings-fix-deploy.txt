@@ -1,0 +1,74 @@
+LOCAL CHECK: vercel-approved-public-settings-fix-deploy
+Asia/Kolkata: 20261121-164145-226990
+Exit code: 0
+
+Vercel CLI 64.2.0
+Retrieving project…
+Deploying divya-6411/recruitboard
+Uploading [--------------------] (0.0B/76.4KB)
+Uploading [========------------] (32.0KB/76.4KB)
+Uploading [============--------] (48.0KB/76.4KB)
+Uploading [================----] (64.0KB/76.4KB)
+Uploading [====================] (76.4KB/76.4KB)
+Inspect         https://vercel.com/divya-6411/recruitboard/2pHG1F9naNA6HqmArqNVgDJATsab
+Production      https://recruitboard-cn4x3g7j6-divya-6411.vercel.app
+https://recruitboard-cn4x3g7j6-divya-6411.vercel.appBuilding…
+Building…
+Running build in Washington, D.C., USA (East) – iad1
+Build machine configuration: 2 cores, 8 GB
+Retrieving list of deployment files...
+Concatenating deployment archive files...
+Extracting deployment files...
+Extracted 46 deployment files...
+Restored build cache from previous deployment (5v7kNPCpnJbbYckYKWzDo3dAJHaW)
+Running "vercel build"
+Vercel CLI 66.2.0
+Warning: Due to "engines": { "node": "22.x" } in your `package.json` file, the Node.js Version defined in your Project Settings ("26.x") will not apply, Node.js Version "22.x" will be used instead. Learn More: https://vercel.link/node-version
+Running "install" command: `npm ci --no-audit --no-fund`...
+npm warn Unknown env config "cache-dir". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+npm warn EBADENGINE Unsupported engine {
+npm warn EBADENGINE   package: 'recruitboard-frontend@1.0.0',
+npm warn EBADENGINE   required: { node: '22.x' },
+npm warn EBADENGINE   current: { node: 'v26.13.1', npm: '11.20.0' }
+npm warn EBADENGINE }
+added 96 packages in 13s
+npm warn install-scripts 2 packages have install scripts not yet covered by allowScripts:
+npm warn install-scripts   esbuild@0.28.2 (postinstall: node install.js)
+npm warn install-scripts   node@22.22.0 (preinstall: node installArchSpecificPackage)
+npm warn install-scripts
+npm warn install-scripts Run `npm install-scripts ls` to review, or `npm install-scripts approve <pkg>` to allow.
+npm warn Unknown env config "cache-dir". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+> recruitboard-frontend@1.0.0 build
+> tsc --noEmit && vite build
+vite v7.3.8 building client environment for production...
+transforming...
+✓ 1693 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.71 kB │ gzip:  0.43 kB
+dist/assets/index-KVHADkzX.css   60.72 kB │ gzip: 11.99 kB
+dist/assets/index-CDzkuNVb.js   319.40 kB │ gzip: 98.61 kB
+✓ built in 5.34s
+Using Python 3.14 from backend/.python-version
+Using uv 0.13.5 (x86_64-unknown-linux-gnu)
+Installing required dependencies from backend/requirements.txt...
+Compiling Python bytecode...
+Build Completed in /vercel/output [44s]
+Deploying outputs...
+[2K[1A[2K[GProduction      https://recruitboard-cn4x3g7j6-divya-6411.vercel.app
+Completing…
+▲ Aliased         https://recruitboard-pi.vercel.app
+
+✓ Ready in 1m
+
+! Deployment Protection is on for this project (Vercel Authentication). Use `vercel curl` to access it.
+
+Next steps:
+- Automatically deploy changes on every push by connecting Git:
+  vercel git connect --scope divya-6411 --no-color --project recruitboard
+- Check the production response:
+  vercel curl https://recruitboard-pi.vercel.app --scope divya-6411 --no-color --project recruitboard
+- View build logs:
+  vercel inspect recruitboard-cn4x3g7j6-divya-6411.vercel.app --logs --scope divya-6411 --no-color --project recruitboard
+- Create a new deployment from the same source:
+  vercel redeploy recruitboard-cn4x3g7j6-divya-6411.vercel.app --scope divya-6411 --no-color --project recruitboard

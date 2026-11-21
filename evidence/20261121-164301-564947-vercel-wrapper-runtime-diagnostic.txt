@@ -1,0 +1,28 @@
+LOCAL CHECK: vercel-wrapper-runtime-diagnostic
+Asia/Kolkata: 20261121-164301-564947
+Exit code: 0
+
+Entrypoint-fix deployment startup diagnostic; sensitive lines redacted before storage.
+could not import "vercel_entry.py":
+Traceback (most recent call last):
+File "/var/task/_vendor/vercel_runtime/vc_init.py", line 540, in <module>
+__vc_module = import_module(_entrypoint_modname, _entrypoint_abs)
+File "/var/task/_vendor/vercel_runtime/resolver.py", line 24, in import_module
+spec.loader.exec_module(mod)
+~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+File "<frozen importlib._bootstrap_external>", line 763, in exec_module
+File "<frozen importlib._bootstrap>", line 491, in _call_with_frames_removed
+File "/var/task/vercel_entry.py", line 7, in <module>
+from app.main import app  # noqa: E402, F401
+^^^^^^^^^^^^^^^^^^^^^^^^
+File "/var/task/app/main.py", line 107, in <module>
+app = create_app()
+File "/var/task/app/main.py", line 19, in create_app
+config.validate()
+~~~~~~~~~~~~~~~^^
+File "/var/task/app/config.py", line 23, in validate
+raise RuntimeError('Use a direct Neon connection for startup migration advisory locking')
+RuntimeError: Use a direct Neon connection for startup migration advisory locking
+Python process exited with exit status: 1. The logs above can help with debugging the issue.
+^^^
+Saved redacted diagnostic: bugs/20261121-164301-vercel-wrapper-runtime-redacted.txt

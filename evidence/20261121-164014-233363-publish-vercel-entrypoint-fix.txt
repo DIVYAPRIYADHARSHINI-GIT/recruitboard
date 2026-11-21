@@ -1,0 +1,30 @@
+LOCAL CHECK: publish-vercel-entrypoint-fix
+Asia/Kolkata: 20261121-164014-233363
+Exit code: 0
+
+Staged audit passed: 25 files, 100,566 bytes; no environment/private runtime artifacts, file over 5 MB or recognized credential pattern.
+This heuristic supplements manual review; it is not a guarantee that every possible secret is detectable.
+[main 691c5a5] [skip render] Initialize Vercel public defaults before constructing FastAPI
+ 25 files changed, 451 insertions(+), 25 deletions(-)
+ create mode 100644 backend/app/deployment.py
+ create mode 100644 backend/tests/test_vercel_defaults.py
+ create mode 100644 backend/vercel_entry.py
+ create mode 100644 bugs/20261121-160444-117127-vercel-production-readiness.txt
+ create mode 100644 bugs/20261121-160606-vercel-runtime-redacted.txt
+ create mode 100644 bugs/20261121-161717-637061-vercel-database-name-preflight.txt
+ create mode 100644 bugs/20261121-162834-351333-vercel-corrected-production-smoke.txt
+ create mode 100644 bugs/20261121-163055-vercel-corrective-runtime-redacted.txt
+ create mode 100644 bugs/BUG-018-vercel-production-database-config.md
+ create mode 100644 bugs/BUG-019-vercel-service-public-settings.md
+ create mode 100644 evidence/20261121-160235-270528-publish-vercel-source-code-check.txt
+ create mode 100644 evidence/20261121-160355-154068-vercel-first-production-deploy.txt
+ create mode 100644 evidence/20261121-160606-331679-vercel-runtime-error-diagnostic.txt
+ create mode 100644 evidence/20261121-160720-059883-vercel-production-variable-names.txt
+ create mode 100644 evidence/20261121-162714-542296-vercel-user-redeploy-variable-preflight.txt
+ create mode 100644 evidence/20261121-163055-966123-vercel-corrective-runtime-diagnostic.txt
+ create mode 100644 evidence/20261121-163522-453107-vercel-entrypoint-config-validation.txt
+ create mode 100644 evidence/20261121-163539-567351-vercel-entrypoint-public-defaults-tests.txt
+ create mode 100644 evidence/20261121-163937-283010-vercel-wrapper-upload-audit.txt
+To https://github.com/DIVYAPRIYADHARSHINI-GIT/recruitboard.git
+   a86efa1..691c5a5  main -> main
+691c5a556a8a5a6ff60a60272b6fb77ffe3a4c2d
